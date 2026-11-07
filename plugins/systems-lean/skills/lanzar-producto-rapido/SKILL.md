@@ -55,7 +55,9 @@ Sirve en cualquier agente de IA que lea skills y tenga terminal: Claude Code, Co
 Siempre se vende 1 unidad, con un precio que hace ver el paquete de 2 como la gran oferta. Reglas, Projection y los dos CPA: [references/oferta-y-cpa.md](references/oferta-y-cpa.md).
 
 ## Paso 5 · Canal (2 min, tú)
-**Un solo canal:** WhatsApp o landing, con la tabla de [references/canal.md](references/canal.md). Se le dice al usuario en una línea con el porqué. Si da landing, pide `sl_como_trabajar` con «landing del producto» y sigue ese módulo.
+**Un solo canal:** WhatsApp o landing, con la tabla de [references/canal.md](references/canal.md). Se le dice al usuario en una línea con el porqué. Si da landing, pide `sl_como_trabajar` con «landing del producto» y sigue ese módulo. Dos cosas que no se saltan:
+- **Checkout con los campos mínimos del país** (`store_checkout_configurar`): en Colombia, 6 visibles (celular con WhatsApp, nombre, apellido, departamento, ciudad y dirección); los demás con `visible: false`. Fuera las zonas a las que la transportadora no llega (`cobertura_excluidos`, `excluir_ciudades_dificiles`). El checkout se acomoda al país de quien lo abre: para revisarlo como lo ve un cliente, pide `https://app.systemslean.com/api/public/checkout/<token>?pais=<país>`.
+- **Cada reseña con la cara de la persona** (`store_resena_foto_generar {estilo: "persona", nombre}` en `avatar_url`), además de la foto del producto en `images[0]`.
 
 ## Paso 6 · Creativos (tope 15 min por video, subagentes en paralelo)
 - **De 3 a 5 ángulos** según el presupuesto (paso 8); en la práctica, 3.
