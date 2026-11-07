@@ -1,0 +1,14 @@
+{
+  "name": "systems-lean",
+  "description": "Skills de Systems Lean para Claude Code: lanzar productos de dropshipping contra entrega con la app Systems Lean.",
+  "owner": {
+    "name": "Systems Lean"
+  },
+  "plugins": [
+    {
+      "name": "systems-lean",
+      "source": "./plugins/systems-lean",
+      "description": "Skills de Systems Lean para lanzar productos de dropshipping contra entrega con el conector de la app. La edición de video corre en tu PC con Remotion."
+    }
+  ]
+}

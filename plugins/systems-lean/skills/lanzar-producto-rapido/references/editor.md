@@ -1,0 +1,109 @@
+# El editor: videos e imágenes en la PC del usuario
+
+Es un proyecto de Remotion que trae la skill en `${CLAUDE_SKILL_DIR}/editor`. Todo se procesa en la PC: el servidor de Systems Lean solo recibe los archivos terminados. Remotion trae su propia copia de ffmpeg, así que no hace falta instalar nada más.
+
+## Instalar (una vez por PC)
+1. `node --version` debe dar 20 o más. Si no hay Node.js, pídele al usuario que instale la versión LTS de https://nodejs.org y que abra un chat nuevo.
+2. Carpeta de trabajo: `~/SystemsLean` (en Windows, `%USERPROFILE%\SystemsLean`).
+3. Si no existe `~/SystemsLean/editor/node_modules`:
+   - copia la carpeta `${CLAUDE_SKILL_DIR}/editor` entera a `~/SystemsLean/editor`;
+   - corre `npm install` dentro (1 o 2 minutos, unos 400 MB);
+   - verifica con `npm run tipos`.
+4. **Actualizar:** si la `version` de `${CLAUDE_SKILL_DIR}/editor/package.json` es más nueva que la de `~/SystemsLean/editor/package.json`, copia encima `src/`, `scripts/`, `package.json`, `remotion.config.ts` y `tsconfig.json`, y corre `npm install` otra vez. No borres `node_modules`.
+5. El primer render baja un Chrome de Remotion (unos 100 MB). Después ya no.
+
+Todos los comandos se corren **dentro de `~/SystemsLean/editor`**, con rutas completas entre comillas.
+
+## Herramientas
+| Comando | Qué hace |
+|---|---|
+| `node scripts/medir.mjs "<archivo>"` | Tamaño, duración, fps, calidad y avisos (menos de 720p, horizontal, calidad baja) |
+| `node scripts/medir.mjs "<audio>" --silencios` | Además, los tramos con voz: sirven para poner los subtítulos por frase |
+| `node scripts/hoja.mjs "<video>"` | Hoja con 20 cuadros en orden y su segundo, al lado del video (`<video>_hoja.jpg`). Se mira con la herramienta de leer imágenes |
+| `node scripts/render.mjs <Plantilla> "<plan.json>" "<salida>" --carpeta "<entrada>"` | Renderiza. Los archivos del plan se nombran relativos a `--carpeta` |
+| `node scripts/voz.mjs --lista` / `--voz <id> --texto "..." --salida "<mp3>"` | Voz con la cuenta de ElevenLabs del usuario (`ELEVENLABS_API_KEY` en `~/SystemsLean/.env`). Opcional |
+
+- **Tiempos medidos en una PC normal:** un video de 10 s tarda cerca de 2 minutos y una imagen, unos 15 s. Se renderiza con 2 núcleos para que la PC siga usable.
+  - Si la PC se pone lenta, `--concurrency 1`.
+  - Si es potente, `--concurrency 4`.
+- Para mirar un video antes de renderizarlo: `npm run studio` abre el editor visual en `http://localhost:3000`.
+
+## Plantillas y sus planes
+
+### `EdicionMinima` (video ganador tal cual)
+```json
+{
+  "video": "ganador1.mp4",
+  "fuente": { "ancho": 720, "alto": 1280 },
+  "tramos": [[0, 21.5], [23.1, 30.4]],
+  "tapas": [{ "x": 40, "y": 1010, "w": 300, "h": 90, "desde": 18, "hasta": 30.4, "color": "#000" }],
+  "parches": [{ "x": 480, "y": 900, "w": 200, "h": 110, "lineas": ["ENVÍO", "GRATIS"], "desde": 0, "hasta": 10 }],
+  "cierre": { "segundos": 3, "titulo": "Escríbenos por WhatsApp", "subtitulo": "Envío gratis y pagas al recibir" },
+  "volumen": 1
+}
+```
+- `fuente`: el tamaño real que da `medir.mjs`. Las tapas y los parches van en **píxeles y segundos del video original**: se leen en la hoja de cuadros del original.
+- `tramos`: los segundos que se quedan, en orden. Para quitar un pedazo (el final con «TikTok» o un precio dicho) se parte en dos tramos.
+- `tapas`: recuadros del color que mejor se pierda en el fondo; exactos, nunca cajas grandes.
+- `parches`: un sello propio encima de algo ajeno (la primera línea sale en rojo).
+- `cierre`: por defecto, 3 s con el último cuadro desenfocado y el texto de WhatsApp. Para landing: «Pide el tuyo en la web». Con `"imagen": "producto.png"` muestra el producto real («Así te llega»). `"segundos": 0` lo quita.
+- Salida: 1080x1920. Si el original es de otro tamaño, llena el cuadro y recorta lo que sobra.
+
+### `VideoDemo` (video del chat)
+```json
+{
+  "clips": [
+    { "video": "uso.mp4", "desde": 2, "hasta": 5.5 },
+    { "video": "antes.mp4", "desde": 0, "hasta": 3, "rotulo": "ANTES" },
+    { "video": "despues.mp4", "desde": 4, "hasta": 7, "rotulo": "DESPUÉS" }
+  ],
+  "voz": "voz_demo.mp3",
+  "subtitulos": [
+    { "texto": "¿Cansada de las manchas?", "desde": 0.1, "hasta": 1.9 },
+    { "texto": "Se aplica en un minuto", "desde": 2.2, "hasta": 4.6 }
+  ],
+  "musica": "musica.mp3",
+  "musica_volumen": 0.12,
+  "cierre": { "segundos": 2, "titulo": "Pagas al recibir", "imagen": "producto.png" }
+}
+```
+- Los clips van sin su sonido (`"con_audio": true` lo deja) y suena la voz.
+- Los subtítulos se ubican con `medir.mjs --silencios` sobre la voz: cada tramo con voz es una frase.
+- La duración es la suma de los clips más el cierre: que alcance para toda la voz.
+
+### `PromoOferta` (imagen de la promoción, 1080x1350, sale en .jpg)
+```json
+{
+  "marca": "NOMBRE DEL PRODUCTO",
+  "titulo": "Elige tu promoción",
+  "unidad": "frasco", "unidades": "frascos",
+  "precio_unidad": 119900,
+  "moneda": { "simbolo": "$", "miles": "." },
+  "filas": [
+    { "cantidad": 1, "precio": 119900 },
+    { "cantidad": 2, "precio": 169900, "regalo": true },
+    { "cantidad": 3, "precio": 229900, "regalo": true }
+  ],
+  "producto": "producto_sin_fondo.png",
+  "regalos": [{ "imagen": "regalo.png" }, { "imagen": "portada_guia.jpg", "tipo": "celular" }],
+  "regalo_texto": "+ regalo",
+  "pie": "🚚 Envío gratis · 💵 Pagas al recibir",
+  "pie_2": "🎁 Con 2 o 3: el regalo va gratis"
+}
+```
+- Los precios, exactos de Projection. «Ahorras …» se calcula solo con `precio_unidad`.
+- `moneda.miles`: «.» en Colombia ($169.900), «,» en Honduras (L1,099).
+- Colores propios, opcionales: `"colores": { "fondo": "#0d1617", "acento": "#40e8c8" }`.
+
+## Revisar (siempre, antes de subir)
+1. `node scripts/hoja.mjs "<salida.mp4>"` y mira la hoja.
+2. Que no se vea nada ajeno: precio, tienda o @.
+3. Que las tapas caigan exactas, que los subtítulos y el cierre se lean, y que el producto sea el nuestro.
+4. Si algo falla, corrige el plan y vuelve a renderizar.
+
+## Subir a Systems Lean (lo único que usa el servidor)
+1. `media_subida_url {producto_id, nombre: "c1-angulo.mp4", mime: "video/mp4"}`: devuelve una URL firmada y un `subida_id`.
+2. `curl -X PUT -H "Content-Type: <el mime exacto>" --upload-file "<archivo>" "<upload_url>"`: el archivo va directo al almacenamiento.
+3. `media_subida_confirmar {subida_id, fuente}`: queda en la biblioteca del producto con su `url`. La `fuente` es la plataforma de origen (`tiktok`, `meta`) o `manual_upload` para lo propio.
+4. La línea de origen y uso va con `media_describir_creativo`; el anunciante, los días activo y las variantes de un ganador ajeno, con `media_editar_creativo`.
+5. A la campaña se adjunta con `ads_subir_creativo {conjunto_id, nombre, url, angulo, ...}`. Al flujo, con la `url` de la biblioteca.
