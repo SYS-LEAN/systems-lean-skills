@@ -7,7 +7,7 @@ description: Camino rápido de Systems Lean para lanzar un producto físico de d
 
 Del producto elegido a la campaña lista para encender, en un solo chat. La app Systems Lean, por su conector, guarda el producto, calcula la oferta, arma el flujo de WhatsApp y monta la campaña. **Toda la edición de video e imagen se hace en la PC del usuario** con el editor de esta skill (Remotion). La app solo recibe los archivos terminados.
 
-Sirve en cualquier agente de IA que lea skills y tenga terminal: Claude Code, Codex de OpenAI, Antigravity o Gemini CLI de Google. **Si la recibiste por el conector de Systems Lean** (no instalada), cada archivo `references/…` que nombra viene completo en la misma respuesta, con su título, y el editor se descarga del repositorio público (ver [references/editor.md](references/editor.md) › «Instalar»).
+Sirve en cualquier agente de IA que lea skills y tenga terminal: Claude Code, Codex de OpenAI, Antigravity o Gemini CLI de Google. **Si la recibiste por el conector de Systems Lean** (no instalada), pide cada archivo `references/…` cuando lo nombre, con `sl_como_trabajar {tarea: "lanzar-producto-rapido references/x.md"}`, y el editor se descarga del repositorio público (ver [references/editor.md](references/editor.md) › «Instalar»).
 
 ## Antes de empezar
 1. **Conector de Systems Lean:** llama `sl_como_trabajar` con la tarea. Si no existe la tool, el usuario no agregó el conector: dile cómo (README de https://github.com/SYS-LEAN/systems-lean-skills) y detente.
