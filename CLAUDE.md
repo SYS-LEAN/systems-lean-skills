@@ -1,9 +1,11 @@
 # systems-lean-skills — skills públicas para los usuarios de la app
 
-Marketplace de plugins de Claude Code con las skills que usan los clientes de Systems Lean. Es **público**: nada de datos de clientes, de cuentas propias ni de productos en curso. Son versiones genéricas para cualquier cuenta de la app.
+Skills que usan los clientes de Systems Lean con cualquier agente de IA (Claude Code, Codex, Antigravity o Gemini CLI). El repo es además un marketplace de plugins de Claude Code. Es **público**: nada de datos de clientes, de cuentas propias ni de productos en curso. Son versiones genéricas para cualquier cuenta de la app.
 
 - **Estructura:** `.claude-plugin/marketplace.json` → plugin `plugins/systems-lean/` → skills en `plugins/systems-lean/skills/<nombre>/SKILL.md`.
-- **Frontmatter de las skills:** solo `name` y `description`, para que también carguen en claude.ai.
+- **Frontmatter de las skills:** solo `name` y `description`, en una línea cada uno y la descripción con menos de 1.024 caracteres, para que carguen en todos los agentes (y en claude.ai).
+- **Nada propio de un solo agente** dentro de la skill: ni `${CLAUDE_SKILL_DIR}` ni herramientas de un solo cliente. Las rutas se dicen relativas a la carpeta de la skill.
+- **El conector de Systems Lean sirve `lanzar-producto-rapido` desde este repo** (`src/worker/services/mcp-skill-lanzar.ts` de la app): lee el `SKILL.md` de `main` y cada `references/*.md` enlazado con la forma `[references/x.md](references/x.md)`, con 10 minutos de caché. Mover la carpeta o renombrar la skill rompe el conector.
 - **Edición de video: siempre en la PC del usuario.** Nada de procesamiento de video en el servidor de la app. El editor es un proyecto de Remotion 4.0.456 en `lanzar-producto-rapido/editor/`; la app solo recibe los archivos terminados por `media_subida_url`.
 - **La copia de ffmpeg de Remotion es mínima:** no trae `fps`, `tile` ni `drawtext`. Por eso la hoja de cuadros saca cuadros sueltos y los junta con la plantilla `HojaCuadros`.
 - **Versiones:** `plugin.json` sin `version` (los usuarios siguen los commits). Si cambia el editor, se sube la `version` de `editor/package.json`.

@@ -1,24 +1,26 @@
 ---
 name: lanzar-producto-rapido
-description: Camino rápido de Systems Lean para lanzar un producto físico de dropshipping contra entrega (Dropi o Soydrop) en un solo chat de Claude Code, del producto elegido a la campaña de Meta lista para encender en unas 2 horas. Diez pasos con tiempo tope - stock y producto exacto, alta en la app, investigación de la competencia, una sola oferta, un solo canal, creativos ganadores editados en la PC del usuario con Remotion, imágenes, flujo de WhatsApp, campaña ABO de testeo y el OK del usuario. Úsala cuando el usuario diga «lanza este producto», «testea X», «quiero vender X contra entrega», «lánzalo hoy» o pegue un producto de Dropi o Soydrop para probarlo. Necesita el conector de Systems Lean.
+description: Camino rápido de Systems Lean para lanzar un producto físico de dropshipping contra entrega (Dropi o Soydrop) en un solo chat con un agente de IA (Claude Code, Codex o Antigravity), del producto elegido a la campaña de Meta lista para encender en unas 2 horas. Diez pasos con tiempo tope - stock y producto exacto, alta en la app, investigación de la competencia, una sola oferta, un solo canal, creativos ganadores editados en la PC del usuario con Remotion, imágenes, flujo de WhatsApp, campaña ABO de testeo y el OK del usuario. Úsala cuando el usuario diga «lanza este producto», «testea X», «quiero vender X contra entrega», «lánzalo hoy» o pegue un producto de Dropi o Soydrop para probarlo. Necesita el conector de Systems Lean.
 ---
 
 # Lanzar un producto rápido (contra entrega, con Systems Lean)
 
 Del producto elegido a la campaña lista para encender, en un solo chat. La app Systems Lean, por su conector, guarda el producto, calcula la oferta, arma el flujo de WhatsApp y monta la campaña. **Toda la edición de video e imagen se hace en la PC del usuario** con el editor de esta skill (Remotion). La app solo recibe los archivos terminados.
 
+Sirve en cualquier agente de IA que lea skills y tenga terminal: Claude Code, Codex de OpenAI, Antigravity o Gemini CLI de Google. **Si la recibiste por el conector de Systems Lean** (no instalada), cada archivo `references/…` que nombra viene completo en la misma respuesta, con su título, y el editor se descarga del repositorio público (ver [references/editor.md](references/editor.md) › «Instalar»).
+
 ## Antes de empezar
-1. **Conector de Systems Lean:** llama `sl_como_trabajar` con la tarea. Si no existe la tool, el usuario no agregó el conector: dile cómo (README del repo) y detente.
+1. **Conector de Systems Lean:** llama `sl_como_trabajar` con la tarea. Si no existe la tool, el usuario no agregó el conector: dile cómo (README de https://github.com/SYS-LEAN/systems-lean-skills) y detente.
 2. **Proveedor del país:**
-   - Países de Dropi (Colombia y otros): el conector oficial de Dropi (`list_products`). Si no está, pídele que lo agregue en claude.ai, en Conectores, con la dirección `https://mcp.dropi.co/mcp`.
+   - Países de Dropi (Colombia y otros): el conector oficial de Dropi (`list_products`). Si no está, pídele que lo agregue como conector de su agente con la dirección `https://mcp.dropi.co/mcp` (en Claude: claude.ai → Configuración → Conectores).
    - Honduras (Soydrop): `soydrop_token_estado` debe decir conectado. Si no, el usuario lo conecta con la extensión de Chrome de Systems Lean.
-3. **Competencia:** el conector de Meta (`ads_library_search`). Dropkiller, si lo tiene, suma datos de ventas y ganadores de afuera. Sin ninguno de los dos, pídele que conecte el de Meta (gratis, en el directorio de conectores de Claude).
+3. **Competencia:** un conector de la Biblioteca de anuncios de Meta (`ads_library_search`; en Claude viene gratis en el directorio de conectores). Dropkiller, si lo tiene, suma datos de ventas y ganadores de afuera. Sin ninguno de los dos, mira la Biblioteca (https://www.facebook.com/ads/library/) con el navegador de tu agente si lo tiene, o pídele al usuario los enlaces de los anunciantes del país.
 4. **Editor (una vez por PC):** sigue [references/editor.md](references/editor.md) › «Instalar». Necesita Node.js 20 o más.
 5. **Carpeta del producto:** `~/SystemsLean/productos/<producto>-<país>/` con `entrada/` (lo bajado), `planes/` (los JSON del editor) y `salida/` (lo terminado).
 
 ## Reglas
 - **Un solo chat** para todo el lanzamiento.
-- **Lo pesado va a subagentes en paralelo** (investigación, búsqueda de videos), con prompts completos: producto, país, ids, rutas, reglas y qué devolver. Tú coordinas, decides y **revisas en persona cada pieza** antes de usarla: la hoja de cuadros de cada video y cada imagen. La revisión no se delega.
+- **Lo pesado va a subagentes en paralelo** si tu agente los tiene; si no, hazlo tú en orden (investigación, búsqueda de videos). Los subagentes llevan prompts completos: producto, país, ids, rutas, reglas y qué devolver. Tú coordinas, decides y **revisas en persona cada pieza** antes de usarla: la hoja de cuadros de cada video y cada imagen. La revisión no se delega.
 - **La edición es solo en la PC.** No uses las herramientas de edición del servidor de la app: `video_limpiar`, `video_clip_fx`, `video_tomar_fragmento`, `video_escena_recortar`, `video_toma_componer`, `video_ensamblar`, `video_remix_render`, `video_clip_subtitulos` ni `video_extraer_frame`, y tampoco `video_remix_fuentes` para bajar videos. Se baja con `curl` a la PC, se edita con el editor y se sube terminado con `media_subida_url` (ver [references/editor.md](references/editor.md) › «Subir»).
 - **Generar imágenes con IA sí va por la app** (`anuncios_generar`), porque el modelo corre afuera. Cobra créditos: la primera vez muestra el costo con `anuncios_estimar_costo` y espera el sí.
 - **Gastar, publicar en Meta o escribirle a un cliente espera el OK del usuario.** Guardar la ficha y publicar el flujo de WhatsApp no lo esperan.

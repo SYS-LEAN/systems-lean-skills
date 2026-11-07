@@ -1,15 +1,23 @@
 # El editor: videos e imágenes en la PC del usuario
 
-Es un proyecto de Remotion que trae la skill en `${CLAUDE_SKILL_DIR}/editor`. Todo se procesa en la PC: el servidor de Systems Lean solo recibe los archivos terminados. Remotion trae su propia copia de ffmpeg, así que no hace falta instalar nada más.
+Es un proyecto de Remotion que viene en la carpeta `editor/` de la skill, junto a `SKILL.md`, y también en el repositorio público https://github.com/SYS-LEAN/systems-lean-skills. Todo se procesa en la PC: el servidor de Systems Lean solo recibe los archivos terminados. Remotion trae su propia copia de ffmpeg, así que no hace falta instalar nada más.
 
 ## Instalar (una vez por PC)
 1. `node --version` debe dar 20 o más. Si no hay Node.js, pídele al usuario que instale la versión LTS de https://nodejs.org y que abra un chat nuevo.
 2. Carpeta de trabajo: `~/SystemsLean` (en Windows, `%USERPROFILE%\SystemsLean`).
-3. Si no existe `~/SystemsLean/editor/node_modules`:
-   - copia la carpeta `${CLAUDE_SKILL_DIR}/editor` entera a `~/SystemsLean/editor`;
-   - corre `npm install` dentro (1 o 2 minutos, unos 400 MB);
-   - verifica con `npm run tipos`.
-4. **Actualizar:** si la `version` de `${CLAUDE_SKILL_DIR}/editor/package.json` es más nueva que la de `~/SystemsLean/editor/package.json`, copia encima `src/`, `scripts/`, `package.json`, `remotion.config.ts` y `tsconfig.json`, y corre `npm install` otra vez. No borres `node_modules`.
+3. Si no existe `~/SystemsLean/editor/node_modules`, pon el editor en `~/SystemsLean/editor` de una de estas dos formas:
+   - **Tienes la carpeta de la skill** (instalada como plugin o copiada a la carpeta de skills de tu agente): copia su `editor/` entera a `~/SystemsLean/editor`.
+   - **La skill te llegó por el conector de Systems Lean** (no tienes la carpeta): descárgalo del repositorio, sin git. Deja la carpeta en `~/SystemsLean/editor`.
+     - macOS, Linux o Git Bash:
+       ```bash
+       mkdir -p ~/SystemsLean && curl -sSL https://codeload.github.com/SYS-LEAN/systems-lean-skills/tar.gz/refs/heads/main | tar -xz -C ~/SystemsLean --strip-components=5 systems-lean-skills-main/plugins/systems-lean/skills/lanzar-producto-rapido/editor
+       ```
+     - Windows (PowerShell):
+       ```powershell
+       New-Item -ItemType Directory -Force "$HOME\SystemsLean" | Out-Null; curl.exe -sSL -o "$env:TEMP\sl-skills.tar.gz" https://codeload.github.com/SYS-LEAN/systems-lean-skills/tar.gz/refs/heads/main; tar -xzf "$env:TEMP\sl-skills.tar.gz" -C "$HOME\SystemsLean" --strip-components=5 systems-lean-skills-main/plugins/systems-lean/skills/lanzar-producto-rapido/editor
+       ```
+   - Después corre `npm install` dentro (1 o 2 minutos, unos 400 MB) y verifica con `npm run tipos`.
+4. **Actualizar:** compara la `version` de `~/SystemsLean/editor/package.json` con la del editor de la skill, o con la del repositorio si la skill llegó por el conector: https://raw.githubusercontent.com/SYS-LEAN/systems-lean-skills/main/plugins/systems-lean/skills/lanzar-producto-rapido/editor/package.json. Si la otra es más nueva, copia o descarga el editor encima con el mismo paso 3: reemplaza `src/`, `scripts/` y la configuración sin tocar `node_modules`. Después corre `npm install` otra vez. No borres `node_modules`.
 5. El primer render baja un Chrome de Remotion (unos 100 MB). Después ya no.
 
 Todos los comandos se corren **dentro de `~/SystemsLean/editor`**, con rutas completas entre comillas.
