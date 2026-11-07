@@ -16,3 +16,20 @@
 - **Apagar y bajar no piden OK;** encender, subir y copiar a CBO, sí.
 - Cada aviso cita sus números: «Apagué el conjunto del ángulo X: a las 24 h, 0 ventas y 1 pago iniciado».
 - La campaña de testeo no se duplica ni se resetea: ahí mismo entran las tandas de renovación con la reserva.
+
+## Las herramientas de la lectura
+| Para qué | Tool |
+|---|---|
+| Estado de la campaña, conjuntos y anuncios | `ads_ver_testeo {producto_id}` |
+| Métricas de un conjunto (gasto, CTR, ventas del CRM) | `ads_ver_metricas {conjunto_id, ventana: "hoy" \| "3d" \| "7d"}`. Se juzga con `ventas_crm` y el CTR de enlace, no con el píxel |
+| Lo cobrado de verdad | `ads_ver_ventas_cobradas {campania_id, ventana}` |
+| Los pedidos y su estado | `pedidos_ver` |
+| Lo que Meta tiene encendido en vivo | `ads_ver_campanias_activas {}` |
+| Apagar o encender un conjunto o un anuncio | `ads_cambiar_estado {tipo: "conjunto" \| "anuncio", id, activo, confirmado}` (encender, con el OK del usuario) |
+| Cambiar un presupuesto publicado | `ads_cambiar_presupuesto {conjunto_id, presupuesto_diario, aplicar}` (subir, con OK). `ads_editar_conjunto` NO cambia Meta |
+| Dejar escrita una decisión que no pasó por esas tools | `ads_decision_registrar {accion, conjunto_id, valor_antes, valor_despues, regla, aprobado_por, nota}` |
+
+- **Las 24 h se cuentan desde la primera impresión** del conjunto, no desde que se publicó.
+- **Si no convierte por WhatsApp:** antes de culpar al producto, lee 5 o 6 chats con `chat_conversaciones_ver` y `chat_conversacion_leer`: ¿llegó el material?, ¿el agente contestó bien el precio?, ¿se perdieron en los datos?
+- **Con 10 pedidos o más,** actualiza la mezcla real de paquetes en Projection: `projection_guardar_ofertas` con los `share_pct` de lo vendido (`pedidos_ver`), y recalcula los dos CPA.
+- Anota cada lectura y cada decisión en LANZAMIENTO.md › «Próximo paso».

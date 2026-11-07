@@ -4,13 +4,22 @@ Skills para trabajar con la app [Systems Lean](https://app.systemslean.com) desd
 
 | Skill | Qué hace |
 |---|---|
-| `lanzar-producto-rapido` | Lanza un producto físico de dropshipping contra entrega (Dropi o Soydrop), del producto elegido a la campaña de Meta lista para encender, en unas 2 horas y en un solo chat |
+| `lanzar-producto-rapido` | Lanza un producto físico de dropshipping contra entrega (Dropi o Soydrop) de punta a punta, desde tu Lista de Testeo hasta la campaña de Meta lista para encender, en unas 2 a 3 horas y en un solo chat |
+
+### Qué deja hecho en tu cuenta de Systems Lean
+- **Product Lean:** el producto en tu Lista de Testeo, vinculado al proveedor, con checklist, viabilidad, fotos, keywords, el informe de la competencia, los ángulos de venta, la ficha técnica, la entrega, la cobertura y la ficha que usa el agente.
+- **Projection:** costos, flete real, tasas de cancelación y devolución, los 3 paquetes, el envío gratis, el regalo y los dos CPA.
+- **Creativos:** los anuncios ganadores de referencia guardados con su origen, y por cada ángulo un video y una imagen listos, más 6 videos de reserva.
+- **WhatsApp o landing:** el agente con tu producto, el embudo «precio primero» y la confirmación publicados (o la landing con su checkout).
+- **Ads Lean:** la campaña de testeo con un conjunto por ángulo y sus anuncios, en pausa hasta que tú digas «enciéndela».
+
+Tu agente va llenando una ficha del lanzamiento (`LANZAMIENTO.md`) y no da nada por hecho sin leerlo en la app. Si el chat se corta, retoma desde ahí.
 
 ## Qué necesitas
 
 ### Obligatorio
 - **Un agente de IA con terminal:** Claude Code (planes Pro y Max de Claude; sirve la app de escritorio, pestaña Code, o la terminal), Codex de OpenAI (con tu cuenta de ChatGPT) o Antigravity CLI de Google.
-- **Una cuenta de Systems Lean con créditos y su conector agregado en tu agente.** Es un conector MCP remoto con la dirección `https://app.systemslean.com/mcp`, y se inicia sesión con tu cuenta de Systems Lean.
+- **Una cuenta de Systems Lean con un plan que incluya el conector, con créditos, y el conector agregado en tu agente.** Es un conector MCP remoto con la dirección `https://app.systemslean.com/mcp`, y se inicia sesión con tu cuenta de Systems Lean.
   - En Claude: claude.ai → Configuración → Conectores → Agregar conector personalizado, y después «Autorizar». En la app de escritorio aparece solo.
   - En Codex o Antigravity: agrégalo en su configuración de servidores MCP con esa dirección.
 - **Dentro de Systems Lean:**
@@ -22,6 +31,7 @@ Skills para trabajar con la app [Systems Lean](https://app.systemslean.com) desd
 - **Node.js 20 o más** (la versión LTS de https://nodejs.org) y unos 500 MB libres en el disco para el editor de videos.
 
 ### Recomendado
+- **La extensión de Chrome de Systems Lean** (Chrome Web Store): con su botón «Guardar en Systems Lean» en la ficha de Dropi o de Soydrop, el producto entra a tu Biblioteca y a tu Lista de Testeo.
 - **Un conector de la Biblioteca de anuncios de Meta**, para medir la competencia. En Claude viene gratis en el directorio de conectores. Sin él, la competencia se mira en la Biblioteca a mano.
 - **Dropkiller:** suma datos de ventas y ganadores de otros países.
 - **ElevenLabs** (tu propia cuenta): para generar los audios del chat. Sin ella, los grabas con el celular.
@@ -81,4 +91,6 @@ El editor usa [Remotion](https://www.remotion.dev). Es gratis para personas y pa
 - `plugin.json` no lleva `version` a propósito: los usuarios de Claude Code reciben cada commit de `main`.
 - Si cambias el editor (`editor/`), sube la `version` de `editor/package.json`: así la skill sabe que tiene que copiar el editor nuevo a la PC del usuario.
 - Antes de publicar: `npm install` y `npm run tipos` en una copia del editor, y un render de prueba de cada plantilla.
+- **Cada herramienta que nombre una skill tiene que existir.** Con el repo de la app al lado, corre `python -I scripts/verificar-skill.py plugins/systems-lean/skills/<skill> ../systems-lean-sl/src/worker`: lista las tools que no existen y los argumentos que su esquema no declara.
+- **Cada paso de una skill termina con su lectura** (la tool que comprueba que quedó guardado) y un «no avances si…». Una skill que solo nombra pasos hace que el agente diga «listo» con módulos vacíos.
 - Nada de datos de clientes, de cuentas propias ni de productos en curso: el repo es público.

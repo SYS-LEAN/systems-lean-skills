@@ -23,5 +23,7 @@ En el camino rápido va **un solo canal**. Nunca «web por defecto». Se suma el
 Se le dice al usuario en una línea con el porqué, con la tabla de puntajes debajo.
 
 ## Qué necesita cada canal
-- **WhatsApp:** el número conectado en Chat Lean y el flujo del paso 7. La campaña arranca optimizando conversaciones; al llegar a 10 compras confirmadas en 30 días se propone pasarla a compras.
-- **Landing:** una landing de Store Lean publicada con su píxel. Pide `sl_como_trabajar` con «landing del producto».
+- **WhatsApp:** el número conectado en Chat Lean y el flujo del paso 9. La campaña arranca optimizando conversaciones (objetivo `mensajes`); al llegar a 10 compras confirmadas en 30 días se propone pasarla a compras.
+- **Landing:** una landing de Store Lean publicada con su checkout del país y su píxel: [landing.md](landing.md). Aun con landing, el agente de WhatsApp atiende a quien escribe desde el botón de la página, así que el vínculo del producto con el agente (paso 9, punto 2) también se hace.
+
+Anota en LANZAMIENTO.md la tabla de puntajes con la fuente de cada uno (por ejemplo «factor 1: 8 de 10 ganadores van a WhatsApp, tabla de anunciantes»).
