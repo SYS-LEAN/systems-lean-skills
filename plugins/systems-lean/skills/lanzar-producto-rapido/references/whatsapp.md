@@ -47,7 +47,7 @@ Después, sea cual sea el camino:
 
 ## 5. La confirmación del pedido
 Es otro flujo, aparte. **No se arma nodo por nodo:**
-1. `chat_flujo_pedido_crear {proyecto_id, producto_link_id, con_credito: false}`: arma la confirmación completa en borrador. **Manda siempre `con_credito: false`:** si se omite, la app arma la ruta de crédito. Solo si el usuario vende a crédito, `true`.
+1. `chat_flujo_pedido_crear {proyecto_id, producto_link_id, con_credito: false}`: arma la confirmación completa en borrador. Sin crédito es lo de fábrica; solo si el usuario vende a crédito propio, `con_credito: true`.
 2. `chat_flujo_texto_reemplazar` para el trato (tú o usted) y el nombre de la tienda.
 3. Que después de una cancelación automática haya un aviso al dueño por WhatsApp con el producto, el total, el cliente y el teléfono (ver [flujo-plantilla.md](flujo-plantilla.md) › «La confirmación»).
 4. `chat_flujo_confirmacion_asignar {flujo_venta_id: <embudo>, confirmacion_flujo_id: <confirmación>}`: tienen que ser del mismo producto.

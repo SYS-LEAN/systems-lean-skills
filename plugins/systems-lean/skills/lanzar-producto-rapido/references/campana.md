@@ -17,7 +17,7 @@ Pide antes `sl_como_trabajar {tarea: "armar una campaña de testeo en Meta para 
 ## 2. Crear la campaña
 `ads_crear_campania {producto_id, plataforma: "meta", objetivo, estrategia: "directa-angulos", presupuesto_modo: "conjunto", notas}`:
 - **`objetivo`:**
-  - **WhatsApp: `"mensajes"`** (en Meta, «maximizar el número de conversaciones»). Es el que se usa para vender contra entrega por chat. **Aunque la descripción de la tool sugiera `leads`, usa `mensajes`.** Al llegar a 10 compras confirmadas en 30 días se propone pasar a compras.
+  - **WhatsApp: `"mensajes"`** (en Meta, «maximizar el número de conversaciones»). Es el que se usa para vender contra entrega por chat. `leads` también se publica, pero es para servicios o ticket alto: no lo uses aquí. Al llegar a 10 compras confirmadas en 30 días se propone pasar a compras.
   - **Landing: `"ventas"`**, con el píxel midiendo compras.
 - No mandes `nombre`: la app le pone el nombre estándar.
 - `notas`: la oferta, las tasas (30/5), los dos CPA y los riesgos, en 4 líneas.

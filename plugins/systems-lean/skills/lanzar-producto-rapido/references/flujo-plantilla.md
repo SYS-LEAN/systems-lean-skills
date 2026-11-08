@@ -161,7 +161,7 @@ Está en [flujo-grafo.md](flujo-grafo.md) (pídelo aparte si la skill te llegó 
 No se arma a mano. La crea la app ya conectada, y después se ajusta a este modelo.
 
 1. **`chat_flujo_pedido_crear {proyecto_id, producto_link_id, con_credito: false}`:**
-   - manda `con_credito: false` siempre: si lo omites, la app lo toma como `true` y arma la ruta de crédito;
+   - `con_credito: false` es lo de fábrica (contra entrega); `true` solo si el usuario vende a crédito propio;
    - nace en borrador, con 9 nodos;
    - si el producto ya tiene su confirmación, te la devuelve con `ya_existia: true` y no crea otra.
 2. **`chat_flujos_ver {proyecto_id, flujo_id}`:** copia los ids de los nodos. Los pone la app y cambian en cada cuenta.
