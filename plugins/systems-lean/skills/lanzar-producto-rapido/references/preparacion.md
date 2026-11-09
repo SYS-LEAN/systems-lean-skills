@@ -10,15 +10,16 @@ Antes de investigar nada se confirma que la cuenta del usuario puede llegar hast
 ## 2. La Unidad de Negocio
 - `ver_tienda {}` o `marca_ver {}`: las Unidades de Negocio del usuario (marcas), con su país.
 - Si hay más de una de dropshipping, **pregunta cuál** y no adivines. Desde ahí, manda `marca_id` en toda tool que lo acepte.
-- Si el usuario guardó reglas propias en la app, se respetan: `skills_listar {modulo}` para `product_lean`, `projection_lean`, `anuncios`, `chat_lean` y `ads_lean`. Lee con `skills_leer` solo la rama que el paso necesite, una vez por chat. Lo que el usuario decide en el chat manda sobre lo guardado.
+- Si el usuario guardó reglas propias en la app, se respetan: `skills_listar {}` muestra los módulos con conocimiento (los de este camino son Product Lean, Projection, anuncios estáticos, Store Lean, Chat Lean y Ads Lean) y `skills_listar {modulo}` sus ramas. Lee con `skills_leer` solo la rama que el paso necesite, una vez por chat. Lo que el usuario decide en el chat manda sobre lo guardado.
 
 ## 3. ¿De dónde viene el producto?
-**a) De su Lista de Testeo** (lo normal):
+**a) De su Lista de Testeo o de su Biblioteca** (lo normal):
 - `product_favoritos_ver {marca_id}`: las filas en orden, con `posicion`, `tipo`, `id` (ítem de la Biblioteca) y `producto_investigado_id` (el producto, si ya existe).
-- Si el usuario no dijo cuál, muéstrale los 3 primeros por nombre y pregunta.
+- `product_biblioteca_ver {marca_id}`: todo lo que tiene guardado, por categoría.
+- Si el usuario no dijo cuál, muéstrale los 3 primeros de la lista por nombre y pregunta.
 
 **b) Lo pegó en el chat** (enlace o id de Dropi, id de Soydrop, nombre):
-- Se sigue igual, y en el paso 2 se mete en la Lista de Testeo.
+- En el paso 1 se guarda en la Biblioteca y entra a la Lista de Testeo.
 
 **c) ¿Ya existe en la app?** Antes de crear nada, búscalo:
 - `product_favoritos_ver`: si su fila ya tiene `producto_investigado_id`, el producto existe.
@@ -28,10 +29,11 @@ Antes de investigar nada se confirma que la cuenta del usuario puede llegar hast
 | Módulo | Lectura | Qué hay | Qué falta |
 |---|---|---|---|
 | Alta, vínculo, viabilidad, fotos | `product_ver_investigacion {producto_id}` | | |
+| Lo que capturó el usuario | `product_ver_extraccion {producto_id}` | | |
 | Informe | `product_ver_informe {producto_id}` | | |
 | Ángulos | `product_ver_estrategia {producto_id}` | | |
 | Ficha, entrega, cobertura | `product_ver_ficha {producto_id}` | | |
-| Projection | `projection_ver_simulador` y `projection_ver_ofertas` (id del simulador) | | |
+| Projection | `projection_ver_simulador`, `projection_ver_ofertas` y `projection_escenarios_ver` (id del simulador) | | |
 | Biblioteca de creativos | `anuncios_ver_biblioteca_creativos {producto_id}` | | |
 | WhatsApp | `chat_agente_productos_ver`, `chat_flujos_ver` | | |
 | Campaña | `ads_ver_testeo {producto_id}` | | |
@@ -46,7 +48,8 @@ Lo hecho se salta; lo que falta se hace con su paso.
 | WhatsApp | `chat_proyectos_ver {}` y `chat_salud_ver {proyecto_id}` | El proyecto de Chat Lean con su número activo | Si el canal termina siendo WhatsApp, el usuario conecta el número en Chat Lean. Pídele que se mande un mensaje de prueba y que lo vea llegar en Chat en Vivo |
 | Proveedor Dropi | La tool `list_products` (conector oficial de Dropi) | Responde | Que lo agregue como conector de su agente con `https://mcp.dropi.co/mcp` (en Claude: claude.ai → Configuración → Conectores) |
 | Proveedor Soydrop | `soydrop_token_estado {}` | Conectado | Lo conecta con la extensión de Chrome de Systems Lean. Link: https://app.soydrop.com |
-| Competencia | `ads_library_search` (conector de la Biblioteca de Meta) o Dropkiller | Responde | Se sigue con la Biblioteca en el navegador o con los enlaces que dé el usuario (paso 3) |
+| Competencia | `ads_library_search` (conector oficial de Meta Ads; solo responde con una cuenta publicitaria activa), Dropkiller o TrendTrack | Responde | Se sigue con lo que capture el usuario y la Biblioteca en el navegador (paso 3) |
+| Extensión de Chrome de Systems Lean | Que el usuario la tenga instalada y con sesión iniciada | La usa para su investigación (paso 3) | Que la instale desde la Chrome Web Store: https://chromewebstore.google.com/detail/ieigggdfakhdegnggjhdhdlhhfhkojme |
 
 ## 5. El editor y la carpeta
 - Instala o actualiza el editor: [editor.md](editor.md) › «Instalar». Necesita Node.js 20 o más.

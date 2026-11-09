@@ -1,6 +1,8 @@
-# El editor: videos e imágenes en la PC del usuario
+# El editor: los videos en la PC del usuario
 
-Es un proyecto de Remotion que viene en la carpeta `editor/` de la skill, junto a `SKILL.md`, y también en el repositorio público https://github.com/SYS-LEAN/systems-lean-skills. Todo se procesa en la PC: el servidor de Systems Lean solo recibe los archivos terminados. Remotion trae su propia copia de ffmpeg, así que no hace falta instalar nada más.
+Es un proyecto de Remotion que viene en la carpeta `editor/` de la skill, junto a `SKILL.md`, y también en el repositorio público https://github.com/SYS-LEAN/systems-lean-skills. Los videos se procesan en la PC: el servidor de Systems Lean solo recibe los archivos terminados. Remotion trae su propia copia de ffmpeg, así que no hace falta instalar nada más.
+
+**Las imágenes no se hacen aquí:** van en el generador de anuncios estáticos de la app (ver [creativos.md](creativos.md) › «Las imágenes»).
 
 ## Instalar (una vez por PC)
 1. `node --version` debe dar 20 o más. Si no hay Node.js, pídele al usuario que instale la versión LTS de https://nodejs.org y que abra un chat nuevo.
@@ -31,7 +33,7 @@ Todos los comandos se corren **dentro de `~/SystemsLean/editor`**, con rutas com
 | `node scripts/render.mjs <Plantilla> "<plan.json>" "<salida>" --carpeta "<entrada>"` | Renderiza. Los archivos del plan se nombran relativos a `--carpeta` |
 | `node scripts/voz.mjs --lista` / `--voz <id> --texto "..." --salida "<mp3>"` | Voz con la cuenta de ElevenLabs del usuario (`ELEVENLABS_API_KEY` en `~/SystemsLean/.env`). Opcional |
 
-- **Tiempos medidos en una PC normal:** un video de 10 s tarda cerca de 2 minutos y una imagen, unos 15 s. Se renderiza con 2 núcleos para que la PC siga usable.
+- **Tiempos medidos en una PC normal:** un video de 10 s tarda cerca de 2 minutos. Se renderiza con 2 núcleos para que la PC siga usable.
   - Si la PC se pone lenta, `--concurrency 1`.
   - Si es potente, `--concurrency 4`.
 - Para mirar un video antes de renderizarlo: `npm run studio` abre el editor visual en `http://localhost:3000`.
@@ -57,7 +59,7 @@ Todos los comandos se corren **dentro de `~/SystemsLean/editor`**, con rutas com
 - `cierre`: por defecto, 3 s con el último cuadro desenfocado y el texto de WhatsApp. Para landing: «Pide el tuyo en la web». Con `"imagen": "producto.png"` muestra el producto real («Así te llega»). `"segundos": 0` lo quita.
 - Salida: 1080x1920. Si el original es de otro tamaño, llena el cuadro y recorta lo que sobra.
 
-### `VideoDemo` (video del chat)
+### `VideoDemo` (video del chat y videos con voz nueva)
 ```json
 {
   "clips": [
@@ -78,30 +80,6 @@ Todos los comandos se corren **dentro de `~/SystemsLean/editor`**, con rutas com
 - Los clips van sin su sonido (`"con_audio": true` lo deja) y suena la voz.
 - Los subtítulos se ubican con `medir.mjs --silencios` sobre la voz: cada tramo con voz es una frase.
 - La duración es la suma de los clips más el cierre: que alcance para toda la voz.
-
-### `PromoOferta` (imagen de la promoción, 1080x1350, sale en .jpg)
-```json
-{
-  "marca": "NOMBRE DEL PRODUCTO",
-  "titulo": "Elige tu promoción",
-  "unidad": "frasco", "unidades": "frascos",
-  "precio_unidad": 119900,
-  "moneda": { "simbolo": "$", "miles": "." },
-  "filas": [
-    { "cantidad": 1, "precio": 119900 },
-    { "cantidad": 2, "precio": 169900, "regalo": true },
-    { "cantidad": 3, "precio": 229900, "regalo": true }
-  ],
-  "producto": "producto_sin_fondo.png",
-  "regalos": [{ "imagen": "regalo.png" }, { "imagen": "portada_guia.jpg", "tipo": "celular" }],
-  "regalo_texto": "+ regalo",
-  "pie": "🚚 Envío gratis · 💵 Pagas al recibir",
-  "pie_2": "🎁 Con 2 o 3: el regalo va gratis"
-}
-```
-- Los precios, exactos de Projection. «Ahorras …» se calcula solo con `precio_unidad`.
-- `moneda.miles`: «.» en Colombia ($169.900), «,» en Honduras (L1,099).
-- Colores propios, opcionales: `"colores": { "fondo": "#0d1617", "acento": "#40e8c8" }`.
 
 ## Revisar (siempre, antes de subir)
 1. `node scripts/hoja.mjs "<salida.mp4>"` y mira la hoja.

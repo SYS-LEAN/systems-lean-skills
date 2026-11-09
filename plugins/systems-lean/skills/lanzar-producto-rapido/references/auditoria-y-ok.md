@@ -1,4 +1,4 @@
-# Paso 11 · Auditoría, OK del usuario y publicación
+# Paso 13 · Auditoría, OK del usuario y publicación
 
 ## 1. La auditoría (antes de pedir el OK)
 Lee cada módulo **con su tool de lectura**, no de memoria ni de LANZAMIENTO.md. Cada fila queda en verde, o en rojo con el porqué dicho al usuario.
@@ -6,14 +6,15 @@ Lee cada módulo **con su tool de lectura**, no de memoria ni de LANZAMIENTO.md.
 | Módulo | Lectura | Verde si… |
 |---|---|---|
 | Lista de Testeo | `product_favoritos_ver {marca_id}` | La fila del producto tiene `producto_investigado_id` |
-| Alta y vínculo | `product_ver_investigacion {producto_id}` | Vínculo con Dropi o Soydrop, viabilidad, hasta 3 fotos, `nombre_llamadas` |
-| Informe | `product_ver_informe {producto_id}` | Rama Competencia con `evidencia_origen` y números |
+| Alta y vínculo | `product_ver_investigacion {producto_id}`, `dropi_productos_vinculados {}` y `anuncios_ver_productos {}` | `fila_de_origen` y viabilidad; vínculo con Dropi o Soydrop; hasta 3 fotos limpias |
+| Investigación del usuario | `product_ver_extraccion {producto_id}` | Lo que capturó, por nodo (o el límite dicho en el informe) |
+| Informe | `product_ver_informe {producto_id}` | `evidencia_origen` y números; 5 ángulos, 3 ofertas, competidores con precio y días, destino, formato, nivel de conciencia, creencias con fuente y dolores |
+| Ficha, entrega, cobertura | `product_ver_ficha {producto_id}` | Ficha con variables `{{…}}` y sin cifras; sección 4 corta; preguntas que no cierran todas pidiendo datos; entrega propia; cobertura con las zonas excluidas |
+| Projection | `projection_ver_simulador`, `projection_ver_ofertas` y `projection_escenarios_ver` (id del simulador) | Moneda del país; costo, flete, cobro, 5/30 %; paquetes con `share_pct`; las ofertas elegidas; los escenarios pedidos |
 | Ángulos | `anuncios_ver_angulos_venta {producto_id}` | 3 a 5 ángulos con problemas, objeciones y deseos |
-| Ficha, entrega, cobertura | `product_ver_ficha {producto_id}` | Ficha con variables `{{…}}` y sin cifras; entrega propia; cobertura con las zonas excluidas |
-| Projection | `projection_ver_simulador` y `projection_ver_ofertas` (id del simulador) | Moneda del país; costo, flete, contra entrega, 5/30 %; 3 paquetes con `share_pct`; envío gratis; regalo con `cantidad_minima` |
-| Biblioteca | `anuncios_ver_biblioteca_creativos {producto_id}` y `media_listar {producto_id}` | Referencias con origen; por ángulo 1 video y 1 imagen terminados; 6 de reserva |
-| WhatsApp | `chat_agente_productos_ver {proyecto_id}` y `chat_flujos_ver {proyecto_id}` | Producto activo con keywords; embudo y confirmación `publicado`; el viejo `pausado` |
-| Landing (si hay) | `landing_ver {lote_id}` | Publicada, checkout del país, píxel |
+| Biblioteca | `anuncios_ver_biblioteca_creativos {producto_id}`, `media_listar {producto_id}` y `anuncios_ver_generados {producto_id}` | Fotos del proveedor y referencias con su descripción; por ángulo 1 video y 1 imagen terminados; 6 de reserva |
+| Landing (si hay) | `landing_ver {lote_id}` | Atada a su escenario, checkout del país, tracking de la marca, publicada |
+| WhatsApp | `chat_agente_productos_ver {proyecto_id}`, `chat_flujos_ver {proyecto_id}` y `chat_simular` | Producto activo con keywords; embudo con su escenario y confirmación `publicado`; el viejo `pausado`; la simulación con la moneda del país y sin variables vacías |
 | Campaña | `ads_ver_testeo {producto_id}` | Un conjunto por ángulo, 2 anuncios cada uno, ≥ US$5, los dos CPA, chat del proyecto, conversiones probadas, ensayo sin errores |
 
 ## 2. El mensaje del OK
@@ -32,10 +33,11 @@ Debajo, una línea por cada cosa:
 - La pregunta: «¿La enciendo?».
 
 ## 3. Con el «sí» del usuario
-- **Nunca de noche** (22:00 a 7:00, hora de la PC del usuario). Si es de noche, se deja lista y se enciende en la mañana con su OK.
+- **Nunca de noche:** de 22:00 a 7:00 en la hora de la cuenta (la que dice `sl_como_trabajar` al principio; se cambia con `cuenta_zona_horaria`), no la de la PC. Si es de noche, se deja lista y se enciende en la mañana con su OK.
 - `ads_publicar {campania_id, activar: true, confirmado: true}`.
   - Si responde `en_curso: true`, no la relances: mira `publicacion` en `ads_ver_testeo`.
-  - Revisa `verificacion_en_meta`: una campaña activa con sus anuncios en pausa no entrega y Meta no avisa.
+  - Revisa `activacion` en la respuesta y después `ads_ver_campanias_activas`: una campaña activa con sus anuncios en pausa no entrega y Meta no avisa.
+  - Mira en el plan del ensayo a qué hora arrancan los conjuntos (pueden arrancar a la medianoche de la cuenta) y dilo en la tabla del OK.
 - `ads_ver_campanias_activas {}`: lo que Meta tiene encendido en vivo. Los conjuntos activos y los anuncios en revisión o activos.
 - Anota en LANZAMIENTO.md el «sí» literal del usuario con fecha y hora.
 
@@ -47,7 +49,7 @@ Los ids de Meta de los anuncios salen de `ads_ver_testeo {producto_id}` después
 ## 5. El primer chat real
 Cuando llegue la primera conversación (minutos u horas después):
 - `chat_conversaciones_ver {proyecto_id}` y `chat_conversacion_leer` de la primera.
-- Confirma que llegaron el video, la foto, la imagen de la promoción y el A1, en ese orden, y que el agente respondió con la moneda correcta.
+- Confirma que llegaron la imagen de la promoción, la foto en la mano, el audio A1 y el texto con los 3 botones, en ese orden (el video demo sale solo si el cliente pide ver el producto), y que el agente respondió con la moneda correcta.
 - Si algo falló, se corrige el flujo y se republica.
 
 ## 6. Cierre del lanzamiento

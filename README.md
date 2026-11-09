@@ -4,12 +4,12 @@ Skills para trabajar con la app [Systems Lean](https://app.systemslean.com) desd
 
 | Skill | Qué hace |
 |---|---|
-| `lanzar-producto-rapido` | Lanza un producto físico de dropshipping contra entrega (Dropi o Soydrop) de punta a punta, desde tu Lista de Testeo hasta la campaña de Meta lista para encender, en unas 2 a 3 horas y en un solo chat |
+| `lanzar-producto-rapido` | Lanza un producto físico de dropshipping contra entrega (Dropi o Soydrop) de punta a punta, desde tu Biblioteca y tu Lista de Testeo hasta la campaña de Meta lista para encender, en un solo chat y todo por el conector de Systems Lean |
 
 ### Qué deja hecho en tu cuenta de Systems Lean
-- **Product Lean:** el producto en tu Lista de Testeo, vinculado al proveedor, con checklist, viabilidad, fotos, keywords, el informe de la competencia, los ángulos de venta, la ficha técnica, la entrega, la cobertura y la ficha que usa el agente.
-- **Projection:** costos, flete real, tasas de cancelación y devolución, los 3 paquetes, el envío gratis, el regalo y los dos CPA.
-- **Creativos:** los anuncios ganadores de referencia guardados con su origen, y por cada ángulo un video y una imagen listos, más 6 videos de reserva.
+- **Product Lean:** el producto guardado en tu Biblioteca y en tu Lista de Testeo, investigado desde ahí (con los datos del proveedor y sus fotos en Creativos de Inspiración), vinculado al proveedor, con checklist, viabilidad, fotos, keywords, el informe de investigación (ángulos, ofertas y precios de la competencia, destino, formatos, nivel de conciencia, creencias y dolores), los ángulos de venta, la ficha técnica, la entrega, la cobertura y la ficha que usa el agente.
+- **Projection:** costos, flete real, tasas de cancelación y devolución, los paquetes, las ofertas que convienen, los escenarios que pidas y los dos CPA.
+- **Creativos:** los anuncios ganadores de referencia guardados y descritos, y por cada ángulo un video y una imagen listos, más 6 videos de reserva.
 - **WhatsApp o landing:** el agente con tu producto, el embudo «precio primero» y la confirmación publicados (o la landing con su checkout).
 - **Ads Lean:** la campaña de testeo con un conjunto por ángulo y sus anuncios, en pausa hasta que tú digas «enciéndela».
 
@@ -31,18 +31,18 @@ Tu agente va llenando una ficha del lanzamiento (`LANZAMIENTO.md`) y no da nada 
 - **Node.js 20 o más** (la versión LTS de https://nodejs.org) y unos 500 MB libres en el disco para el editor de videos.
 
 ### Recomendado
-- **La extensión de Chrome de Systems Lean** (Chrome Web Store): con su botón «Guardar en Systems Lean» en la ficha de Dropi o de Soydrop, el producto entra a tu Biblioteca y a tu Lista de Testeo.
+- **La extensión de Chrome de Systems Lean** ([Chrome Web Store](https://chromewebstore.google.com/detail/ieigggdfakhdegnggjhdhdlhhfhkojme)): con ella haces tu parte de la investigación (guardar anuncios, extraer la Biblioteca de Meta, Marketplace, AliExpress y comentarios). Su botón «Guardar en Systems Lean» en la ficha de Dropi o de Soydrop también guarda el producto en tu Biblioteca, aunque el agente puede hacerlo por el conector.
 - **Un conector de la Biblioteca de anuncios de Meta**, para medir la competencia. En Claude viene gratis en el directorio de conectores. Sin él, la competencia se mira en la Biblioteca a mano.
-- **Dropkiller:** suma datos de ventas y ganadores de otros países.
-- **ElevenLabs** (tu propia cuenta): para generar los audios del chat. Sin ella, los grabas con el celular.
+- **Dropkiller o TrendTrack:** suman datos de ventas y ganadores de otros países.
+- **ElevenLabs** (tu propia cuenta), si la tienes: para los audios del chat. Si no, se generan con tus créditos de Systems Lean o los grabas con el celular.
 - **Una llave de Gemini**, gratis en Google AI Studio: para transcribir el audio de los videos.
 
 ### No necesitas
 Instalar ffmpeg, Python, git, un servidor propio ni editores de video: el editor de la skill es un proyecto de Remotion que trae todo y se instala solo la primera vez.
 
 ## Dónde se procesa cada cosa
-- **En tu PC:** toda la edición de videos (cortes, tapar precios y marcas, cierre, video demo con subtítulos) y la imagen de la promoción. Un video de 10 s tarda unos 2 minutos.
-- **En Systems Lean:** guardar el producto, la oferta y los costos, generar imágenes con IA (cobra créditos), el flujo de WhatsApp y la campaña de Meta. Los videos terminados se suben directo al almacenamiento de la app.
+- **En tu PC:** toda la edición de videos (cortes, tapar precios y marcas, cierre, video demo con subtítulos). Un video de 10 s tarda unos 2 minutos.
+- **En Systems Lean, por el conector:** todo lo demás. Guardar el producto, la investigación, la oferta y los costos; generar con IA (cobra créditos) las imágenes de los anuncios, la de la promoción del chat y las de la landing, y también tomas de video y voces; la landing, el flujo de WhatsApp y la campaña de Meta. Los videos terminados se suben directo al almacenamiento de la app.
 
 ## Instalar
 
@@ -77,7 +77,8 @@ Reinicia tu agente. Para actualizar, vuelve a correr el mismo comando.
 1. Abre tu agente en una carpeta de trabajo, por ejemplo `Documentos/SystemsLean`.
 2. Escribe, por ejemplo: «Lanza el producto 2264665 de Dropi en Colombia». También puedes llamar la skill por su nombre: `/systems-lean:lanzar-producto-rapido` en Claude Code o `$lanzar-producto-rapido` en Codex.
 3. La primera vez, tu agente instala el editor de videos en `~/SystemsLean/editor` (1 o 2 minutos).
-4. Te pide el OK antes de gastar: antes de generar imágenes con créditos y antes de encender la campaña.
+4. Te pregunta en tres momentos, cada vez en un solo mensaje y con su propuesta: tu parte de la investigación, la oferta en Projection y la landing.
+5. Te pide el OK antes de gastar: antes de generar con créditos y antes de encender la campaña.
 
 ## Licencia de Remotion
 El editor usa [Remotion](https://www.remotion.dev). Es gratis para personas y para empresas de hasta 3 personas; una empresa más grande necesita su propia licencia: https://www.remotion.dev/license

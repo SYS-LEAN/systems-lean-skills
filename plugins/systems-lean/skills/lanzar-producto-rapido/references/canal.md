@@ -13,6 +13,7 @@ En el camino rápido va **un solo canal**. Nunca «web por defecto». Se suma el
 **Competencia vacía:** si menos de 15 % de los ganadores va a WhatsApp y los factores 2 y 3 suman +2 o más, el factor 1 vale 0, porque puede ser que nadie atienda por chat y no que el canal no funcione.
 
 ## Decisión
+- **Si el usuario ya eligió el canal,** manda su elección; si la tabla da lo contrario, díselo en una línea.
 - **+3 o más → WhatsApp** (campaña de mensajes).
 - **−3 o menos → landing** (campaña de ventas al sitio).
 - **Empate (−2 a +2):**
@@ -23,7 +24,7 @@ En el camino rápido va **un solo canal**. Nunca «web por defecto». Se suma el
 Se le dice al usuario en una línea con el porqué, con la tabla de puntajes debajo.
 
 ## Qué necesita cada canal
-- **WhatsApp:** el número conectado en Chat Lean y el flujo del paso 9. La campaña arranca optimizando conversaciones (objetivo `mensajes`); al llegar a 10 compras confirmadas en 30 días se propone pasarla a compras.
-- **Landing:** una landing de Store Lean publicada con su checkout del país y su píxel: [landing.md](landing.md). Aun con landing, el agente de WhatsApp atiende a quien escribe desde el botón de la página, así que el vínculo del producto con el agente (paso 9, punto 2) también se hace.
+- **WhatsApp:** el número conectado en Chat Lean y el flujo del paso 11. La campaña arranca optimizando conversaciones (objetivo `mensajes`); al llegar a 10 compras confirmadas en 30 días se propone pasarla a compras.
+- **Landing:** una landing de Store Lean publicada con su checkout del país y su píxel: [landing.md](landing.md). Aun con landing, el agente de WhatsApp atiende a quien escribe desde el botón de la página, así que el vínculo del producto con el agente (paso 11, punto 2) también se hace.
 
 Anota en LANZAMIENTO.md la tabla de puntajes con la fuente de cada uno (por ejemplo «factor 1: 8 de 10 ganadores van a WhatsApp, tabla de anunciantes»).

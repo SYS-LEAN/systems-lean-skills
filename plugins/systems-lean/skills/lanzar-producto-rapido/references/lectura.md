@@ -8,7 +8,7 @@
 | A las 24 h | Conjunto con 1 venta o más | Sigue | — |
 | Cualquier día | 3 ventas o más y CPA por encima del CPA de equilibrio | Se apaga el conjunto: vende, pero pierde plata | No, solo aviso |
 | Cualquier día | 3 o 4 ventas con CPA igual o menor al objetivo | Prometedor: se piden variantes de sus anuncios; no se le sube el presupuesto | No |
-| Con 48 h al aire | **5 ventas con CPA igual o menor al CPA objetivo** | **Ganador:** se propone copiarlo a una campaña CBO de escala con 2 CPA objetivo al día. El original sigue en la ABO | **Sí** |
+| Con 48 h al aire | **5 ventas con CPA igual o menor al CPA objetivo** | **Ganador:** se propone copiarlo a una campaña CBO de escala con 2 CPA objetivo al día (`ads_duplicar_campania` o `ads_duplicar_conjunto`, y en la copia `ads_editar_campania {presupuesto_modo: "campania"}`). El original sigue en la ABO | **Sí** |
 | A las 72 h | Gastó menos de 0,3 CPA objetivo | Meta no le dio entrega: se apaga y se relanza como conjunto nuevo, en pausa | Para encender, sí |
 | Siempre | Lo encendido pasaría de US$200 al día en una campaña o de US$500 en la cuenta | Se propone con la suma | **Sí** |
 

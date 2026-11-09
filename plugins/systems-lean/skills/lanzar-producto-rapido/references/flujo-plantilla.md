@@ -77,8 +77,9 @@ Todos los mensajes salen dentro de las 24 h: el embudo no necesita plantillas de
 | `[[URL_VIDEO_DEMO]]` | Video demo de 6 a 15 s | Biblioteca de medios |
 | `[[URL_IMAGEN_REGALO]]` | Imagen del regalo | Biblioteca de medios |
 | `[[URL_AUDIO_A1]]` a `[[URL_AUDIO_A9]]` | Los audios (tabla de abajo) | Biblioteca de medios |
+| `[[URL_AUDIO_A11]]` | El audio de pedido confirmado | Biblioteca de medios (va en la confirmación) |
 
-Todos los enlaces son de la biblioteca de la cuenta: se sube con `media_subir` (con `producto_id`) y se copia la URL que devuelve. Nunca un enlace externo.
+Todos los enlaces son de la biblioteca de la cuenta, nunca externos. Lo que está en la PC se sube con `media_subida_url` → PUT → `media_subida_confirmar`; lo que ya tiene URL pública (un mp3 de `video_narracion_audio`, una imagen de un lote del generador), con `media_subir {url, producto_id}`. Se copia la URL que devuelve.
 
 ### Los audios del embudo
 
@@ -121,6 +122,8 @@ Si el país va de tú, cámbialo en el JSON antes de guardar:
 Graba los audios con el mismo trato.
 
 ## Opcional
+- **Sin paquete de 3:** borra el botón `b3` de `m_bienvenida`, `s_4min`, `s_1h` y `m_vuelta_promo`, el nodo `x_c3` y las conexiones `e7`, `e13`, `e18`, `e22` y `e26`. En los 3 contextos de los agentes, quita «· 3 [[UNIDADES]] {{precio_3x}}», «o 3» y «{{precio_transferencia_3x}}». A1 y A5 hablan de 2 promociones.
+- **Sin unidad suelta:** esta plantilla no sirve tal cual (A8, `x_c1b` y «SOLO 1» venden de a uno).
 - **Sin regalo:**
   - borra el nodo `p_regalo`, la salida `regalo` de `n_agente` y las conexiones `e42` y `e58`;
   - pon «Sin regalo.» en `[[REGALO]]`.
@@ -155,7 +158,7 @@ Está en [flujo-grafo.md](flujo-grafo.md) (pídelo aparte si la skill te llegó 
 7. **Arma y publica la confirmación** (siguiente sección).
 8. **`chat_flujo_publicar {flujo_id}`:** si devuelve `avisos_oferta`, el agente dice otro precio que la oferta. Corrígelo y vuelve a publicar.
 9. **`chat_flujo_confirmacion_asignar`** con el embudo y su confirmación (siguiente sección).
-10. **`chat_flujos_ver {proyecto_id, flujo_id}`:** el embudo en `publicado` y su `confirmacion_flow_id` lleno. Después, `chat_ab_verificar {proyecto_id}` (variables vacías, cifras a mano, envío gratis que la oferta no da) y `chat_simular` con «cuánto vale», «quiero solo uno» y «no tengo plata hasta la quincena».
+10. **`chat_flujos_ver {proyecto_id, flujo_id}`:** el embudo en `publicado` y su `confirmacion_flow_id` lleno. Después, `chat_simular` con «cuánto vale», «quiero solo uno» y «no tengo plata hasta la quincena»: la moneda del país, ninguna variable vacía y nada de «envío gratis» si la oferta cobra el flete. `chat_ab_verificar` solo revisa pruebas A/B armadas con `ab_grupo`.
 
 ## La confirmación
 No se arma a mano. La crea la app ya conectada, y después se ajusta a este modelo.
@@ -200,7 +203,7 @@ No se arma a mano. La crea la app ya conectada, y después se ajusta a este mode
 | Recordatorio, a las 12 h | Avisa que si no confirma en 12 h se cancela. Con el chat abierto sale como mensaje normal; con el chat cerrado, como plantilla | Sin respuesta en 12 h más, se cancela y se avisa al dueño con producto, total, cliente y teléfono |
 | Confirma | Audio A11 y «✅ Pedido confirmado» con el resumen corto | Fin |
 | Cancela con el botón | Nada; se cancela el pedido | Se avisa al dueño |
-| Escribe otra cosa o toca «Corregir datos» | Le contesta el agente con los datos del pedido; si corrige, le vuelve a mostrar el resumen | Si confirma o cancela con palabras, igual que con los botones. Si deja de contestar, el flujo termina ahí y no sale el recordatorio |
+| Escribe otra cosa o toca «Corregir datos» | Le contesta el agente con los datos del pedido; si corrige, le vuelve a mostrar el resumen | Si confirma o cancela con palabras, igual que con los botones. Si deja de contestar, sale el recordatorio de las 12 h y, si sigue sin contestar, se cancela y se avisa al dueño |
 
 ### Plantillas de Meta que necesita
 - **`confirmacion_con_entrega`**, y `confirmacion_con_entrega_usted` en los países de usted (si la de usted no está aprobada en ese número, sale la de tú).

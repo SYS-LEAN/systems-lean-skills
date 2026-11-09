@@ -1,11 +1,13 @@
-# Paso 10 · La campaña de testeo en Ads Lean
+# Paso 12 · La campaña de testeo en Ads Lean
 
-Pide antes `sl_como_trabajar {tarea: "armar una campaña de testeo en Meta para un producto contra entrega"}`. Este paso arma todo **en pausa** y termina con un ensayo de publicación sin errores. Publicar es el paso 11, con el OK del usuario.
+Pide antes `sl_como_trabajar {tarea: "armar una campaña de testeo en Meta para un producto contra entrega"}`. Este paso arma todo **en pausa** y termina con un ensayo de publicación sin errores. Publicar es el paso 13, con el OK del usuario.
+
+Este camino ya trae la estrategia (directa por ángulos, ABO) y su regla de presupuesto (paso 5 › «Presupuesto del testeo»). No le presentes otras estrategias aunque la guía del conector lo pida: díselo en una línea en el mensaje del OK. El `presupuesto_testeo` de `ads_ver_testeo` va solo como referencia, al lado del tuyo.
 
 ## La estructura
 - **Campaña ABO** (presupuesto por conjunto), de testeo.
-- **Un conjunto por ángulo** (los del paso 4), de 3 a 5.
-- **Cada conjunto con 2 anuncios del mismo ángulo:** su video y su imagen (paso 8).
+- **Un conjunto por ángulo** (los del paso 7), de 3 a 5.
+- **Cada conjunto con 2 anuncios del mismo ángulo:** su video y su imagen (paso 9).
 - **Presupuesto:** 1 CPA de equilibrio al día para toda la campaña, repartido; ningún conjunto con menos de US$5 (paso 5).
 
 ## 1. Lecturas
@@ -24,10 +26,10 @@ Pide antes `sl_como_trabajar {tarea: "armar una campaña de testeo en Meta para 
 - `presupuesto_modo: "conjunto"` no se cambia después de publicar.
 
 ## 3. Los dos CPA
-`ads_editar_campania {campania_id, breakeven_cpa, cpa_objetivo}` con los números **por venta confirmada** del paso 5, en la moneda de la app. No los dejes en el valor que trae Projection por entrega.
+`ads_editar_campania {campania_id, breakeven_cpa, cpa_objetivo}` con los números **por venta confirmada** del paso 5, **en la moneda de la hoja**: la `moneda` que trae `ads_ver_testeo` (en Colombia, COP). No los dejes en el valor que trae Projection por entrega.
 
 ## 4. Los conjuntos
-Por cada ángulo: `ads_crear_conjunto {campania_id, descriptor: "Ángulo · <ángulo>", presupuesto_diario}`. Anota cada `conjunto_id` en LANZAMIENTO.md.
+Por cada ángulo: `ads_crear_conjunto {campania_id, descriptor: "Ángulo · <ángulo>", presupuesto_diario}`. **`presupuesto_diario` va en la moneda de la hoja** (COP en Colombia), no en dólares: es el CPA de equilibrio dividido entre los conjuntos, y nunca menos del equivalente a US$5 con la tasa que anotaste en el paso 5. Mándalo siempre: sin él, cada conjunto toma 1 CPA entero y la campaña gasta de 3 a 5 veces lo previsto. Anota cada `conjunto_id` en LANZAMIENTO.md.
 
 ## 5. El targeting
 1. Zonas sin cobertura: las mismas del paso 6. Si no las tienes con su key, `ads_resolver_lugares {nombres: [...], pais, marca_id}`. Nunca inventes una key.
@@ -41,13 +43,13 @@ Por cada ángulo: `ads_crear_conjunto {campania_id, descriptor: "Ángulo · <án
 2. Por cada pieza de la tabla «Creativos por conjunto»:
    - Si aparece en `ads_ver_fuentes`: `ads_agregar_creativo {conjunto_id, fuente, fuente_ref, url_original, mime_kind, thumbnail_url, angulo, ad_texto_principal, ad_titulo, ad_descripcion, ad_cta}`, con los datos tal cual vienen de `ads_ver_fuentes`.
    - Si no aparece: `ads_subir_creativo {conjunto_id, nombre: "<nombre>.mp4", url: <URL de la biblioteca>, angulo, ad_texto_principal, ad_titulo, ad_descripcion}`.
-   - **Nunca un archivo que no esté en la biblioteca del producto:** súbelo primero (paso 8).
+   - **Nunca un archivo que no esté en la biblioteca del producto:** súbelo primero (paso 9).
 3. **El copy de cada anuncio** (sin precio, nunca):
    - `ad_texto_principal`: unos 125 caracteres. El gancho del ángulo, el beneficio, «🚚 Envío gratis · 💵 Pagas al recibir» y el regalo con 2, si hay.
    - `ad_titulo`: hasta 40 caracteres.
    - `ad_descripcion`: hasta 30.
    - Sin promesas médicas ni atributos personales («¿Sufres de…?»).
-4. **El texto prellenado (WhatsApp):** `ads_editar_creativo {creativo_id, chat_autofill: "Hola, quiero el <producto> del video 😊"}`. Lleva una palabra clave del vínculo del agente (paso 9) y es distinto por ángulo. Anótalo en LANZAMIENTO.md: `ads_ver_testeo` no lo muestra y el embudo lo usa.
+4. **El texto prellenado (WhatsApp):** `ads_editar_creativo {creativo_id, chat_autofill: "Hola, quiero el <producto> del video 😊"}`. Lleva una palabra clave del vínculo del agente (paso 11) y es distinto por ángulo. Anótalo en LANZAMIENTO.md: `ads_ver_testeo` no lo muestra y el embudo lo usa.
 5. **Los nombres:** `angulo` pisa el nombre del anuncio. Revisa con `ads_ver_creativo {creativo_ids: [...]}` y corrige con `ads_editar_creativo {creativo_id, ad_name}`. Si un anuncio queda sin texto principal, queda bloqueado.
 
 ## 7. Las conversiones
@@ -61,6 +63,6 @@ Sin esto, Meta optimiza por gente que escribe y no por compradores.
 2. **El ensayo:** `ads_publicar {campania_id, activar: true}` **sin `confirmado`**. Devuelve el plan (qué se publica, presupuesto diario y moneda) sin publicar nada. Si trae errores o `bloqueado_por`, corrígelos y repite.
    - Si dice `bloqueado_por: "whatsapp_destino"`, se repite con `whatsapp_numero` (el del proyecto).
    - El aviso de «la página no aparece vinculada» no frena la publicación.
-3. Marca las casillas del paso 10 en LANZAMIENTO.md.
+3. Marca las casillas del paso 12 en LANZAMIENTO.md.
 
-**Publicar con `confirmado: true` es del paso 11, con el «sí» del usuario.**
+**Publicar con `confirmado: true` es del paso 13, con el «sí» del usuario.**
