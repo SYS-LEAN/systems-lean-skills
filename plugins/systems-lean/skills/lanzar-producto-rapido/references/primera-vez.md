@@ -28,6 +28,7 @@ Se revisa **una sola vez por PC**. Si existe `~/SystemsLean/requisitos.md`, lée
 | Qué | Para qué | Cómo se comprueba | Si falta |
 |---|---|---|---|
 | Llave de Gemini (gratis) | Saber qué se dice y qué se ve en los videos de la competencia, en una llamada. Sin ella, el usuario tiene que escuchar cada video y contártelo | `node scripts/analizar.mjs --probar`, dentro de `~/SystemsLean/editor` | Ver «Las llaves» |
+| La app de Systems Lean en su celular | Le avisa de cada pedido y de cada mensaje de cliente, y le deja aprobar con un botón | Pregúntale al usuario si ya la tiene | Dile que se mande este link a su propio WhatsApp y lo abra en el celular: https://app.systemslean.com/conversations?fuente=app → iniciar sesión → «Instalar app». En iPhone: abrirlo en Safari → botón de compartir → «Agregar a inicio» |
 | Un navegador para ti | Leer la Biblioteca de anuncios de Meta y las páginas de la competencia. Solo para leer la web pública | Tienes herramientas de navegador | En Claude: la extensión Claude in Chrome, https://claude.com/chrome |
 | Conector de la Biblioteca de anuncios de Meta | Medir la competencia sin navegador | La tool `ads_library_search` responde | En Claude está en el directorio de conectores: https://claude.ai/settings/connectors |
 | Dropkiller o TrendTrack | Ventas y ganadores de otros países, y la transcripción de sus videos | Sus tools responden | Es de pago: solo si el usuario ya lo tiene |
