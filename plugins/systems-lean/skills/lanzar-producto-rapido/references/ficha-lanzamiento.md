@@ -179,7 +179,7 @@ Cópiala al empezar en `~/SystemsLean/productos/<producto>-<país>/LANZAMIENTO.m
 - <empaque distinto, modismos del audio, marca o réplica, stock justo…>
 
 ## Créditos gastados
-- Estimado: <…> · Real: <…> (`ia_consumo_ver`)
+- Estimado: <…> · Real: <…> (`cuenta_ver`: créditos usados antes y después)
 
 ## Próximo paso
 - <qué sigue, quién y cuándo>
