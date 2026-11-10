@@ -81,7 +81,7 @@ Una sola voz por producto, con el acento del país y el género de quien compra.
 
 ### Reglas del audio y del empaque
 - **El audio también se limpia.** Los videos de otros países suelen cerrar con «TikTok», «el botón o carrito naranja» o un precio.
-  - Transcripción: la que ya quedó en la descripción del creativo (paso 4); si no, `get_ad_transcripts` de Dropkiller o la llave de Gemini del usuario (File API, una sola llamada, con segundos); si no, el usuario escucha el final y te dice en qué segundo empieza.
+  - Transcripción: la que ya quedó en la descripción del creativo (paso 4); si no, `get_ad_transcripts` de Dropkiller o `node scripts/analizar.mjs` con la llave de Gemini del usuario ([editor.md](editor.md)); si no, el usuario escucha el final y te dice en qué segundo empieza.
   - Se corta en la palabra, con los `tramos`.
 - **Empaque distinto en los videos:** usa los que menos muestran la caja y cierra con 3 s de nuestro producto real (`cierre.imagen` con la foto, título «Así te llega»). Avísalo como riesgo en el paso 13.
 - **Si alguien habla a cámara, nunca se le pone otra voz encima.** Con esas tomas solo se corta o se conserva su audio.

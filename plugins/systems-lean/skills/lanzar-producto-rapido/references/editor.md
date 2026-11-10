@@ -31,6 +31,7 @@ Todos los comandos se corren **dentro de `~/SystemsLean/editor`**, con rutas com
 | `node scripts/medir.mjs "<audio>" --silencios` | Además, los tramos con voz: sirven para poner los subtítulos por frase |
 | `node scripts/hoja.mjs "<video>"` | Hoja con 20 cuadros en orden y su segundo, al lado del video (`<video>_hoja.jpg`). Se mira con la herramienta de leer imágenes |
 | `node scripts/render.mjs <Plantilla> "<plan.json>" "<salida>" --carpeta "<entrada>"` | Renderiza. Los archivos del plan se nombran relativos a `--carpeta` |
+| `node scripts/analizar.mjs "<video, audio, imagen o url>" ["<qué quieres saber>"] [--salida "<ruta.txt>"]` | Lo que se dice y lo que se ve en un video, en una sola llamada a Gemini con la llave del usuario (`GEMINI_API_KEY` en `~/SystemsLean/.env`). Sin pedido, da el análisis completo de un anuncio: transcripción con segundos, texto en pantalla, gancho, escenas, ángulo, oferta y precio, y lo ajeno que hay que tapar. `--probar` comprueba la llave |
 | `node scripts/voz.mjs --lista` / `--voz <id> --texto "..." --salida "<mp3>"` | Voz con la cuenta de ElevenLabs del usuario (`ELEVENLABS_API_KEY` en `~/SystemsLean/.env`). Opcional |
 
 - **Tiempos medidos en una PC normal:** un video de 10 s tarda cerca de 2 minutos. Se renderiza con 2 núcleos para que la PC siga usable.

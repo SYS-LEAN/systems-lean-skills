@@ -40,13 +40,15 @@ Cópiala al empezar en `~/SystemsLean/productos/<producto>-<país>/LANZAMIENTO.m
 ## Checklist del lanzamiento
 
 ### Paso 0 · Preparación
+- [ ] Requisitos de la primera vez revisados (`~/SystemsLean/requisitos.md`)
 - [ ] `sl_como_trabajar` leído con la tarea
-- [ ] Unidad de Negocio elegida (`ver_tienda` / `marca_ver`)
+- [ ] Unidad de Negocio elegida o creada (`marca_ver`)
 - [ ] Ramas de conocimiento propias del usuario leídas si existen (`skills_listar`)
 - [ ] Cuenta publicitaria, página y píxel (`ads_ver_conexion`)
 - [ ] Número de WhatsApp del proyecto (`chat_proyectos_ver`, `chat_salud_ver`)
 - [ ] Extensión de Chrome de Systems Lean instalada
 - [ ] Editor instalado (`npm run tipos` sin errores)
+- [ ] Llave de Gemini probada (`node scripts/analizar.mjs --probar`), o el usuario decidió seguir sin ella
 - [ ] Tabla «qué hay / qué falta», si el producto ya existía
 
 ### Paso 1 · La ficha viva y la Biblioteca

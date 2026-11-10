@@ -19,23 +19,25 @@ Tu agente va llenando una ficha del lanzamiento (`LANZAMIENTO.md`) y no da nada 
 
 ### Obligatorio
 - **Un agente de IA con terminal:** Claude Code (planes Pro y Max de Claude; sirve la app de escritorio, pestaña Code, o la terminal), Codex de OpenAI (con tu cuenta de ChatGPT) o Antigravity CLI de Google.
-- **Una cuenta de Systems Lean con un plan que incluya el conector, con créditos, y el conector agregado en tu agente.** Es un conector MCP remoto con la dirección `https://app.systemslean.com/mcp`, y se inicia sesión con tu cuenta de Systems Lean.
-  - En Claude: claude.ai → Configuración → Conectores → Agregar conector personalizado, y después «Autorizar». En la app de escritorio aparece solo.
+- **Una cuenta de Systems Lean con el plan Plus (el que incluye el conector), con créditos, y el conector agregado en tu agente.** Es un conector MCP remoto con la dirección `https://app.systemslean.com/mcp`, y se inicia sesión con tu cuenta de Systems Lean.
+  - En Claude: https://claude.ai/settings/connectors → «Agregar conector personalizado», y después «Autorizar». En la app de escritorio aparece solo.
   - En Codex o Antigravity: agrégalo en su configuración de servidores MCP con esa dirección.
-- **Dentro de Systems Lean:**
-  - tu cuenta publicitaria de Meta conectada en Ads Lean;
-  - tu número de WhatsApp conectado en Chat Lean, si vendes por WhatsApp, o Store Lean, si vendes por landing.
+- **La extensión de Chrome de Systems Lean** ([Chrome Web Store](https://chromewebstore.google.com/detail/ieigggdfakhdegnggjhdhdlhhfhkojme)), con tu sesión iniciada: conecta tu cuenta de Soydrop, guarda productos de Dropi y de Soydrop con el botón «Guardar en Systems Lean» y con ella haces tu parte de la investigación (guardar anuncios, extraer la Biblioteca de Meta, Marketplace, AliExpress y comentarios).
+- **Dentro de Systems Lean,** en https://app.systemslean.com/credenciales → «Meta»:
+  - tu cuenta publicitaria, tu página y tu píxel conectados;
+  - tu número de WhatsApp conectado, si vendes por WhatsApp.
+- **Una Unidad de Negocio (tu marca).** Si no tienes, tu agente la crea contigo en el primer paso.
 - **Tu proveedor:**
   - Colombia y otros países de Dropi: el conector oficial de Dropi, `https://mcp.dropi.co/mcp`, agregado igual que el de Systems Lean.
   - Honduras: tu cuenta de Soydrop, conectada con la extensión de Chrome de Systems Lean.
 - **Node.js 20 o más** (la versión LTS de https://nodejs.org) y unos 500 MB libres en el disco para el editor de videos.
 
 ### Recomendado
-- **La extensión de Chrome de Systems Lean** ([Chrome Web Store](https://chromewebstore.google.com/detail/ieigggdfakhdegnggjhdhdlhhfhkojme)): con ella haces tu parte de la investigación (guardar anuncios, extraer la Biblioteca de Meta, Marketplace, AliExpress y comentarios). Su botón «Guardar en Systems Lean» en la ficha de Dropi o de Soydrop también guarda el producto en tu Biblioteca, aunque el agente puede hacerlo por el conector.
+- **Una llave de Gemini,** gratis en https://aistudio.google.com/apikey: con ella tu agente sabe qué se dice y qué se ve en los videos de la competencia. Va en el archivo `~/SystemsLean/.env` de tu PC, que tu agente te abre; no se pega en el chat.
+- **Un navegador para tu agente,** para leer la Biblioteca de anuncios de Meta. En Claude: la extensión [Claude in Chrome](https://claude.com/chrome).
 - **Un conector de la Biblioteca de anuncios de Meta**, para medir la competencia. En Claude viene gratis en el directorio de conectores. Sin él, la competencia se mira en la Biblioteca a mano.
 - **Dropkiller o TrendTrack:** suman datos de ventas y ganadores de otros países.
-- **ElevenLabs** (tu propia cuenta), si la tienes: para los audios del chat. Si no, se generan con tus créditos de Systems Lean o los grabas con el celular.
-- **Una llave de Gemini**, gratis en Google AI Studio: para transcribir el audio de los videos.
+- **La voz de los audios** sale de la app, con tus créditos: voces de ElevenLabs por país y acento, sin abrir ninguna cuenta. Si ya tienes tu cuenta de ElevenLabs, también sirve; y sin gastar, los grabas con el celular.
 
 ### No necesitas
 Instalar ffmpeg, Python, git, un servidor propio ni editores de video: el editor de la skill es un proyecto de Remotion que trae todo y se instala solo la primera vez.

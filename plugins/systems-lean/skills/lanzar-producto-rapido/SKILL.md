@@ -5,7 +5,7 @@ description: Camino de Systems Lean para lanzar un producto físico de dropshipp
 
 # Lanzar un producto (contra entrega, con Systems Lean)
 
-> Versión del 2026-11-08 · 15 pasos (del 0 al 14). Si una referencia que pediste trae otros números de paso, es de otra versión: avísale al usuario y no las mezcles.
+> Versión del 2026-11-10 · 15 pasos (del 0 al 14). Si una referencia que pediste trae otros números de paso, es de otra versión: avísale al usuario y no las mezcles.
 
 Del producto elegido a la campaña lista para encender, en un solo chat: unas 3 horas de trabajo tuyo, más lo que tarde el usuario en su investigación (paso 3). **El lanzamiento solo está terminado cuando cada módulo de la app quedó lleno y verificado con una herramienta de lectura.** Decir «listo» sin esa lectura es el error que este camino evita.
 
@@ -33,15 +33,19 @@ Al empezar, crea `~/SystemsLean/productos/<producto>-<país>/LANZAMIENTO.md` con
 - **No inventes datos.** Stock, costo y flete salen de la ficha viva del proveedor; precios y CPA, de Projection; creencias y dolores, de fuentes que puedas citar. Lo que no se sabe se pregunta o se marca como supuesto.
 - **Tasas para todo cálculo: 30 % de devolución y 5 % de cancelación**, salvo que el usuario tenga las suyas medidas.
 - **Herramientas que no son para ti:** `ganadores_agregar` y `ganadores_ver` (solo administración), `grok_tareas_*`, `relevo_*`, `agentes_*`, `ads_propuestas_*`, `finanzas_*`, `product_extraer_comentarios` (depende de un ejecutor interno) y el script `scripts/mcp-subir-media.mjs` (no lo tienes: sube con `media_subida_url`).
-- **Mensajes al usuario cortos y sin jerga:** la decisión y el porqué en una línea. Si algo lo tiene que hacer él fuera de la app, dale el link directo.
+- **Mensajes al usuario cortos y sin jerga:** la decisión y el porqué en una línea, sin nombres de herramientas ni ids.
+- **Lo que tiene que hacer el usuario se le da resuelto:** el link directo a la pantalla exacta, qué va a ver al abrirlo y qué botón apretar. Una cosa por línea, en el orden en que las hace, y al final «avísame cuando esté». Nunca una ruta de menús ni «búscalo en la app».
+- **Las llaves del usuario (Gemini, ElevenLabs) van en `~/SystemsLean/.env`,** las pega él y nunca pasan por el chat. El conector de Systems Lean no pide llaves ni tokens.
 
 ## Los pasos
 Cada paso dice qué deja hecho, con qué se verifica y cuándo no se avanza. El detalle (tools, argumentos, trampas) está en su referencia.
 
 ### Paso 0 · Preparación y conexiones (5 min)
 [references/preparacion.md](references/preparacion.md)
-- **Deja:** la Unidad de Negocio elegida, el conocimiento propio del usuario leído, las conexiones comprobadas, el editor instalado, la carpeta y la ficha del lanzamiento creadas, y una tabla «qué hay / qué falta» si el producto ya existía.
-- **No avances si:** falta el conector de Systems Lean; `ads_ver_conexion` no muestra cuenta publicitaria, página y píxel; el canal probable es WhatsApp y el proyecto de Chat Lean no tiene número conectado.
+- **Primera vez en esta PC** (no existe `~/SystemsLean/requisitos.md`): antes que nada, los requisitos de [references/primera-vez.md](references/primera-vez.md). Se revisan una vez y quedan anotados en ese archivo.
+- **No hay Unidad de Negocio de dropshipping, o el usuario quiere una marca nueva:** se crea con [references/marca.md](references/marca.md).
+- **Deja:** los requisitos revisados, la Unidad de Negocio elegida o creada, el conocimiento propio del usuario leído, las conexiones comprobadas, el editor instalado, la carpeta y la ficha del lanzamiento creadas, y una tabla «qué hay / qué falta» si el producto ya existía.
+- **No avances si:** falta el conector de Systems Lean; el usuario no tiene la extensión de Chrome de Systems Lean con su sesión iniciada; `ads_ver_conexion` no muestra cuenta publicitaria, página y píxel; el canal probable es WhatsApp y el proyecto de Chat Lean no tiene número conectado.
 
 ### Paso 1 · El producto en la Biblioteca y la ficha viva (10 min)
 [references/producto-y-alta.md](references/producto-y-alta.md) › «Paso 1»
