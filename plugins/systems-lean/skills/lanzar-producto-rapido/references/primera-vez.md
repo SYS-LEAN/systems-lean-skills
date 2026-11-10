@@ -16,7 +16,7 @@ Se revisa **una sola vez por PC**. Si existe `~/SystemsLean/requisitos.md`, lée
 | 2 | Extensión de Chrome de Systems Lean, con la sesión iniciada | Conecta Soydrop, guarda productos de Dropi y de Soydrop con un botón y captura la investigación del usuario (anuncios, Marketplace, AliExpress, comentarios) | `cuenta_ver {}` › `extension_chrome`: si se la vio, hace cuánto y con qué versión. Si no hay registro, pregúntale al usuario si ve el ícono de Systems Lean en Chrome y si está con su sesión | Usuario | https://chromewebstore.google.com/detail/ieigggdfakhdegnggjhdhdlhhfhkojme → «Añadir a Chrome» → abrir la extensión e iniciar sesión con su cuenta de Systems Lean |
 | 3 | Una Unidad de Negocio de dropshipping para el país donde va a vender | Todo se guarda dentro de una | `marca_ver {}`; cuántas admite el plan, en `cuenta_ver {}` › `unidades_de_negocio` | Tú | No hay ninguna, o el usuario quiere una marca nueva: [marca.md](marca.md) |
 | 4 | Meta conectado en esa Unidad de Negocio: cuenta publicitaria, página y píxel | Sin esto no hay campaña | `ads_ver_conexion {marca_id}` | Usuario | https://app.systemslean.com/credenciales → elegir «Meta» → botón «Conectar con Meta». Antes necesita una página de Facebook (https://www.facebook.com/pages/create) y una cuenta publicitaria con forma de pago (https://business.facebook.com/billing_hub/payment_settings) |
-| 5 | Su proveedor | De ahí salen el producto, el costo, el stock y el flete | Dropi: la tool `list_products` responde. Soydrop: `soydrop_token_estado {}` dice conectado | Usuario | **Dropi:** agregar el conector `https://mcp.dropi.co/mcp` igual que el de Systems Lean. **Soydrop** (Honduras): con la extensión instalada, abrir https://app.soydrop.com e iniciar sesión; la extensión conecta la cuenta sola |
+| 5 | Su proveedor | De ahí salen el producto, el costo, el stock y el flete | Dropi: la tool `list_products` responde. Soydrop: `soydrop_token_estado {}` dice conectado | Usuario | **Dropi:** agregar su conector (ver «Los conectores»). **Soydrop** (Honduras): con la extensión instalada, abrir https://app.soydrop.com e iniciar sesión; la extensión conecta la cuenta sola |
 | 6 | Node.js 20 o más y unos 500 MB libres | El editor de videos corre en su PC | `node --version` | Usuario | https://nodejs.org → botón de la versión LTS → instalar con todo por defecto → abrir un chat nuevo |
 | 7 | El editor de videos | Edita los videos de los anuncios | Existe `~/SystemsLean/editor/node_modules` | Tú | [editor.md](editor.md) › «Instalar» |
 | 8 | Créditos en Systems Lean | Las imágenes, las tomas con IA y la voz se generan en la app y cobran créditos | `cuenta_ver {}` › `creditos.disponibles`. Antes de generar muestra el costo (`anuncios_estimar_costo`) y espera el sí | Usuario | https://app.systemslean.com/subscription |
@@ -30,8 +30,20 @@ Se revisa **una sola vez por PC**. Si existe `~/SystemsLean/requisitos.md`, lée
 | Llave de Gemini (gratis) | Saber qué se dice y qué se ve en los videos de la competencia, en una llamada. Sin ella, el usuario tiene que escuchar cada video y contártelo | `node scripts/analizar.mjs --probar`, dentro de `~/SystemsLean/editor` | Ver «Las llaves» |
 | La app de Systems Lean en su celular | Le avisa de cada pedido y de cada mensaje de cliente, y le deja aprobar con un botón | Pregúntale al usuario si ya la tiene | Dile que se mande este link a su propio WhatsApp y lo abra en el celular: https://app.systemslean.com/conversations?fuente=app → iniciar sesión → «Instalar app». En iPhone: abrirlo en Safari → botón de compartir → «Agregar a inicio» |
 | Un navegador para ti | Leer la Biblioteca de anuncios de Meta y las páginas de la competencia. Solo para leer la web pública | Tienes herramientas de navegador | En Claude: la extensión Claude in Chrome, https://claude.com/chrome |
-| Conector de la Biblioteca de anuncios de Meta | Medir la competencia sin navegador | La tool `ads_library_search` responde | En Claude está en el directorio de conectores: https://claude.ai/settings/connectors |
-| Dropkiller o TrendTrack | Ventas y ganadores de otros países, y la transcripción de sus videos | Sus tools responden | Es de pago: solo si el usuario ya lo tiene |
+
+## Los conectores
+Todos en un solo lugar. Se agregan igual: en Claude, https://claude.ai/settings/connectors → «Agregar conector personalizado» → pegar la dirección → «Conectar», e iniciar sesión con la cuenta de ese servicio. Quedan disponibles en los chats nuevos. Compruébalos tú antes de pedirle nada al usuario.
+
+| Conector | ¿Hace falta? | Para qué | Dirección | Cómo se comprueba |
+|---|---|---|---|---|
+| Systems Lean | Sí | Opera toda la app | `https://app.systemslean.com/mcp` | `sl_como_trabajar` responde |
+| Dropi (oficial) | Sí, si vende con Dropi | El producto, el stock, el flete y los pedidos | `https://mcp.dropi.co/mcp` | La tool `list_products` responde |
+| Meta Ads (oficial de Meta) | Recomendado | La Biblioteca de anuncios: quién pauta el producto, cuántos anuncios y hace cuántos días | `https://mcp.facebook.com/ads` (en Claude también está en el directorio de conectores) | La tool `ads_library_search` responde. Solo responde con una cuenta publicitaria activa |
+| Dropkiller | Opcional, es de pago | Ventas y ganadores de otros países, y la transcripción de sus videos | Los pasos están en https://www.dropkiller.com/conectar/claude | La tool `search_ads` responde |
+| TrendTrack | Opcional, es de pago | Los anuncios que más escalan y las tiendas con más visitas | Se conecta desde su cuenta de TrendTrack | Sus tools responden |
+
+- **Soydrop no es un conector:** se conecta con la extensión de Chrome de Systems Lean (requisito 5).
+- **Ningún otro conector hace falta** para este camino. Sin los opcionales, la competencia se mira con lo que capture el usuario con la extensión y con la Biblioteca de anuncios en el navegador.
 
 ## La voz de los audios
 - **El camino normal es la app, con los créditos del usuario:** voces de ElevenLabs por país y acento, sin que el usuario abra ninguna cuenta. `video_voces_ver {proveedor: "elevenlabs"}` para elegir y `video_narracion_audio` para generar ([creativos.md](creativos.md) › «La voz»). También hay voces de Google y de Fish, más baratas.
