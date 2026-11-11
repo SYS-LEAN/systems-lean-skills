@@ -15,14 +15,60 @@ Se revisa **una sola vez por PC**. Si existe `~/SystemsLean/requisitos.md`, lée
 | 1 | Cuenta de Systems Lean con el plan Plus y el conector agregado | Sin el conector no hay nada de lo demás | `sl_como_trabajar` responde; `cuenta_ver {}` dice el plan, si incluye el conector y si está por vencer | Usuario | Plan: https://app.systemslean.com/subscription. Conector: en https://app.systemslean.com/credenciales elegir «Claude» y copiar la dirección (`https://app.systemslean.com/mcp`); en Claude se agrega en https://claude.ai/settings/connectors → «Agregar conector personalizado» → «Autorizar» |
 | 2 | Extensión de Chrome de Systems Lean, con la sesión iniciada | Conecta Soydrop, guarda productos de Dropi y de Soydrop con un botón y captura la investigación del usuario (anuncios, Marketplace, AliExpress, comentarios) | `cuenta_ver {}` › `extension_chrome`: si se la vio, hace cuánto y con qué versión. Si no hay registro, pregúntale al usuario si ve el ícono de Systems Lean en Chrome y si está con su sesión | Usuario | https://chromewebstore.google.com/detail/ieigggdfakhdegnggjhdhdlhhfhkojme → «Añadir a Chrome» → abrir la extensión e iniciar sesión con su cuenta de Systems Lean |
 | 3 | Una Unidad de Negocio de dropshipping para el país donde va a vender | Todo se guarda dentro de una | `marca_ver {}`; cuántas admite el plan, en `cuenta_ver {}` › `unidades_de_negocio` | Tú | No hay ninguna, o el usuario quiere una marca nueva: [marca.md](marca.md) |
-| 4 | Meta conectado en esa Unidad de Negocio: cuenta publicitaria, página y píxel | Sin esto no hay campaña | `ads_ver_conexion {marca_id}` | Usuario | https://app.systemslean.com/credenciales → elegir «Meta» → botón «Conectar con Meta». Antes necesita una página de Facebook (https://www.facebook.com/pages/create) y una cuenta publicitaria con forma de pago (https://business.facebook.com/billing_hub/payment_settings) |
+| 4 | Meta: página, cuenta publicitaria activa con forma de pago y píxel, conectados a esa Unidad de Negocio | Sin esto no hay campaña | `ads_ver_conexion {marca_id}` › `falta: null`, y la tabla de «Meta: lo que hay que tener» | Usuario | «Meta: lo que hay que tener», más abajo: cada cosa con su link |
 | 5 | Su proveedor | De ahí salen el producto, el costo, el stock y el flete | Dropi: la tool `list_products` responde. Soydrop: `soydrop_token_estado {}` dice conectado | Usuario | **Dropi:** agregar su conector (ver «Los conectores»). **Soydrop** (Honduras): con la extensión instalada, abrir https://app.soydrop.com e iniciar sesión; la extensión conecta la cuenta sola |
 | 6 | Node.js 20 o más y unos 500 MB libres | El editor de videos corre en su PC | `node --version` | Usuario | https://nodejs.org → botón de la versión LTS → instalar con todo por defecto → abrir un chat nuevo |
 | 7 | El editor de videos | Edita los videos de los anuncios | Existe `~/SystemsLean/editor/node_modules` | Tú | [editor.md](editor.md) › «Instalar» |
 | 8 | Créditos en Systems Lean | Las imágenes, las tomas con IA y la voz se generan en la app y cobran créditos | `cuenta_ver {}` › `creditos.disponibles`. Antes de generar muestra el costo (`anuncios_estimar_costo`) y espera el sí | Usuario | https://app.systemslean.com/subscription |
 
-- **Si el canal va a ser WhatsApp** (se decide en el paso 8), además: un número de WhatsApp conectado en la Unidad de Negocio. Se comprueba con `chat_proyectos_ver {}` y `chat_salud_ver {proyecto_id}`. Lo conecta el usuario en https://app.systemslean.com/credenciales, dentro de «Meta».
+- **Si el canal va a ser WhatsApp** (se decide en el paso 8), además: un número de WhatsApp de la marca conectado a su agente. Qué número sirve, cómo se conecta y cómo se comprueba: «El número de WhatsApp», más abajo.
 - **Una Unidad de Negocio nueva nace sin Meta y sin número:** aunque la cuenta ya tenga otra marca conectada, la nueva se conecta aparte.
+
+## Meta: lo que hay que tener
+Son cosas que el usuario tiene, o crea, **en Meta**: Systems Lean solo se conecta a ellas. Revísalas una por una antes de pedirle que conecte.
+- `ads_ver_conexion {marca_id}` dice lo que ya está, y en `falta`, lo primero que falta.
+- Lo que ninguna herramienta lee, se lo preguntas en una línea y con su link.
+
+| # | Qué | Para qué | Cómo se comprueba | Si falta |
+|---|---|---|---|---|
+| 4.1 | Una página de Facebook de la marca, que él administre | Los anuncios salen a nombre de la página | `ads_ver_conexion` › `page_id` y `videos_a_la_pagina: true` | La crea en https://www.facebook.com/pages/create |
+| 4.2 | Una cuenta publicitaria propia y **activa** | Con ella se pagan y se publican los anuncios | `ads_ver_conexion` › `ad_account_id` y `ad_account_currency`. Que esté activa: `ads_get_ad_accounts` del conector oficial de Meta Ads (`account_status`). Sin ese conector, pregúntale si ya publicó anuncios con ella y si ve algún aviso en https://www.facebook.com/accountquality | La crea en https://business.facebook.com/latest/settings/ad_accounts. La moneda no se cambia después: que sea la de la tarjeta con la que va a pagar |
+| 4.3 | Una forma de pago cargada en esa cuenta | Sin ella Meta no muestra los anuncios | `ads_get_ad_accounts` › `has_payment_method`. Sin ese conector, pregúntaselo | La carga en https://business.facebook.com/billing_hub/payment_settings |
+| 4.4 | Un píxel propio de la marca | Mide las compras de la landing y arma los públicos | `ads_ver_conexion` › `pixel_id`; `ads_ver_pixeles {marca_id}` los lista por nombre | Lo creas tú con `store_pixel_crear`, con su OK ([marca.md](marca.md)) |
+| 4.5 | El Instagram de la marca vinculado a la página (recomendado) | Los anuncios salen con su Instagram y se pueden armar públicos de Instagram | `ads_ver_conexion` › `instagram_actor_id` | Sin él se sigue: los anuncios salen a nombre de la página. Lo vincula en la configuración de su página de Facebook |
+| 4.6 | Si va a vender por WhatsApp: un número para la marca | Ahí escriben los clientes que tocan el anuncio | Ver «El número de WhatsApp» | Ver «El número de WhatsApp» |
+
+### Conectar Meta a Systems Lean
+1. Con la Unidad de Negocio elegida: https://app.systemslean.com/credenciales → «Meta» → «Conectar con Meta».
+2. En la ventana de Meta, que dé acceso a **todo lo de esta marca**: la página, la cuenta publicitaria, el píxel, el Instagram y la cuenta de WhatsApp. Lo que deje sin marcar no aparece después.
+3. Vuelve a leer `ads_ver_conexion {marca_id}`:
+   - `conectado: false`: no terminó de autorizar. Que repita el paso 1.
+   - `falta` pide elegir la cuenta publicitaria o la página: se eligen en Ads Lean, en la tarjeta de la campaña → «Conectar Meta» → «Cuenta publicitaria» y «Página de Facebook» → «Guardar conexión». Se hace en el paso 12, cuando la campaña ya existe.
+   - `videos_a_la_pagina: false`: no dio acceso a la página. Que vuelva a «Conectar con Meta» y la marque.
+   - `falta: null`: está listo.
+
+### El número de WhatsApp (si va a vender por WhatsApp)
+El canal se decide en el paso 8, pero el número se pregunta ahora: conseguir uno lleva tiempo.
+
+**Qué número sirve:**
+- El que ya usa con la app **WhatsApp Business** en su celular, con la app actualizada (versión 2.24.17 o más nueva). Sigue atendiendo desde el celular y, además, entra a Systems Lean.
+- O un número que se va a atender solo desde Systems Lean: deja de funcionar en la app del teléfono.
+- Si hoy lo tiene en el WhatsApp normal, primero lo pasa a la app WhatsApp Business, que es gratis.
+- Un número por marca: si ya está conectado en otra cuenta de Systems Lean, los mensajes entran allá.
+
+**Cómo se conecta** (cuando el producto ya existe en la app, después del paso 2: la campaña de chat necesita un producto):
+1. https://app.systemslean.com/prompts → «Nueva Campaña» (si es la primera, «Crear primera campaña»).
+2. En la tarjeta «Cerebro del Agente» → «Agregar canal» → «WhatsApp».
+3. Elige «Sigue en mi celular» (con el celular a mano: la app WhatsApp Business le pide aceptar) o «Solo aquí».
+- Si el número ya aparece bajo «Mis cuentas», basta con «Agregar» (o «Enlazar», si vive en el celular).
+
+**Cómo se comprueba:**
+- `chat_proyectos_ver {}`: el proyecto con su número en `whatsapp[]`.
+- `chat_salud_ver {proyecto_id}`: `canal: "conectado"` y `whatsapp` dentro de `canales`.
+- `ads_ver_conexion {marca_id}` › `whatsapp_numeros`: el número con `credencial_id` y `mismo_negocio_que_la_pagina: true`. Si dice `false`, el número y la página están en negocios distintos de Meta y el anuncio puede no aceptarlo como destino: díselo ya, y en el paso 12 confírmalo con `ads_ver_whatsapp_pagina {marca_id}`.
+- Que se mande un mensaje desde otro teléfono y lo vea llegar en https://app.systemslean.com/conversations.
+
+**Lo que cobra Meta:** los mensajes que manda el negocio (la confirmación del pedido, los seguimientos) se los cobra Meta a la forma de pago de su cuenta de WhatsApp Business, que se carga en https://business.facebook.com/billing_hub/payment_settings. Systems Lean no cobra mensualidad por el número. Cuánto lleva gastado se ve en `chat_salud_ver` › `costo_whatsapp_mes`.
 
 ## Lo recomendado
 | Qué | Para qué | Cómo se comprueba | Si falta |
@@ -65,7 +111,8 @@ Son del usuario y viven en un solo archivo de su PC: `~/SystemsLean/.env`. **No 
 
 ## Qué frena y qué no
 - **Sin el 1, el 2, el 3 o el 5: no se empieza.** El 3 lo resuelves tú con [marca.md](marca.md).
-- **Sin el 4 (Meta):** se puede avanzar hasta los creativos (paso 9), pero dile desde ya que sin eso no hay campaña.
+- **Sin el 4 (Meta):** se puede avanzar hasta los creativos (paso 9), pero dile desde ya que sin eso no hay campaña. Una cuenta publicitaria restringida o sin forma de pago cuenta como «sin Meta»: se arregla en Meta antes de publicar.
+- **Sin número de WhatsApp:** se sigue; el canal del paso 8 será la landing, o se espera el número.
 - **Sin el 6 y el 7:** se avanza hasta el paso 8; los videos esperan.
 - **Sin lo recomendado: se sigue.** Di en una línea qué se pierde.
 - **El producto es digital** (curso, ebook, plantilla, app): este camino no aplica, es solo para producto físico contra entrega. Díselo y sigue las guías de `sl_como_trabajar` para digital.

@@ -48,9 +48,9 @@ Lo hecho se salta; lo que falta se hace con su paso.
 ## 4. Las conexiones
 | Qué | Tool | Qué tiene que mostrar | Si falta |
 |---|---|---|---|
-| Meta | `ads_ver_conexion {marca_id}` | Cuenta publicitaria, página, píxel y `whatsapp_numeros` | El usuario la conecta en https://app.systemslean.com/credenciales → «Meta» → «Conectar con Meta». Sin esto no hay campaña: díselo ya y avanza solo hasta los creativos |
+| Meta | `ads_ver_conexion {marca_id}` | Cuenta publicitaria, página, píxel y `whatsapp_numeros`, con `falta: null` | [primera-vez.md](primera-vez.md) › «Meta: lo que hay que tener»: qué debe tener en Meta (página, cuenta publicitaria activa, forma de pago, píxel) y cómo lo conecta. Sin esto no hay campaña: díselo ya y avanza solo hasta los creativos |
 | Píxel | `ads_ver_pixeles {marca_id}` | El píxel de la marca, por nombre | Se crea en el paso de landing o de campaña, con su OK |
-| WhatsApp | `chat_proyectos_ver {}` y `chat_salud_ver {proyecto_id}` | El proyecto de Chat Lean con su número activo | Si el canal termina siendo WhatsApp, el usuario conecta el número en https://app.systemslean.com/credenciales, dentro de «Meta». Pídele que se mande un mensaje de prueba y que lo vea llegar en Chat en Vivo (https://app.systemslean.com/conversations) |
+| WhatsApp | `chat_proyectos_ver {}` y `chat_salud_ver {proyecto_id}` | El proyecto de Chat Lean con su número activo | Si el canal termina siendo WhatsApp, el usuario conecta el número en el agente: [primera-vez.md](primera-vez.md) › «El número de WhatsApp». Pídele que se mande un mensaje de prueba y que lo vea llegar en Chat en Vivo (https://app.systemslean.com/conversations) |
 | Proveedor Dropi | La tool `list_products` (conector oficial de Dropi) | Responde | Que lo agregue como conector de su agente con `https://mcp.dropi.co/mcp` (en Claude: claude.ai → Configuración → Conectores) |
 | Proveedor Soydrop | `soydrop_token_estado {}` | Conectado | Con la extensión de Chrome de Systems Lean instalada, el usuario abre https://app.soydrop.com e inicia sesión: la extensión conecta la cuenta sola. Vuelve a leer `soydrop_token_estado` |
 | Competencia | `ads_library_search` (conector oficial de Meta Ads; solo responde con una cuenta publicitaria activa), Dropkiller o TrendTrack | Responde | Se sigue con lo que capture el usuario y la Biblioteca en el navegador (paso 3) |
