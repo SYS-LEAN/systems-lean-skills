@@ -28,7 +28,7 @@ Se revisa **una sola vez por PC**. Si existe `~/SystemsLean/requisitos.md`, lée
 | Qué | Para qué | Cómo se comprueba | Si falta |
 |---|---|---|---|
 | Llave de Gemini (gratis) | Saber qué se dice y qué se ve en los videos de la competencia, en una llamada. Sin ella, el usuario tiene que escuchar cada video y contártelo | `node scripts/analizar.mjs --probar`, dentro de `~/SystemsLean/editor` | Ver «Las llaves» |
-| Llave de Pixabay (gratis) | Buscar videos de stock gratis para el relleno de los anuncios (manos, cocina, gente, lugares). Sin ella, el relleno sale de Pexels (que no pide llave, pero se elige en su página), de TikTok o Instagram, o de tomas con IA que cobran créditos | `node scripts/stock.mjs --probar`, dentro de `~/SystemsLean/editor` | Ver «Las llaves» |
+| Llave de Pixabay (gratis) | Un segundo banco de videos de stock para el relleno de los anuncios, que se busca desde la terminal y con miniaturas. Sin ella no se frena nada: el stock sale de Pexels, que no pide llave | `node scripts/stock.mjs --probar`, dentro de `~/SystemsLean/editor` | Ver «Las llaves» |
 | La app de Systems Lean en su celular | Le avisa de cada pedido y de cada mensaje de cliente, y le deja aprobar con un botón | Pregúntale al usuario si ya la tiene | Dile que se mande este link a su propio WhatsApp y lo abra en el celular: https://app.systemslean.com/conversations?fuente=app → iniciar sesión → «Instalar app». En iPhone: abrirlo en Safari → botón de compartir → «Agregar a inicio» |
 | Un navegador para ti | Leer la Biblioteca de anuncios de Meta y las páginas de la competencia. Solo para leer la web pública | Tienes herramientas de navegador | En Claude: la extensión Claude in Chrome, https://claude.com/chrome |
 

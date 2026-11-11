@@ -1,7 +1,8 @@
-// Busca y baja videos de stock gratis para el relleno de un anuncio: Pixabay y Pexels.
-// - Pixabay se busca desde acá, con la llave gratis del propio usuario. Va en el archivo .env de la
-//   carpeta de trabajo: PIXABAY_API_KEY=...  (se saca en https://pixabay.com/api/docs/)
+// Busca y baja videos de stock gratis para el relleno de un anuncio: Pexels y Pixabay.
 // - Pexels no pide llave: el video se elige en su página y se baja acá con su enlace.
+// - Pixabay (opcional) se busca desde acá, con la llave gratis del propio usuario. Va en el archivo .env
+//   de la carpeta de trabajo: PIXABAY_API_KEY=...  (se saca en https://pixabay.com/api/docs/)
+// Sin la llave de Pixabay, todo lo de Pexels funciona igual.
 // Uso:
 //   node scripts/stock.mjs --probar                                    (comprueba la llave de Pixabay)
 //   node scripts/stock.mjs --buscar "<palabras, mejor en inglés>" [--vertical] [--fuente pixabay] [--n 8] [--idioma es] [--hoja "<ruta.jpg>"]
@@ -36,6 +37,7 @@ const FUENTES = {
 const VARIABLE = "PIXABAY_API_KEY";
 const SACAR = "https://pixabay.com/api/docs/ (botón «Login», o «Sign up» si no tienes cuenta; al volver a esa página, la llave aparece en la sección «Search Images», en la fila «key»)";
 const FALTA = `Falta la llave de Pixabay. Es gratis: se saca en ${SACAR} y va en ${ENV}, en una línea: ${VARIABLE}=tu_llave`;
+const OPCIONAL = `Para buscar también en Pixabay desde acá, con la hoja de miniaturas, hace falta su llave gratis: se saca en ${SACAR} y va en ${ENV}, en una línea: ${VARIABLE}=tu_llave`;
 const buscarEnPexels = (palabras, vertical) =>
   `https://www.pexels.com/search/videos/${encodeURIComponent(palabras)}/${vertical ? "?orientation=portrait" : ""}`;
 
@@ -208,7 +210,7 @@ const USO = `Uso:
   node scripts/stock.mjs --bajar <pixabay:id | pexels:id | enlace del video> --salida "<ruta.mp4>" [--calidad 1080]`;
 
 if (args.includes("--probar")) {
-  if (!llave()) salir(FALTA);
+  if (!llave()) salir(`${FALTA}\nSin ella, lo de Pexels funciona igual: el video se elige en su página y se baja con --bajar y su enlace.`);
   const { quedan } = await pixabay({ q: "hands", per_page: "3" });
   console.log(`La llave de Pixabay funciona.${quedan === null ? "" : ` Te quedan ${quedan} consultas de este minuto.`}`);
   console.log("Pexels no pide llave: el video se elige en su página y se baja con --bajar y su enlace.");
@@ -221,14 +223,20 @@ if (args.includes("--buscar")) {
   const n = Math.max(1, Math.min(20, Number(opcion("--n")) || 8));
   const vertical = args.includes("--vertical");
   const idioma = opcion("--idioma")?.toLowerCase() === "es" ? "es" : "en";
-  const enPexels = `Pexels se busca en su página, sin llave: ${buscarEnPexels(palabras, vertical)}\n  El video elegido se baja con: node scripts/stock.mjs --bajar "<enlace del video>" --salida "<ruta.mp4>"`;
+  const enPexels = `Pexels se busca en su página, sin llave: ${buscarEnPexels(palabras, vertical)}\n  El enlace de un video es https://www.pexels.com/video/<nombre>-<id>/ y se baja con: node scripts/stock.mjs --bajar "<enlace del video>" --salida "<ruta.mp4>"`;
   const pedida = opcion("--fuente")?.toLowerCase();
   if (pedida === "pexels") {
     console.log(enPexels);
     process.exit(0);
   }
   if (pedida && pedida !== "pixabay") salir(`No conozco la fuente «${pedida}». Desde acá se busca en pixabay; Pexels se busca en su página.`);
-  if (!llave()) salir(`${FALTA}\n\nMientras tanto: ${enPexels}`);
+  if (!llave()) {
+    // Sin llave no es un error: el stock sale de Pexels.
+    if (pedida === "pixabay") salir(FALTA);
+    console.log(enPexels);
+    console.log("\n" + OPCIONAL);
+    process.exit(0);
+  }
 
   const f = FUENTES.pixabay;
   const { videos, quedan, deCache } = await buscar(palabras, { vertical, n, idioma });

@@ -56,16 +56,17 @@ captura_creativo_guardar {
 - Todo queda en Creativos de Inspiración del producto: lo ves con `anuncios_ver_biblioteca_creativos`.
 
 **Stock gratis, con `scripts/stock.mjs` del editor** ([editor.md](editor.md)). Para el relleno, nunca para mostrar el producto.
-1. Busca en Pixabay, con la llave gratis del usuario ([primera-vez.md](primera-vez.md) › «Las llaves»), en inglés y de a una necesidad:
-   `node scripts/stock.mjs --buscar "hands washing dishes" --vertical --hoja "<carpeta del producto>/entrada/stock_hoja.jpg"`
-   - Lista cada clip con su id, duración, tamaño, autor y enlace. La hoja trae la miniatura de cada uno: mírala antes de bajar.
-2. Pexels no pide llave. El comando anterior termina con el enlace de la misma búsqueda en Pexels:
-   - ábrelo con tu navegador y elige, o pásaselo al usuario y que te pegue el enlace del video que le guste;
-   - el enlace de un video es `https://www.pexels.com/video/<nombre>-<id>/`.
-3. Baja solo el elegido, uno o dos por toma:
-   `node scripts/stock.mjs --bajar <pixabay:id | enlace del video de Pexels> --salida "<carpeta del producto>/entrada/<nombre>.mp4"`
+1. Busca en inglés y de a una necesidad: `node scripts/stock.mjs --buscar "hands washing dishes" --vertical`.
+2. **Pexels, sin llave.** El comando da el enlace de esa búsqueda en Pexels (`https://www.pexels.com/search/videos/<palabras>/?orientation=portrait`). Elige el video de una de estas formas:
+   - con tu buscador web: `site:pexels.com/video <palabras en inglés>`; cada resultado es la página de un video, con su descripción;
+   - abriendo el enlace de la búsqueda con tu navegador;
+   - pasándole ese enlace al usuario, para que te pegue el del video que le guste.
+   - El enlace de un video es `https://www.pexels.com/video/<nombre>-<id>/`. Los clips de iStock que Pexels muestra como patrocinados son de pago: no se usan.
+3. **Pixabay, si el usuario puso su llave gratis** ([primera-vez.md](primera-vez.md) › «Las llaves»). El mismo comando lista además los clips de Pixabay con su id, duración, tamaño, autor y enlace. Con `--hoja "<carpeta del producto>/entrada/stock_hoja.jpg"` arma una imagen con la miniatura de cada uno: mírala antes de bajar.
+4. Baja solo el elegido, uno o dos por toma:
+   `node scripts/stock.mjs --bajar <enlace del video de Pexels | pixabay:id> --salida "<carpeta del producto>/entrada/<nombre>.mp4"`
    - Baja la copia de 1080 (con `--calidad 720`, la de 720) y anota la fuente, el enlace y la licencia en `entrada/fuentes.json`.
-4. Mídelo con `scripts/medir.mjs`. Un clip horizontal se recorta por el centro al llenar el cuadro: sirve solo si lo importante está al medio.
+5. Mídelo con `scripts/medir.mjs` y míralo con `scripts/hoja.mjs` antes de usarlo. Un clip horizontal se recorta por el centro al llenar el cuadro: sirve solo si lo importante está al medio.
 
 **Mixkit y Coverr** no tienen comando: los abre el usuario en su navegador y te pasa el archivo.
 - Mixkit: `https://mixkit.co/free-stock-video/<palabra>/`. Solo los clips con «Free License»; los de «Restricted License» no sirven para anuncios.
