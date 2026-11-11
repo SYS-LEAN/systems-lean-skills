@@ -25,9 +25,9 @@ Por cada toma del plan, prueba las fuentes en orden y quédate con la primera qu
 
 | Material | 1.º | 2.º | 3.º | Después |
 |---|---|---|---|---|
-| **El video ganador de la competencia** | La biblioteca del producto | Su TikTok o su Reel: `captura_creativo_guardar` con la URL del post | Su anuncio en la Biblioteca de Meta: el usuario lo guarda con «Descargar creativo» de la extensión | Pedirle el archivo al usuario |
+| **El video ganador de la competencia** | La biblioteca del producto | Su TikTok o su Reel: `captura_creativo_guardar` con la URL del post. Su video de YouTube: `scripts/bajar.mjs` | Su anuncio en la Biblioteca de Meta: el usuario lo guarda con «Descargar creativo» de la extensión | Pedirle el archivo al usuario |
 | **Las tomas de uso del producto** | Los videos del mismo producto en la biblioteca: competencia, proveedor y los del usuario | Las que grabe el usuario con el celular | El mismo producto en TikTok o Instagram: `captura_creativo_guardar` con la URL, y se usa el tramo que sirve | Tomas con IA de la app; al final, pedirle el archivo |
-| **El relleno** (manos, cocina, gente, lugares, el problema) | Stock gratis: `scripts/stock.mjs` | La misma acción en TikTok o Instagram: `captura_creativo_guardar` con la URL | Mixkit o Coverr, en el navegador del usuario | Tomas con IA de la app; al final, pedirle el archivo |
+| **El relleno** (manos, cocina, gente, lugares, el problema) | Stock gratis: `scripts/stock.mjs` | La misma acción en TikTok o Instagram: `captura_creativo_guardar` con la URL. En YouTube: `scripts/bajar.mjs` | Mixkit o Coverr, en el navegador del usuario | Tomas con IA de la app; al final, pedirle el archivo |
 | **El material del proveedor** | Las fotos de su ficha, ya en la biblioteca (paso 2) | El video y las fotos de la ficha de AliExpress: el usuario los guarda con «Descargar» de la extensión | Pedirle al proveedor sus videos por WhatsApp | — |
 
 **Un video de TikTok o de Instagram, con su URL.** No instala nada: lo baja el servidor de la app.
@@ -46,7 +46,16 @@ captura_creativo_guardar {
   - Alcanza para tomas de 2 a 4 s dentro de un video.
   - Para un video «tal cual» (modo 1) prefiere una copia de 720p o más: la de Instagram, la de la Biblioteca de Meta o el archivo del usuario.
 - **Si dice `estado_descarga: "failed"`,** lee `_nota`: un video privado, con restricción de edad o de más de 100 MB no baja. Usa otro o pídele el archivo al usuario.
-- **YouTube no baja por la app:** YouTube le pide iniciar sesión al servidor. Busca el mismo video en TikTok o Instagram, o pídele el archivo al usuario.
+- **YouTube no baja por la app** (YouTube le pide iniciar sesión al servidor): va por la PC, con el comando que sigue.
+
+**Un video de YouTube o un Short, con `scripts/bajar.mjs` del editor** ([editor.md](editor.md)). Solo para YouTube.
+- `node scripts/bajar.mjs "<URL del video>" --info`: título, canal, duración y vistas, sin bajar nada.
+- `node scripts/bajar.mjs "<URL del video>" --salida "<carpeta del producto>/entrada/<nombre>.mp4"`: lo baja en mp4 con su audio, en la copia de 1080 (con `--calidad 720`, la de 720), y lo anota en `entrada/fuentes.json`.
+- La primera vez instala solo el programa `yt-dlp` en `~/SystemsLean/bin` (unos 25 MB, de su página oficial). Pide Node.js 22 o más: si falta, el comando lo dice.
+- Medido el 2026-11-10 en Windows: un Short de 41 s bajó en 1080×1920 en unos 10 s.
+- No baja un video de más de 10 minutos: busca uno más corto (con `--largo` lo baja igual).
+- Si falla, dice por qué: privado, con restricción de edad, o YouTube pide iniciar sesión (pasa con una VPN). Ahí se usa otro video o se le pide el archivo al usuario.
+- Para que quede en la biblioteca del producto, súbelo como un archivo de la PC: «Subir los videos terminados a la biblioteca», con `fuente: "web"`.
 
 **El botón «Descargar creativo» de la extensión.** Lo toca el usuario, con el producto elegido en la extensión:
 - **TikTok:** `https://www.tiktok.com/search?q=<producto>`. Sobre cada video aparece un botón con una flecha hacia abajo («Descargar creativo»).

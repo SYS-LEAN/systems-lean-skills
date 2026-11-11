@@ -14,6 +14,7 @@ import os from "node:os";
 import path from "node:path";
 import { Readable } from "node:stream";
 import { pipeline } from "node:stream/promises";
+import { anotarFuente } from "./fuentes.mjs";
 import { EDITOR, remotion } from "./remotion.mjs";
 
 const ENV = path.join(EDITOR, "..", ".env");
@@ -305,20 +306,9 @@ if (args.includes("--bajar")) {
   }
 
   // Se anota de dónde salió cada clip, para poder cambiarlo si alguien lo reclama.
-  const registro = path.join(path.dirname(destino), "fuentes.json");
-  let fuentes = [];
-  try {
-    fuentes = JSON.parse(fs.readFileSync(registro, "utf8"));
-    if (!Array.isArray(fuentes)) fuentes = [];
-  } catch {
-    fuentes = [];
-  }
-  fuentes = fuentes.filter((x) => x.archivo !== path.basename(destino));
-  fuentes.push({
-    archivo: path.basename(destino), fuente: f.nombre, id, pagina: video.pagina, autor: video.autor, autor_url: video.autor_url,
-    licencia: f.licencia, licencia_url: f.licencia_url, bajado: new Date().toISOString().slice(0, 10),
+  const registro = anotarFuente(destino, {
+    fuente: f.nombre, id, pagina: video.pagina, autor: video.autor, autor_url: video.autor_url, licencia: f.licencia, licencia_url: f.licencia_url,
   });
-  fs.writeFileSync(registro, JSON.stringify(fuentes, null, 2) + "\n", "utf8");
 
   const megas = (fs.statSync(destino).size / 1024 / 1024).toFixed(1);
   const medida = archivo.ancho && archivo.alto ? ` · ${archivo.ancho}x${archivo.alto}` : "";

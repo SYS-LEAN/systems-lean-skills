@@ -5,7 +5,7 @@ Es un proyecto de Remotion que viene en la carpeta `editor/` de la skill, junto 
 **Las imágenes no se hacen aquí:** van en el generador de anuncios estáticos de la app (ver [creativos.md](creativos.md) › «Las imágenes»).
 
 ## Instalar (una vez por PC)
-1. `node --version` debe dar 20 o más. Si no hay Node.js, pídele al usuario que instale la versión LTS de https://nodejs.org y que abra un chat nuevo.
+1. `node --version` debe dar 20 o más. Si no hay Node.js, pídele al usuario que instale la versión LTS de https://nodejs.org y que abra un chat nuevo. Solo `scripts/bajar.mjs` (YouTube) pide 22 o más.
 2. Carpeta de trabajo: `~/SystemsLean` (en Windows, `%USERPROFILE%\SystemsLean`).
 3. Si no existe `~/SystemsLean/editor/node_modules`, pon el editor en `~/SystemsLean/editor` de una de estas dos formas:
    - **Tienes la carpeta de la skill** (instalada como plugin o copiada a la carpeta de skills de tu agente): copia su `editor/` entera a `~/SystemsLean/editor`.
@@ -32,6 +32,7 @@ Todos los comandos se corren **dentro de `~/SystemsLean/editor`**, con rutas com
 | `node scripts/hoja.mjs "<video>"` | Hoja con 20 cuadros en orden y su segundo, al lado del video (`<video>_hoja.jpg`). Se mira con la herramienta de leer imágenes |
 | `node scripts/render.mjs <Plantilla> "<plan.json>" "<salida>" --carpeta "<entrada>"` | Renderiza. Los archivos del plan se nombran relativos a `--carpeta` |
 | `node scripts/analizar.mjs "<video, audio, imagen o url>" ["<qué quieres saber>"] [--salida "<ruta.txt>"]` | Lo que se dice y lo que se ve en un video, en una sola llamada a Gemini con la llave del usuario (`GEMINI_API_KEY` en `~/SystemsLean/.env`). Sin pedido, da el análisis completo de un anuncio: transcripción con segundos, texto en pantalla, gancho, escenas, ángulo, oferta y precio, y lo ajeno que hay que tapar. `--probar` comprueba la llave |
+| `node scripts/bajar.mjs "<url de YouTube>" --salida "<ruta.mp4>" [--calidad 1080]` / `--info` / `--actualizar` | Baja a la PC un video de YouTube o un Short, con su audio (YouTube no deja bajarlo al servidor de la app). La primera vez instala solo el programa `yt-dlp` en `~/SystemsLean/bin`. `--info` dice título, canal, duración y vistas sin bajar. `--actualizar` pone al día `yt-dlp`: es lo primero si deja de bajar. Pide Node.js 22 o más |
 | `node scripts/voz.mjs --lista` / `--voz <id> --texto "..." --salida "<mp3>"` | Voz con la cuenta de ElevenLabs del usuario (`ELEVENLABS_API_KEY` en `~/SystemsLean/.env`). Opcional |
 | `node scripts/stock.mjs --buscar "<palabras en inglés>" [--vertical] [--n 8] [--hoja "<ruta.jpg>"]` | Videos de stock gratis para el relleno. Sin llave, da el enlace de la búsqueda en Pexels. Con la llave de Pixabay del usuario (`PIXABAY_API_KEY` en `~/SystemsLean/.env`, opcional) lista además sus clips con id, duración, tamaño, autor y enlace, y con `--hoja` arma una imagen con sus miniaturas. `--probar` comprueba la llave |
 | `node scripts/stock.mjs --bajar <pixabay:id \| pexels:id \| enlace del video> --salida "<ruta.mp4>" [--calidad 1080]` | Baja el clip elegido en la copia de 1080 y anota fuente, enlace y licencia en `fuentes.json`, al lado del archivo. Con el enlace de un video de Pexels no pide llave |
