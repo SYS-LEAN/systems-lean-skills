@@ -6,7 +6,8 @@ import React from "react";
 import { AbsoluteFill, Img } from "remotion";
 import { INTER, srcDe } from "./comun";
 
-export type PlanHoja = { cuadros: { archivo: string; segundo: number }[]; titulo?: string };
+// `rotulo` reemplaza al segundo en la etiqueta (scripts/stock.mjs pone ahí la fuente y el id de cada clip).
+export type PlanHoja = { cuadros: { archivo: string; segundo: number; rotulo?: string }[]; titulo?: string };
 
 export const HOJA = { columnas: 5, celdaAncho: 270, celdaAlto: 480, espacio: 6, cabecera: 56 };
 const filas = 4;
@@ -29,13 +30,13 @@ export const HojaCuadros: React.FC<PlanHoja> = ({ cuadros, titulo }) => (
               left: 6,
               backgroundColor: "rgba(0,0,0,.7)",
               color: "#fff",
-              fontSize: 20,
+              fontSize: c.rotulo ? 16 : 20,
               fontWeight: 700,
               padding: "2px 8px",
               borderRadius: 6,
             }}
           >
-            {c.segundo.toFixed(1)} s
+            {c.rotulo ?? `${c.segundo.toFixed(1)} s`}
           </div>
         </div>
       ))}

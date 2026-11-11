@@ -33,6 +33,8 @@ Todos los comandos se corren **dentro de `~/SystemsLean/editor`**, con rutas com
 | `node scripts/render.mjs <Plantilla> "<plan.json>" "<salida>" --carpeta "<entrada>"` | Renderiza. Los archivos del plan se nombran relativos a `--carpeta` |
 | `node scripts/analizar.mjs "<video, audio, imagen o url>" ["<qué quieres saber>"] [--salida "<ruta.txt>"]` | Lo que se dice y lo que se ve en un video, en una sola llamada a Gemini con la llave del usuario (`GEMINI_API_KEY` en `~/SystemsLean/.env`). Sin pedido, da el análisis completo de un anuncio: transcripción con segundos, texto en pantalla, gancho, escenas, ángulo, oferta y precio, y lo ajeno que hay que tapar. `--probar` comprueba la llave |
 | `node scripts/voz.mjs --lista` / `--voz <id> --texto "..." --salida "<mp3>"` | Voz con la cuenta de ElevenLabs del usuario (`ELEVENLABS_API_KEY` en `~/SystemsLean/.env`). Opcional |
+| `node scripts/stock.mjs --buscar "<palabras en inglés>" [--vertical] [--n 8] [--hoja "<ruta.jpg>"]` | Videos de stock gratis de Pixabay para el relleno, con la llave del usuario (`PIXABAY_API_KEY` en `~/SystemsLean/.env`): id, duración, tamaño, autor y enlace de cada uno, y con `--hoja` una imagen con sus miniaturas. Termina con el enlace de la misma búsqueda en Pexels. `--probar` comprueba la llave |
+| `node scripts/stock.mjs --bajar <pixabay:id \| pexels:id \| enlace del video> --salida "<ruta.mp4>" [--calidad 1080]` | Baja el clip elegido (Pexels no pide llave) en la copia de 1080 y anota fuente, enlace y licencia en `fuentes.json`, al lado del archivo |
 
 - **Tiempos medidos en una PC normal:** un video de 10 s tarda cerca de 2 minutos. Se renderiza con 2 núcleos para que la PC siga usable.
   - Si la PC se pone lenta, `--concurrency 1`.

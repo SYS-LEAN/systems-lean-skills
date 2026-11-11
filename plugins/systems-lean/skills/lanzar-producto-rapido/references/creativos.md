@@ -17,8 +17,67 @@ De las referencias de los pasos 3 y 4, ya guardadas y descritas en la biblioteca
 1. `anuncios_ver_biblioteca_creativos {producto_id, limit: 100}` (sin `limit` trae 40): vienen ordenados de mejor a peor desempeño y con su descripción (origen, días, «LISTO PARA PAUTAR», «NO CORRE EN…»). Lee la descripción antes de volver a analizar un video.
 2. Cuando el usuario nombra uno («el creativo 5»), es el `numero` de su tarjeta: tráelo con `anuncios_ver_biblioteca_creativos {producto_id, numeros: [5]}`.
 3. Por cada candidato, baja el archivo a la PC con su URL de la biblioteca: `curl -L -o "<carpeta del producto>/entrada/<nombre>.mp4" "<url>"`. La carpeta del producto es `~/SystemsLean/productos/<producto>-<país>`.
-4. Si un video bueno no estaba en la biblioteca, guárdalo primero como en el paso 3 (`captura_creativo_guardar`) y después bájalo.
-5. Solo TikTok sin archivo: `yt-dlp "<url>"` si el usuario lo tiene instalado; si no, pídele el archivo.
+4. Si un video bueno no estaba en la biblioteca, guárdalo primero (`captura_creativo_guardar`, abajo) y después bájalo.
+5. Lo que falte se consigue con la tabla que sigue.
+
+### De dónde sale cada toma
+Por cada toma del plan, prueba las fuentes en orden y quédate con la primera que la tenga. La IA va al final, con su costo.
+
+| Material | 1.º | 2.º | 3.º | Después |
+|---|---|---|---|---|
+| **El video ganador de la competencia** | La biblioteca del producto | Su TikTok o su Reel: `captura_creativo_guardar` con la URL del post | Su anuncio en la Biblioteca de Meta: el usuario lo guarda con «Descargar creativo» de la extensión | Pedirle el archivo al usuario |
+| **Las tomas de uso del producto** | Los videos del mismo producto en la biblioteca: competencia, proveedor y los del usuario | Las que grabe el usuario con el celular | El mismo producto en TikTok o Instagram: `captura_creativo_guardar` con la URL, y se usa el tramo que sirve | Tomas con IA de la app; al final, pedirle el archivo |
+| **El relleno** (manos, cocina, gente, lugares, el problema) | Stock gratis: `scripts/stock.mjs` | La misma acción en TikTok o Instagram: `captura_creativo_guardar` con la URL | Mixkit o Coverr, en el navegador del usuario | Tomas con IA de la app; al final, pedirle el archivo |
+| **El material del proveedor** | Las fotos de su ficha, ya en la biblioteca (paso 2) | El video y las fotos de la ficha de AliExpress: el usuario los guarda con «Descargar» de la extensión | Pedirle al proveedor sus videos por WhatsApp | — |
+
+**Un video de TikTok o de Instagram, con su URL.** No instala nada: lo baja el servidor de la app.
+```
+captura_creativo_guardar {
+  producto_id,
+  media_url: "<URL del post>",
+  media_type: "video",
+  provider: "tiktok" | "instagram",
+  advertiser_name, texto_anuncio, metrics: { likes }
+}
+```
+- La URL es la de la página del video: `https://www.tiktok.com/@<usuario>/video/<id>` o `https://www.instagram.com/reel/<código>/`. No sirve la de un perfil ni la de una búsqueda.
+- Responde en menos de un minuto. Sigue solo si dice `persistido: true`: el archivo está en `url_guardada`.
+- **Qué llega** (medido el 2026-11-10): mp4 en H.264, sin el logo flotante de TikTok. De TikTok, 576×1024; de Instagram, 720×1280. Lo que el autor escribió encima del video sí queda.
+  - Alcanza para tomas de 2 a 4 s dentro de un video.
+  - Para un video «tal cual» (modo 1) prefiere una copia de 720p o más: la de Instagram, la de la Biblioteca de Meta o el archivo del usuario.
+- **Si dice `estado_descarga: "failed"`,** lee `_nota`: un video privado, con restricción de edad o de más de 100 MB no baja. Usa otro o pídele el archivo al usuario.
+- **YouTube no baja por la app:** YouTube le pide iniciar sesión al servidor. Busca el mismo video en TikTok o Instagram, o pídele el archivo al usuario.
+
+**El botón «Descargar creativo» de la extensión.** Lo toca el usuario, con el producto elegido en la extensión:
+- **TikTok:** `https://www.tiktok.com/search?q=<producto>`. Sobre cada video aparece un botón con una flecha hacia abajo («Descargar creativo»).
+- **Instagram:** el perfil de la cuenta, `https://www.instagram.com/<usuario>/`. El mismo botón aparece sobre cada publicación.
+- **Biblioteca de anuncios de Meta:** el enlace del paso 3. El botón aparece sobre cada anuncio.
+- **AliExpress:** en la ficha del producto, al abrir una foto o el video en grande aparece el botón «Descargar» (una flecha hacia abajo) sobre la imagen.
+- Todo queda en Creativos de Inspiración del producto: lo ves con `anuncios_ver_biblioteca_creativos`.
+
+**Stock gratis, con `scripts/stock.mjs` del editor** ([editor.md](editor.md)). Para el relleno, nunca para mostrar el producto.
+1. Busca en Pixabay, con la llave gratis del usuario ([primera-vez.md](primera-vez.md) › «Las llaves»), en inglés y de a una necesidad:
+   `node scripts/stock.mjs --buscar "hands washing dishes" --vertical --hoja "<carpeta del producto>/entrada/stock_hoja.jpg"`
+   - Lista cada clip con su id, duración, tamaño, autor y enlace. La hoja trae la miniatura de cada uno: mírala antes de bajar.
+2. Pexels no pide llave. El comando anterior termina con el enlace de la misma búsqueda en Pexels:
+   - ábrelo con tu navegador y elige, o pásaselo al usuario y que te pegue el enlace del video que le guste;
+   - el enlace de un video es `https://www.pexels.com/video/<nombre>-<id>/`.
+3. Baja solo el elegido, uno o dos por toma:
+   `node scripts/stock.mjs --bajar <pixabay:id | enlace del video de Pexels> --salida "<carpeta del producto>/entrada/<nombre>.mp4"`
+   - Baja la copia de 1080 (con `--calidad 720`, la de 720) y anota la fuente, el enlace y la licencia en `entrada/fuentes.json`.
+4. Mídelo con `scripts/medir.mjs`. Un clip horizontal se recorta por el centro al llenar el cuadro: sirve solo si lo importante está al medio.
+
+**Mixkit y Coverr** no tienen comando: los abre el usuario en su navegador y te pasa el archivo.
+- Mixkit: `https://mixkit.co/free-stock-video/<palabra>/`. Solo los clips con «Free License»; los de «Restricted License» no sirven para anuncios.
+- Coverr: `https://coverr.co/stock-video-footage/<palabra>`. Los marcados «Premium» bajan con marca de agua: no se usan.
+
+**Bajar a la PC un video que ya está en la biblioteca:**
+- La URL es `url_guardada` (la que devuelve `captura_creativo_guardar`), o la `url` del creativo en `anuncios_ver_biblioteca_creativos {producto_id}` o en `media_listar {producto_id, tipo: "video", desde: "hoy"}`.
+- `curl -L -o "<carpeta del producto>/entrada/<nombre>.mp4" "<url>"` y después `node scripts/medir.mjs "<archivo>"`.
+
+**Reglas del material ajeno:**
+- **Stock:** que la persona del clip nunca parezca clienta ni que recomienda el producto. Nada con marcas o logos a la vista. Una vista previa con marca de agua de una agencia no se usa ni se limpia.
+- **Redes:** un video de TikTok o de Instagram no trae licencia. Anota su autor y su URL en la tabla «Creativos por conjunto» de LANZAMIENTO.md, para cambiarlo si su autor lo reclama.
 
 ### Elegir
 Puntúa cada candidato en una tabla. La regla: **ángulo primero, días activo después.** Al usuario se le explica en una línea por video: días activo, ángulo y por qué.
@@ -57,10 +116,11 @@ Siempre se intenta primero el modo 1. **En los modos 2, 3 y 4 va primero el plan
 **4. Modelar (el mismo gancho y la misma estructura, otro ángulo).** Para un ganador de otro mercado o de otro nicho: se copia la estructura y el formato, no el ángulo.
 
 ### Las tomas nuevas (modos 3 y 4)
-En este orden:
+En este orden (la tabla «De dónde sale cada toma» dice con qué se consigue cada una):
 1. Los clips que ya hay en la biblioteca del producto: los del proveedor, los de la competencia que sirven de material y los del usuario.
 2. Las que grabe el usuario, si tiene el producto.
-3. **Tomas con IA en el módulo de video de la app,** con sus créditos:
+3. El mismo producto en TikTok o Instagram, y stock gratis para el relleno.
+4. **Tomas con IA en el módulo de video de la app,** con sus créditos:
    - Pide antes `sl_como_trabajar {tarea: "generar tomas de video con IA del producto para editarlas en mi PC"}`: trae el orden de las tools y lo que cobra cada una. Dile al usuario el costo y espera el sí.
    - El camino corto, en este orden:
      1. `video_crear {producto_id, marca_id}` (gratis): un video del producto que sirve de taller. Uno solo por producto.

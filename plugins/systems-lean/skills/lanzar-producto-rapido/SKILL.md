@@ -15,7 +15,7 @@ Sirve en cualquier agente de IA que lea skills y tenga terminal: Claude Code, Co
 Al empezar, crea `~/SystemsLean/productos/<producto>-<país>/LANZAMIENTO.md` con la plantilla de [references/ficha-lanzamiento.md](references/ficha-lanzamiento.md). Al cerrar cada paso, marca sus casillas y anota lo que dejó (nombres, números y la lectura que lo comprueba). Si el chat se corta o el contexto se compacta, **lee primero esa ficha** y sigue desde la primera casilla vacía.
 
 ## Reglas
-- **Todo lo que pasa en la app va por el conector de Systems Lean.** Fuera de la app se usan los conectores del usuario (el oficial de Dropi, Dropkiller, TrendTrack, la Biblioteca de anuncios de Meta) o sus llaves (Gemini, ElevenLabs), y la web pública solo para leer. No uses el navegador para hacer en la app lo que hace una herramienta.
+- **Todo lo que pasa en la app va por el conector de Systems Lean.** Fuera de la app se usan los conectores del usuario (el oficial de Dropi, Dropkiller, TrendTrack, la Biblioteca de anuncios de Meta) o sus llaves (Gemini, Pixabay, ElevenLabs), y la web pública solo para leer. No uses el navegador para hacer en la app lo que hace una herramienta.
 - **Si una guía de `sl_como_trabajar` dice algo distinto de esta skill, para lanzar un producto manda la skill.**
 - **Antes de decir «no se puede», verifica:** `sl_como_trabajar` con esa tarea en palabras del usuario. Si una herramienta no está bien documentada, deduce su uso por su descripción y sus parámetros antes de descartarla. Si de verdad falta una, díselo al usuario en una línea: qué querías hacer, qué herramienta falta, qué debería recibir y qué devolver.
 - **Un solo chat** para todo el lanzamiento. Lo pesado (búsquedas, análisis de videos y edición) va a subagentes en paralelo si tu agente los tiene; si no, hazlo tú en orden. Los subagentes llevan prompts completos: producto, país, ids, rutas, reglas y qué devolver. Tú revisas en persona cada pieza antes de usarla: la revisión no se delega.
@@ -35,7 +35,7 @@ Al empezar, crea `~/SystemsLean/productos/<producto>-<país>/LANZAMIENTO.md` con
 - **Herramientas que no son para ti:** `ganadores_agregar` y `ganadores_ver` (solo administración), `grok_tareas_*`, `relevo_*`, `agentes_*`, `ads_propuestas_*`, `finanzas_*`, `product_extraer_comentarios` (depende de un ejecutor interno) y el script `scripts/mcp-subir-media.mjs` (no lo tienes: sube con `media_subida_url`).
 - **Mensajes al usuario cortos y sin jerga:** la decisión y el porqué en una línea, sin nombres de herramientas ni ids.
 - **Lo que tiene que hacer el usuario se le da resuelto:** el link directo a la pantalla exacta, qué va a ver al abrirlo y qué botón apretar. Una cosa por línea, en el orden en que las hace, y al final «avísame cuando esté». Nunca una ruta de menús ni «búscalo en la app».
-- **Las llaves del usuario (Gemini, ElevenLabs) van en `~/SystemsLean/.env`,** las pega él y nunca pasan por el chat. El conector de Systems Lean no pide llaves ni tokens.
+- **Las llaves del usuario (Gemini, Pixabay, ElevenLabs) van en `~/SystemsLean/.env`,** las pega él y nunca pasan por el chat. El conector de Systems Lean no pide llaves ni tokens.
 
 ## Los pasos
 Cada paso dice qué deja hecho, con qué se verifica y cuándo no se avanza. El detalle (tools, argumentos, trampas) está en su referencia.

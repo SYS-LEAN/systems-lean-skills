@@ -65,14 +65,14 @@ Con sus datos de origen. Usa una de estas opciones:
 ```
 captura_creativo_guardar {
   destino: "creativos", producto_id,
-  media_url: "<URL directa del archivo (videoUrl de Dropkiller o la del video en la Biblioteca)>",
+  media_url: "<URL directa del archivo (videoUrl de Dropkiller o la del video en la Biblioteca), o la URL del post de TikTok o del Reel de Instagram>",
   media_type: "video" | "image",
   provider: "meta" | "tiktok" | "instagram",
   ad_id, advertiser_name, url_anunciante, texto_anuncio, cta_text, cta_link,
   metrics: { dias_activo, likes }
 }
 ```
-Revisa `persistido` y `estado_descarga`: si sale `failed`, vuelve a leer la URL y repite.
+Revisa `persistido` y `estado_descarga`: si sale `failed`, lee `_nota`; con una URL firmada que venció, vuelve a leerla y repite. Con la URL de un post manda siempre `media_type: "video"` ([creativos.md](creativos.md) › «De dónde sale cada toma»).
 
 **Opción 2:** `media_subir {url, producto_id, fuente, anunciante, dias_activo, variantes, texto_anuncio, url_anunciante, cta_link}`, con los datos de origen en la misma llamada (se corrigen después con `media_editar_creativo`). `fuente` lleva solo la plataforma (`meta`, `tiktok`, `instagram`), nunca el nombre de la herramienta de espionaje.
 
