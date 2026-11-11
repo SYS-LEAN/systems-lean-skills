@@ -77,6 +77,7 @@ En este orden:
 Una sola voz por producto, con el acento del país y el género de quien compra. De una de estas tres formas:
 - **La graba el usuario** con el celular, en un cuarto callado.
 - **Con los créditos de la app:** en el mismo video que sirve de taller, `video_voces_ver {proveedor: "elevenlabs", genero, buscar: "<país o acento>"}` para elegirla y `video_narracion_audio {run_uid, texto, voz_id}` para generarla. Devuelve la URL del mp3: bájalo a `<carpeta del producto>/entrada/`. Un texto por llamada.
+  - **El modelo de ElevenLabs** se elige con `modelo`, y los tres cuestan lo mismo: `eleven_multilingual_v2` (el que sale si no dices nada: el que más se parece a la voz elegida), `eleven_v3` o `eleven_v4` (más expresivos; `eleven_v4` es el más nuevo). Con v3 y v4 puedes dirigir la voz con etiquetas en inglés dentro del texto, como `[whispers]`, `[laughs]` o `[pause]`; con v2 no las pongas. Si la voz suena plana, prueba el mismo texto con `eleven_v4` antes de cambiar de voz.
 - **Con la cuenta de ElevenLabs del usuario:** `scripts/voz.mjs` del editor ([editor.md](editor.md)).
 
 ### Reglas del audio y del empaque
