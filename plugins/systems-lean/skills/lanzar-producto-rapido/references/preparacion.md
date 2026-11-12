@@ -48,7 +48,7 @@ Lo hecho se salta; lo que falta se hace con su paso.
 ## 4. Las conexiones
 | Qué | Tool | Qué tiene que mostrar | Si falta |
 |---|---|---|---|
-| Meta | `ads_ver_conexion {marca_id}` | Cuenta publicitaria, página, píxel y `whatsapp_numeros`, con `falta: null` | [primera-vez.md](primera-vez.md) › «Meta: lo que hay que tener»: qué debe tener en Meta (página, cuenta publicitaria activa, forma de pago, píxel) y cómo lo conecta. Sin esto no hay campaña: díselo ya y avanza solo hasta los creativos |
+| Meta | `ads_ver_conexion {marca_id}` | Cuenta publicitaria, página, píxel y `whatsapp_numeros`, con `falta: null` y `cuenta_publicitaria_estado.puede_publicar: true` | [primera-vez.md](primera-vez.md) › «Meta: lo que hay que tener»: qué debe tener en Meta (página, cuenta publicitaria activa, forma de pago, píxel) y cómo lo conecta. Sin esto no hay campaña: díselo ya y avanza solo hasta los creativos |
 | Píxel | `ads_ver_pixeles {marca_id}` | El píxel de la marca, por nombre | Se crea en el paso de landing o de campaña, con su OK |
 | WhatsApp | `chat_proyectos_ver {}` y `chat_salud_ver {proyecto_id}` | El proyecto de Chat Lean con su número activo | Si el canal termina siendo WhatsApp, el usuario conecta el número en el agente: [primera-vez.md](primera-vez.md) › «El número de WhatsApp». Pídele que se mande un mensaje de prueba y que lo vea llegar en Chat en Vivo (https://app.systemslean.com/conversations) |
 | Proveedor Dropi | La tool `list_products` (conector oficial de Dropi) | Responde | Que lo agregue como conector de su agente con `https://mcp.dropi.co/mcp` (en Claude: claude.ai → Configuración → Conectores) |

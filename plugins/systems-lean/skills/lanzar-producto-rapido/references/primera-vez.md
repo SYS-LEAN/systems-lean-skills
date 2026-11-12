@@ -32,8 +32,8 @@ Son cosas que el usuario tiene, o crea, **en Meta**: Systems Lean solo se conect
 | # | Qué | Para qué | Cómo se comprueba | Si falta |
 |---|---|---|---|---|
 | 4.1 | Una página de Facebook de la marca, que él administre | Los anuncios salen a nombre de la página | `ads_ver_conexion` › `page_id` y `videos_a_la_pagina: true` | La crea en https://www.facebook.com/pages/create |
-| 4.2 | Una cuenta publicitaria propia y **activa** | Con ella se pagan y se publican los anuncios | `ads_ver_conexion` › `ad_account_id` y `ad_account_currency`. Que esté activa: `ads_get_ad_accounts` del conector oficial de Meta Ads (`account_status`). Sin ese conector, pregúntale si ya publicó anuncios con ella y si ve algún aviso en https://www.facebook.com/accountquality | La crea en https://business.facebook.com/latest/settings/ad_accounts. La moneda no se cambia después: que sea la de la tarjeta con la que va a pagar |
-| 4.3 | Una forma de pago cargada en esa cuenta | Sin ella Meta no muestra los anuncios | `ads_get_ad_accounts` › `has_payment_method`. Sin ese conector, pregúntaselo | La carga en https://business.facebook.com/billing_hub/payment_settings |
+| 4.2 | Una cuenta publicitaria propia y **activa** | Con ella se pagan y se publican los anuncios | `ads_ver_conexion` › `ad_account_id`, `ad_account_currency` y `cuenta_publicitaria_estado.puede_publicar: true`. Con `false`, `problema`, `pasos` y `url` dicen qué arreglar en Meta (deuda, revisión, cuenta inhabilitada) | La crea en https://business.facebook.com/latest/settings/ad_accounts. La moneda no se cambia después: que sea la de la tarjeta con la que va a pagar. Si está frenada, se arregla en el `url` que da la herramienta |
+| 4.3 | Una forma de pago cargada en esa cuenta | Sin ella Meta no muestra los anuncios | `ads_ver_conexion` › `cuenta_publicitaria_estado.tiene_forma_de_pago: true`. Si dice `null`, no se pudo leer: pregúntaselo | La carga en https://business.facebook.com/billing_hub/payment_settings |
 | 4.4 | Un píxel propio de la marca | Mide las compras de la landing y arma los públicos | `ads_ver_conexion` › `pixel_id`; `ads_ver_pixeles {marca_id}` los lista por nombre | Lo creas tú con `store_pixel_crear`, con su OK ([marca.md](marca.md)) |
 | 4.5 | El Instagram de la marca vinculado a la página (recomendado) | Los anuncios salen con su Instagram y se pueden armar públicos de Instagram | `ads_ver_conexion` › `instagram_actor_id` | Sin él se sigue: los anuncios salen a nombre de la página. Lo vincula en la configuración de su página de Facebook |
 | 4.6 | Si va a vender por WhatsApp: un número para la marca | Ahí escriben los clientes que tocan el anuncio | Ver «El número de WhatsApp» | Ver «El número de WhatsApp» |
@@ -43,6 +43,7 @@ Son cosas que el usuario tiene, o crea, **en Meta**: Systems Lean solo se conect
 2. En la ventana de Meta, que dé acceso a **todo lo de esta marca**: la página, la cuenta publicitaria, el píxel, el Instagram y la cuenta de WhatsApp. Lo que deje sin marcar no aparece después.
 3. Vuelve a leer `ads_ver_conexion {marca_id}`:
    - `conectado: false`: no terminó de autorizar. Que repita el paso 1.
+   - `falta` pide arreglar la cuenta publicitaria o cargar una forma de pago: es en Meta, con el `url` de `cuenta_publicitaria_estado`. Sin eso no se publica: díselo ya.
    - `falta` pide elegir la cuenta publicitaria o la página: se eligen en Ads Lean, en la tarjeta de la campaña → «Conectar Meta» → «Cuenta publicitaria» y «Página de Facebook» → «Guardar conexión». Se hace en el paso 12, cuando la campaña ya existe.
    - `videos_a_la_pagina: false`: no dio acceso a la página. Que vuelva a «Conectar con Meta» y la marque.
    - `falta: null`: está listo.
