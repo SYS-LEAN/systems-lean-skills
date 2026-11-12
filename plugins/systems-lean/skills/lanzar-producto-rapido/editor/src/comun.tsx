@@ -66,7 +66,7 @@ export const TextoCierre: React.FC<{ cierre: Cierre }> = ({ cierre }) => {
 export const CIERRE_WHATSAPP: Required<Omit<Cierre, "imagen">> = {
   segundos: 3,
   titulo: "Escríbenos por WhatsApp",
-  subtitulo: "Envío gratis y pagas al recibir",
+  subtitulo: "",
 };
 
 /** Reparte segmentos en frames enteros sin que se acumule el redondeo. */

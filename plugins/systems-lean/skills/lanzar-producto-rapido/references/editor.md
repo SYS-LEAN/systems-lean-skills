@@ -52,7 +52,7 @@ Todos los comandos se corren **dentro de `~/SystemsLean/editor`**, con rutas com
   "tramos": [[0, 21.5], [23.1, 30.4]],
   "tapas": [{ "x": 40, "y": 1010, "w": 300, "h": 90, "desde": 18, "hasta": 30.4, "color": "#000" }],
   "parches": [{ "x": 480, "y": 900, "w": 200, "h": 110, "lineas": ["ENVÍO", "GRATIS"], "desde": 0, "hasta": 10 }],
-  "cierre": { "segundos": 3, "titulo": "Escríbenos por WhatsApp", "subtitulo": "Envío gratis y pagas al recibir" },
+  "cierre": { "segundos": 3, "titulo": "Escríbenos por WhatsApp" },
   "volumen": 1
 }
 ```
@@ -60,7 +60,7 @@ Todos los comandos se corren **dentro de `~/SystemsLean/editor`**, con rutas com
 - `tramos`: los segundos que se quedan, en orden. Para quitar un pedazo (el final con «TikTok» o un precio dicho) se parte en dos tramos.
 - `tapas`: recuadros del color que mejor se pierda en el fondo; exactos, nunca cajas grandes.
 - `parches`: un sello propio encima de algo ajeno (la primera línea sale en rojo).
-- `cierre`: por defecto, 3 s con el último cuadro desenfocado y el texto de WhatsApp. Para landing: «Pide el tuyo en la web». Con `"imagen": "producto.png"` muestra el producto real («Así te llega»). `"segundos": 0` lo quita.
+- `cierre`: por defecto, 3 s con el último cuadro desenfocado y «Escríbenos por WhatsApp». Para landing: «Pide el tuyo en la web». Sin país, sin envío y sin forma de pago: el anuncio tiene que poder correr en otros países. Con `"imagen": "producto.png"` muestra el producto real («Así te llega»). `"segundos": 0` lo quita.
 - Salida: 1080x1920. Si el original es de otro tamaño, llena el cuadro y recorta lo que sobra.
 
 ### `VideoDemo` (video del chat y videos con voz nueva)
@@ -82,6 +82,7 @@ Todos los comandos se corren **dentro de `~/SystemsLean/editor`**, con rutas com
 }
 ```
 - Los clips van sin su sonido (`"con_audio": true` lo deja) y suena la voz.
+- Si el VideoDemo es un anuncio, el cierre va sin país, envío ni forma de pago («Escríbenos por WhatsApp»). «Pagas al recibir» queda solo para el video del chat.
 - Los subtítulos se ubican con `medir.mjs --silencios` sobre la voz: cada tramo con voz es una frase.
 - La duración es la suma de los clips más el cierre: que alcance para toda la voz.
 

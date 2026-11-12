@@ -56,7 +56,8 @@ Lo hecho se salta; lo que falta se hace con su paso.
 | Competencia | `ads_library_search` (conector oficial de Meta Ads; solo responde con una cuenta publicitaria activa), Dropkiller o TrendTrack | Responde | Se sigue con lo que capture el usuario y la Biblioteca en el navegador (paso 3) |
 | Extensión de Chrome de Systems Lean (obligatoria) | Pregúntale al usuario si la tiene instalada y con su sesión iniciada | Conecta Soydrop, guarda productos de Dropi y Soydrop con un botón y la usa para su investigación (paso 3) | Que la instale desde la Chrome Web Store: https://chromewebstore.google.com/detail/ieigggdfakhdegnggjhdhdlhhfhkojme |
 
-## 5. El editor y la carpeta
+## 5. El cerebro, el editor y la carpeta
+- **El cerebro de Systems Lean** (la carpeta de trabajo con el método, las lecciones y los casos): si no existe `~/SystemsLean/cerebro/base/VERSION`, o dice una fecha anterior a la que avisa `sl_como_trabajar`, instálalo o actualízalo con `cerebro_descargar`: te da el comando y no pisa nada del usuario. Después lee `~/SystemsLean/CLAUDE.md` (o `AGENTS.md`) y `cerebro/mio/HOT.md`, y abre la lección cuya señal coincida con cada paso.
 - Instala o actualiza el editor: [editor.md](editor.md) › «Instalar». Necesita Node.js 20 o más.
 - La llave de Gemini para analizar videos: `node scripts/analizar.mjs --probar`. Si falta, [primera-vez.md](primera-vez.md) › «Las llaves».
 - Crea la carpeta del producto: `~/SystemsLean/productos/<producto>-<país>/` con `entrada/` (lo bajado), `planes/` (los JSON del editor), `salida/` (lo terminado), `investigacion/` y `whatsapp/`.

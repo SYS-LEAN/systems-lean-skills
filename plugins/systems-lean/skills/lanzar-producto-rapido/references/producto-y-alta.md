@@ -38,7 +38,7 @@ De la ficha se sacan: descripción, precio del proveedor, precio sugerido, stock
 2. Para buscar alternativas o el regalo del mismo proveedor: `soydrop_catalogo_buscar {texto, solo_en_stock: true, orden}`. Una coincidencia «parcial» no es el mismo producto.
 
 **Siempre:**
-- **Stock mínimo:** el de una prueba y una escala corta, unas 3 semanas a 10 pedidos al día (≈210 unidades). Si no alcanza, **detente y avisa**.
+- **Stock mínimo:** el de una prueba y una escala corta: unas 3 semanas al ritmo de pedidos del usuario (a 10 pedidos al día, ≈210 unidades). Si no alcanza, **detente y avisa**: se puede probar como «stock corto», pero no escalar sin confirmar reposición. Caso de una operación real en Honduras (Soydrop): con 300 unidades o más se escaló; de 50 a 299, solo prueba; con menos de 50, no entró.
 - **Mira las fotos reales del proveedor** y anota en la ficha del SKU (LANZAMIENTO.md) el tamaño (ml, cápsulas), el color, la tapa o el gatillo, la caja y **lo que dice la etiqueta, tal cual**. La descripción del proveedor puede estar mal: la etiqueta manda.
 - **Si hay varios proveedores del mismo producto,** elige el que coincide con el empaque de los videos ganadores. Dilo si no coincide ninguno.
 

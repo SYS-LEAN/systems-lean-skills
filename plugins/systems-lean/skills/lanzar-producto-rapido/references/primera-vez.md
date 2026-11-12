@@ -118,4 +118,6 @@ Son del usuario y viven en un solo archivo de su PC: `~/SystemsLean/.env`. **No 
 - **El producto es digital** (curso, ebook, plantilla, app): este camino no aplica, es solo para producto físico contra entrega. Díselo y sigue las guías de `sl_como_trabajar` para digital.
 
 ## Al terminar
+Si el cerebro de Systems Lean no está instalado, instálalo ahora con `cerebro_descargar` (un minuto; deja la carpeta `~/SystemsLean` ordenada) y dile al usuario que abra sus chats en esa carpeta, con la ruta completa.
+
 Crea o actualiza `~/SystemsLean/requisitos.md`: la fecha, una línea por requisito con ✅ o «pendiente» y con qué lo comprobaste, y la Unidad de Negocio con la que trabaja el usuario. Sin llaves ni datos de clientes.

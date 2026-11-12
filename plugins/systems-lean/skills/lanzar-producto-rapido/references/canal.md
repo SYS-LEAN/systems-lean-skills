@@ -2,13 +2,14 @@
 
 En el camino rápido va **un solo canal**. Nunca «web por defecto». Se suma el puntaje (− apunta a landing, + a WhatsApp). Un dato que falta vale 0.
 
-| # | Factor | −1 | 0 | +1 | +2 |
-|---|---|---|---|---|---|
-| 1 | **Competencia del país:** % de los ganadores (2 anuncios activos o más y 60 días o más) que mandan a WhatsApp. Solo puntúa con 5 ganadores o más | menos de 15 % | 15 a 69 %, o menos de 5 ganadores | 70 % o más | — |
-| 2 | **Asesoría:** ¿el cliente necesita contar algo personal para elegir (salud, alergias, talla fuera de tabla, el modelo de lo que ya tiene)? | No: la landing lo resuelve con una tabla o con preguntas frecuentes | — | A veces: en los comentarios de la competencia se repiten preguntas personales | Sí, y necesita respuesta antes de comprar |
-| 3 | **Objeciones y confianza:** salud, belleza, resultados en el cuerpo, miedo a estafa | Pocas | — | Muchas | — |
-| 4 | **Oferta y ticket:** paquetes, regalos o un ticket alto | Una sola opción, compra de impulso | — | Paquetes o ticket alto | — |
-| 5 | **Datos propios:** CPA entregado por WhatsApp contra landing, en el mismo país y la misma categoría, con 20 ventas confirmadas o más por canal | WhatsApp más de 1,2 veces más caro | Sin muestra, o parecido | — | WhatsApp menos de 0,8 veces el de landing |
+| # | Factor | −2 | −1 | 0 | +1 | +2 |
+|---|---|---|---|---|---|---|
+| 1 | **Competencia del país:** % de los ganadores (2 anuncios activos o más y 60 días o más) que mandan a WhatsApp. Solo puntúa con 5 ganadores o más | — | menos de 15 % | 15 a 69 %, o menos de 5 ganadores | 70 % o más | — |
+| 2 | **Asesoría:** ¿el cliente necesita contar algo personal para elegir (salud, alergias, talla fuera de tabla, el modelo de lo que ya tiene)? | — | No: la landing lo resuelve con una tabla o con preguntas frecuentes | — | A veces: en los comentarios de la competencia se repiten preguntas personales | Sí, y necesita respuesta antes de comprar |
+| 3 | **Objeciones y confianza:** salud, belleza, resultados en el cuerpo, miedo a estafa | — | Pocas | — | Muchas | — |
+| 4 | **Oferta y ticket:** paquetes, regalos o un ticket alto | — | Una sola opción, compra de impulso | — | Paquetes o ticket alto | — |
+| 5 | **Datos propios:** CPA entregado por WhatsApp contra landing, en el mismo país y la misma categoría. CPA entregado = (gasto en anuncios + costo de atención) ÷ ventas entregadas. Muestra por canal: 20 ventas confirmadas o más (en WhatsApp, también 100 conversaciones o más) y 20 guías cerradas o más | WhatsApp más de 1,2 veces el de landing | — | Sin muestra en algún canal, o de 0,8 a 1,2 veces | — | WhatsApp menos de 0,8 veces el de landing |
+| 6 | **Entrega por canal:** % entregado de WhatsApp contra landing, con 20 guías cerradas o más por canal | — | WhatsApp peor por 3 puntos o más | Sin datos, o parecido | WhatsApp mejor por 3 puntos o más | — |
 
 **Competencia vacía:** si menos de 15 % de los ganadores va a WhatsApp y los factores 2 y 3 suman +2 o más, el factor 1 vale 0, porque puede ser que nadie atienda por chat y no que el canal no funcione.
 

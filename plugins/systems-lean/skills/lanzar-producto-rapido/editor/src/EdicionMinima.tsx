@@ -26,7 +26,7 @@ export type PlanEdicion = {
   tramos: [number, number][];
   tapas?: Tapa[];
   parches?: Parche[];
-  /** Por defecto: «Escríbenos por WhatsApp · Envío gratis y pagas al recibir», 3 s. */
+  /** Por defecto: «Escríbenos por WhatsApp», 3 s, sin país, envío ni forma de pago. */
   cierre?: Cierre;
   /** Volumen del audio original (0 a 1). */
   volumen?: number;

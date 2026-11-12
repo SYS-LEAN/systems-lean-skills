@@ -41,7 +41,7 @@ Orden por defecto. Se adapta al producto, al ángulo y al modelo: una estructura
 | # | Bloque | Qué lleva |
 |---|---|---|
 | 1 | `barra_anuncios` | El mensaje de valor (envío gratis, pago al recibir) con el contador integrado (`show_countdown`). Es el único reloj de la página |
-| 2 | `product_gallery` | De 4 a 6 imágenes que INFORMAN: el producto limpio, infografía de ingredientes o mecanismo, modo de uso y resultado |
+| 2 | `product_gallery` | De 5 a 7 infografías 4:5 que INFORMAN, con el hero primero: el producto limpio, infografía de ingredientes o mecanismo, modo de uso y resultado. Las fotos sueltas no explican el producto |
 | 3 | `producto` (buy-box) | Título que dice QUÉ ES y QUÉ HACE, estrellas junto al título y 3 o 4 beneficios cortos que salen de los dolores. Sin precio ni botón si hay bundle |
 | 4 | `bundle` | Los paquetes desde Projection (`source: projection`): los que traiga el escenario, con sus regalos y su garantía; «la más pedida» en el de 2 |
 | 5 | `urgencia` | Debajo del bundle |

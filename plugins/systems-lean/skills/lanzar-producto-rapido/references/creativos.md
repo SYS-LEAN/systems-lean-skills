@@ -110,7 +110,7 @@ Siempre se intenta primero el modo 1. **En los modos 2, 3 y 4 va primero el plan
 **1. Tal cual (el mismo producto, con audio en el idioma de venta).**
 - Se dejan su audio, su voz y su música.
 - Solo se corta o se tapa lo que estorba: precio, TikTok Shop, «carrito naranja», otras tiendas, marca de agua o @.
-- Se le agrega un cierre corto con el canal: «Escríbenos por WhatsApp · Envío gratis y pagas al recibir» (o «Pide el tuyo en la web» si es landing).
+- Se le agrega un cierre corto con el llamado del canal: «Escríbenos por WhatsApp» (o «Pide el tuyo en la web» si es landing), sin país, sin envío y sin forma de pago: el anuncio tiene que poder correr en otros países. El envío y el pago van en la landing, el chat y la ficha.
 - Sin voz nueva, música nueva, gancho nuevo ni tomas de stock. Duración: la del original más el cierre (unos 3 s).
 
 **2. Replicar al 90 % (el mismo montaje, otra voz).** Cuando el audio no sirve: otro idioma, o nombra otra tienda todo el tiempo.
@@ -171,7 +171,7 @@ Tope: 15 minutos por video. Si un video se complica, pasa al siguiente candidato
 1. **Reglas del usuario:** si las tiene, lee una vez la rama que toca con `skills_leer {modulo: "anuncios_estaticos", rama}` (`skills_listar` dice cuáles hay).
 2. **Referencias:** primero los estáticos ganadores del MISMO producto que ya están en Creativos de Inspiración (pasos 3 y 4). Si faltan: Dropkiller `search_ads {mediaType: "image", sort: "duration", countryCodes}` o la Biblioteca de Meta ordenada por días. 30 días o más es señal; 60 o más con 2 activos, ganador. Solo si no hay, se modela sobre la categoría. También sirven las plantillas de `anuncios_ver_banners_referencia {}`.
 3. **Ángulo:** `anuncios_ver_angulos_venta {producto_id}`. **La imagen prueba el mismo ángulo que el video de su conjunto:** su gancho va de titular. Si el video vende con algo crudo, la imagen también, nunca «más elegante».
-4. **Esqueleto:** gancho → promesa → 3 beneficios → prueba → cierre («Pagas al recibir · Envío gratis»).
+4. **Esqueleto:** gancho → promesa → 3 beneficios → prueba → cierre con el llamado del canal («Escríbenos por WhatsApp» o «Pídelo hoy»), sin país, envío ni forma de pago.
 5. **Costo:** la primera vez, `anuncios_estimar_costo {cantidad, resolucion}`. Muéstrale el costo al usuario y espera el sí.
 6. **Generar:** `anuncios_generar {producto_id, nombre, formato: "4:5", angulo_venta_id, mostrar_precio: false, referencias: [{url | numero, rol: "producto"}, {url | numero, rol: "locacion" | "persona" | "objeto"}], disenos: [{prompt_visual_en, hook, copy_corto, cta_texto}]}`.
    - **Para modelar un estático de la competencia:** `referencia_numero` con su número en Creativos de Inspiración (o `referencia_url`), y en la escena la variación.
