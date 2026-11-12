@@ -4,7 +4,7 @@ Pide antes `sl_como_trabajar {tarea: "flujo de WhatsApp de venta de un producto 
 
 ## 1. Leer antes de tocar
 - `chat_proyectos_ver {}`: el proyecto (el número) que va a vender. Anota su `proyecto_id`.
-- `chat_salud_ver {proyecto_id}`: que el canal esté activo. Sin canal no hay nada que arreglar: el usuario conecta el número primero.
+- `chat_salud_ver {proyecto_id}`: que el canal esté activo. Sin canal, el número lo conectas tú al final de este paso, con `chat_canal_conectar` ([primera-vez.md](primera-vez.md) › «El número de WhatsApp»). Si la marca todavía no tiene agente, créalo ahora con `chat_canal_conectar {marca_id, crear_agente: true}` (sin número: solo devuelve el agente) para tener su `proyecto_id`.
 - `chat_agente_productos_ver {proyecto_id}`: los productos que ya atiende ese número y sus palabras clave (para no chocar).
 - `chat_flujos_ver {proyecto_id}`: los flujos que existen. ¿Hay uno viejo de este producto? ¿Hay uno de venta del usuario que convenga duplicar?
 - `crm_etiquetas_permitidas_ver {proyecto_id}`: las etiquetas que el agente puede poner.

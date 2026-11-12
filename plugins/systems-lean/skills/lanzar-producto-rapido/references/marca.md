@@ -33,11 +33,11 @@ Desde aquí, manda `marca_id` en toda tool que lo acepte.
 | No tiene logo ni colores | Nada por ahora | Se puede lanzar sin identidad. Si la quiere hecha con IA, se genera en la app (cobra créditos): https://app.systemslean.com/business-lean |
 | Pagos y entrega | `marca_ver {marca_id}` y después `marca_guardar_pagos {marca_id, pagos_config}` | Reemplaza todo: lee primero, cambia lo necesario y guarda. Contra entrega, los tiempos de entrega y la garantía en general, sin detalles de un producto. Va antes de escribir cualquier ficha |
 
-## 5. Conectarla (lo hace el usuario)
-Una Unidad de Negocio nueva nace sin conexiones, aunque la cuenta tenga otra marca conectada.
-- **Meta** (cuenta publicitaria, página y píxel): https://app.systemslean.com/credenciales → elegir «Meta» → «Conectar con Meta», con la Unidad de Negocio nueva elegida. Compruébalo con `ads_ver_conexion {marca_id}`.
-- **El píxel es propio de cada marca:** nunca el de otra, porque mezcla audiencias. `marca_ver {marca_id, con_pixels_disponibles: true}` muestra los que hay, por nombre. Si no tiene ninguno, `store_pixel_crear` lo crea con el OK del usuario.
-- **WhatsApp,** si va a vender por chat: en la misma pantalla, dentro de «Meta». Compruébalo con `chat_proyectos_ver {}`.
+## 5. Conectarla (lo haces tú)
+Una Unidad de Negocio nueva nace sin conexiones, aunque la cuenta tenga otra marca conectada. Conectarla lo haces tú con la autorización de Meta que el usuario ya dio en Credenciales; no lo mandes a Ads Lean.
+- **Meta** (cuenta publicitaria, página y píxel): `ads_conectar_meta {marca_id}`. Los casos (falta autorizar, elegir entre varias, crear el píxel) están en [primera-vez.md](primera-vez.md) › «Conectar Meta a Systems Lean». Compruébalo con `ads_ver_conexion {marca_id}`.
+- **El píxel es propio de cada marca:** nunca el de otra, porque mezcla audiencias. Si la cuenta no tiene ninguno, avísale al usuario en una línea y créalo con `ads_conectar_meta {marca_id, crear_pixel: true}`.
+- **WhatsApp,** si va a vender por chat: `chat_canal_conectar {marca_id}` ata el número al agente, en el paso 11 ([primera-vez.md](primera-vez.md) › «El número de WhatsApp»).
 
 ## 6. Verificación
 `marca_ver {marca_id}`: nombre, modelo `dropshipping`, país, rubro y descripción propios, y `pagos_config` lleno. Anota la marca en `~/SystemsLean/requisitos.md` y en la ficha del lanzamiento.

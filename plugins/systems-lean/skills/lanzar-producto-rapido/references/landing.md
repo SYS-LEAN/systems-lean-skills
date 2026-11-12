@@ -86,7 +86,7 @@ Cada bloque con imagen se alimenta en este orden:
 4. Políticas del país (si la tienda no las tiene): `store_branding_ver {marca_id}` y `store_branding_guardar {marca_id, pais_codigo, datos, generar_politicas: true}`.
 
 ### El tracking (es por marca)
-- Si falta el píxel o Clarity, el que eligió el usuario en la Fase 1: `marca_editar {marca_id, meta_pixel_id, clarity_project_id}`. Si la marca no tiene ningún píxel, `store_pixel_crear {marca_id, nombre}` **con el OK del usuario** (crea algo real en Meta).
+- Si falta el píxel o Clarity, el que eligió el usuario en la Fase 1: `marca_editar {marca_id, meta_pixel_id, clarity_project_id}`. Si la marca no tiene ningún píxel, avísale al usuario en una línea y créalo con `ads_conectar_meta {marca_id, crear_pixel: true}`: queda elegido en la marca y compartido con la cuenta publicitaria.
 - Todas las landings de la marca lo heredan al publicar. Si se cambió, hay que republicar las demás landings de la marca: díselo.
 
 ### Antes de publicar
