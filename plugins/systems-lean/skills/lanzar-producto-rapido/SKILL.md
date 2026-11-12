@@ -7,12 +7,22 @@ description: Camino de Systems Lean para lanzar un producto físico de dropshipp
 
 > Versión del 2026-11-10 · 15 pasos (del 0 al 14). Si una referencia que pediste trae otros números de paso, es de otra versión: avísale al usuario y no las mezcles.
 
-Del producto elegido a la campaña lista para encender, en un solo chat: unas 3 horas de trabajo tuyo, más lo que tarde el usuario en su investigación (paso 3). **El lanzamiento solo está terminado cuando cada módulo de la app quedó lleno y verificado con una herramienta de lectura.** Decir «listo» sin esa lectura es el error que este camino evita.
+Del producto elegido a la campaña lista para encender, en un solo chat: unas 3 horas de trabajo tuyo, **de corrido**: no te detienes a esperar al usuario salvo para gastar, publicar, encender o escribirle a un cliente. **El lanzamiento solo está terminado cuando cada módulo de la app quedó lleno y verificado con una herramienta de lectura.** Decir «listo» sin esa lectura es el error que este camino evita.
 
 Sirve en cualquier agente de IA que lea skills y tenga terminal: Claude Code, Codex de OpenAI, Antigravity o Gemini CLI de Google. **Si la recibiste por el conector de Systems Lean** (no instalada), cada archivo `references/…` se pide aparte con `sl_como_trabajar {tarea: "lanzar-producto-rapido references/<archivo>.md"}` cuando el paso lo nombra; no lo improvises. El editor de video se descarga del repositorio público (ver [references/editor.md](references/editor.md) › «Instalar»).
 
 ## La ficha del lanzamiento (obligatoria)
 Al empezar, crea `~/SystemsLean/productos/<producto>-<país>/LANZAMIENTO.md` con la plantilla de [references/ficha-lanzamiento.md](references/ficha-lanzamiento.md). Al cerrar cada paso, marca sus casillas y anota lo que dejó (nombres, números y la lectura que lo comprueba). Si el chat se corta o el contexto se compacta, **lee primero esa ficha** y sigue desde la primera casilla vacía.
+
+## Lo que queda lleno en la app (sin esperar al usuario)
+Es lo que se revisa en la auditoría del paso 13. Se llena todo aunque el usuario no conteste ninguna pregunta: con tu propuesta, anotada como «supuesto» en LANZAMIENTO.md, que se corrige si él dice otra cosa.
+- **Biblioteca y Lista de Testeo:** el producto guardado con sus fotos y dado de alta desde ahí, nunca con `product_crear` si es de Dropi o Soydrop (`product_biblioteca_ver`, `product_favoritos_ver`).
+- **Investigación de productos, todos los campos:** viabilidad (nombre comercial, nicho, descripción, país destino y países de referencia), el checklist de 15 criterios, hasta 3 fotos limpias, las palabras de búsqueda (Biblioteca de anuncios por país, Marketplace, Amazon, AliExpress, Alibaba), **los 4 pilares del cerebro** en el informe (competencia, conciencia, dolores y creencias, con evidencia) y la estrategia: perfiles de comprador y ángulos (`product_ver_investigacion`, `product_ver_informe`, `product_ver_estrategia`).
+- **Ficha técnica, ficha del agente, entrega y cobertura:** la ficha del agente con precios y tiempos como `{{variables}}` (`product_ver_ficha`).
+- **Projection, campo por campo:** precio, costo, flete real, preparación en 0, contra entrega, margen objetivo (15 % si el usuario no dice otro), las tasas del país, el tachado con «mostrar» encendido, la venta suelta, los paquetes 1, 2 y 3 con su total y su % (45/40/15), el envío gratis y cada regalo como `bonus` con su archivo (`projection_ver_simulador`, `projection_ver_ofertas`).
+- **Ángulos de venta** en el generador (`anuncios_ver_angulos_venta`).
+- **El Cerebro del Agente de WhatsApp:** el producto vinculado y activo en el agente (`chat_agente_productos_ver`), aunque el canal sea landing: el agente también atiende a quien escribe desde la landing.
+- **Creativos de Inspiración:** solo lo que se va a usar o modelar del mismo producto; nada repetido ni de otros productos (`media_listar`).
 
 ## Reglas
 - **Todo lo que pasa en la app va por el conector de Systems Lean.** Fuera de la app se usan los conectores del usuario (el oficial de Dropi, Dropkiller, TrendTrack, la Biblioteca de anuncios de Meta) o sus llaves (Gemini, Pixabay, ElevenLabs), y la web pública solo para leer. No uses el navegador para hacer en la app lo que hace una herramienta.
@@ -27,11 +37,11 @@ Al empezar, crea `~/SystemsLean/productos/<producto>-<país>/LANZAMIENTO.md` con
   - las tomas de video con IA y la voz en off, en el módulo de video (ver [references/creativos.md](references/creativos.md) › «Las tomas nuevas» y «La voz»). Lo generado se baja a la PC y se edita ahí.
   - Si el usuario tiene su propia cuenta de una API (ElevenLabs, Gemini), también sirve.
   - Generar cobra: la primera vez muestra el costo (`anuncios_estimar_costo` en imágenes) y espera el sí. `cuenta_ver` dice el saldo de créditos y lo usado en el período.
-- **Las preguntas de decisión van en tres mensajes,** cada uno con tu propuesta: su investigación (paso 3), Projection (paso 5) y la landing (paso 10). Fuera de esos, solo se pregunta lo que frena el paso, en una línea: qué Unidad de Negocio o qué producto si no está claro (paso 0), la variante y el precio declarado antes de cotizar el flete (paso 1), el gasto la primera vez que algo cobra, el trato si el país no lo define y las plantillas de Meta (paso 11), y el «sí» del paso 13. Si responde «lo que propongas», sigue con tu propuesta.
+- **Las preguntas de decisión van en tres mensajes,** cada uno con tu propuesta YA aplicada: su investigación (paso 3), Projection (paso 5) y la landing (paso 10). **No esperes la respuesta para seguir:** guarda tu propuesta, anótala como «supuesto» en LANZAMIENTO.md y sigue con los pasos que no gastan ni publican; si el usuario contesta otra cosa, corriges. Fuera de esos tres mensajes, solo se pregunta lo que frena el paso, en una línea: qué Unidad de Negocio o qué producto si no está claro (paso 0), la variante y el precio declarado antes de cotizar el flete (paso 1), el gasto la primera vez que algo cobra, el trato si el país no lo define y las plantillas de Meta (paso 11), y el «sí» del paso 13. Si responde «lo que propongas», sigue con tu propuesta.
 - **Gastar, publicar en Meta o escribirle a un cliente espera el OK del usuario.** Guardar en Product Lean, Projection, la biblioteca y publicar el flujo de WhatsApp no lo esperan.
 - **Nunca el precio en un creativo de anuncio:** ni en el video, la imagen, los subtítulos ni el copy. La imagen de la promoción del chat sí lleva los precios, siempre los de Projection.
 - **No inventes datos.** Stock, costo y flete salen de la ficha viva del proveedor; precios y CPA, de Projection; creencias y dolores, de fuentes que puedas citar. Lo que no se sabe se pregunta o se marca como supuesto.
-- **Tasas para todo cálculo: 30 % de devolución y 5 % de cancelación**, salvo que el usuario tenga las suyas medidas.
+- **Tasas para todo cálculo:** en Honduras, **25 % de devolución y 5 % de cancelación**; en Colombia y los demás países, **30 % y 5 %**. Si el usuario tiene las suyas medidas, mandan las suyas.
 - **Los gastos del negocio se anotan en Finanzas Lean** cuando el usuario los menciona (internet, empaques, sueldos, una herramienta): `finanzas_registrar {monto, concepto, clase}`, con clase fijo, variable u ocasional; si se paga cada mes, `se_repite: true`. Se leen con `finanzas_ver` y el Dashboard del CRM los resta de la ganancia. La publicidad, el costo del producto y los envíos no se anotan ahí: la app ya los cuenta.
 - **Herramientas que no son para ti:** `ganadores_agregar` y `ganadores_ver` (solo administración), `grok_tareas_*`, `relevo_*`, `agentes_*`, `ads_propuestas_*`, `product_extraer_comentarios` (depende de un ejecutor interno) y el script `scripts/mcp-subir-media.mjs` (no lo tienes: sube con `media_subida_url`).
 - **Mensajes al usuario cortos y sin jerga:** la decisión y el porqué en una línea, sin nombres de herramientas ni ids.
@@ -46,7 +56,8 @@ Cada paso dice qué deja hecho, con qué se verifica y cuándo no se avanza. El 
 - **Primera vez en esta PC** (no existe `~/SystemsLean/requisitos.md`): antes que nada, los requisitos de [references/primera-vez.md](references/primera-vez.md). Se revisan una vez y quedan anotados en ese archivo.
 - **No hay Unidad de Negocio de dropshipping, o el usuario quiere una marca nueva:** se crea con [references/marca.md](references/marca.md).
 - **Deja:** los requisitos revisados, la Unidad de Negocio elegida o creada, el conocimiento propio del usuario leído, las conexiones comprobadas, el editor instalado, la carpeta y la ficha del lanzamiento creadas, y una tabla «qué hay / qué falta» si el producto ya existía.
-- **No avances si:** falta el conector de Systems Lean; el usuario no tiene la extensión de Chrome de Systems Lean con su sesión iniciada; `ads_ver_conexion` no muestra cuenta publicitaria, página y píxel; el canal probable es WhatsApp y el proyecto de Chat Lean no tiene número conectado.
+- **No avances si:** falta el conector de Systems Lean (sin él no hay nada que hacer).
+- **Lo demás no frena todo el lanzamiento.** Si falta la extensión de Chrome, la cuenta publicitaria con página y píxel (`ads_ver_conexion`) o el número de WhatsApp en Chat Lean, dale al usuario el paso para conectarlo (link y botón), anótalo como pendiente en LANZAMIENTO.md y **sigue con los pasos 1 a 10**. Cada falta frena solo el paso que la necesita: la extensión, el paso 1 si el proveedor es Soydrop y no está conectado; Meta y WhatsApp, los pasos 11 a 13.
 
 ### Paso 1 · El producto en la Biblioteca y la ficha viva (10 min)
 [references/producto-y-alta.md](references/producto-y-alta.md) › «Paso 1»
@@ -60,9 +71,9 @@ Cada paso dice qué deja hecho, con qué se verifica y cuándo no se avanza. El 
 - **Verifica:** `product_ver_investigacion` (`fila_de_origen` y viabilidad), el vínculo (`dropi_productos_vinculados` en Dropi; `proveedor.vinculado` de `product_biblioteca_investigar` en Soydrop), `anuncios_ver_productos` (las fotos) y `anuncios_ver_biblioteca_creativos` (las fotos del proveedor).
 - **No avances si:** el producto quedó creado dos veces o sin enlazar a su fila; el vínculo con Dropi o Soydrop no quedó.
 
-### Paso 3 · La investigación del usuario y lo que buscas tú (lo que tarde el usuario; tú ≈20 min)
+### Paso 3 · Lo que buscas tú y lo que capture el usuario (≈20 min, sin esperarlo)
 [references/investigacion.md](references/investigacion.md) › «Paso 3»
-- **Deja:** el mensaje al usuario con qué capturar con la extensión y los tres ofrecimientos (anunciantes para seguir, los mejores anuncios y landings de otros mercados, formatos en tendencia); lo que él capturó, más lo que tú buscaste y guardaste en Creativos de Inspiración.
+- **Deja:** tu búsqueda completa (la competencia del país y los tres ofrecimientos: anunciantes para seguir, los mejores anuncios y landings de otros mercados, formatos en tendencia) guardada en Creativos de Inspiración, más lo que el usuario ya haya capturado con la extensión. El mensaje con lo que él puede capturar va en una línea y **no se espera**: lo que capture después se suma al informe.
 - **Verifica:** `product_ver_extraccion` (lo capturado por nodo) y `anuncios_ver_biblioteca_creativos` (las referencias con fuente, anunciante y días).
 - **No avances si:** no hay anuncios del país destino ni de los países de referencia en la extracción ni en la biblioteca.
 
@@ -126,7 +137,7 @@ Cada paso dice qué deja hecho, con qué se verifica y cuándo no se avanza. El 
 ## Errores que este camino evita
 - **Decir «listo» con módulos vacíos:** Projection sin paquetes, la biblioteca sin los ganadores, la campaña sin anuncios. Cada paso se cierra con su lectura.
 - **Crear con `product_crear` un producto de Dropi o Soydrop:** nace sin los datos del proveedor, sin sus fotos en Creativos de Inspiración y fuera de la Lista de Testeo. Se guarda en la Biblioteca y se investiga desde ahí.
-- **Saltarse la investigación del usuario:** sin lo que él captura con la extensión, el informe sale de búsquedas sueltas. Se le pide en el paso 3 y se espera.
+- **Esperar al usuario para seguir:** un usuario nuevo no sabe capturar con la extensión ni contestar las preguntas de Projection, y el lanzamiento se queda en el paso 2 con casi todo vacío (caso real del 2026-11-10: el producto quedó con la viabilidad automática y nada más). Tú haces la búsqueda completa y llenas todo con tu propuesta; lo que él capture o conteste después se suma o se corrige.
 - **Un informe sin sus listas:** sin los 5 ángulos, las 3 ofertas, los precios por anunciante y los dolores ordenados, los pasos siguientes no tienen de dónde salir.
 - **Simular en Projection y no guardar:** `projection_simular` no escribe nada. Lo que vale queda con `projection_aplicar`, `projection_costos_producto` y `projection_guardar_ofertas`.
 - **Hacer las imágenes en la PC:** van en el generador de anuncios estáticos de la app, que usa la foto real del producto y los precios de Projection.

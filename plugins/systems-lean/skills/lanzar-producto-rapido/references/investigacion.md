@@ -25,9 +25,9 @@
 2. **Los mejores anuncios y landings de otros mercados:** buscas y guardas en Creativos de Inspiración los mejores anuncios de video e imagen del mismo producto o de similares, y la landing que más vende. Siempre de mercados distintos al país destino que tengan autoridad para tomar ideas (ángulos, formatos, embudos).
 3. **Formatos en tendencia:** de 3 a 5 formatos o estilos de video o imagen que están dando tracción estos meses, en orgánico o en pauta, aunque sean de otro rubro, si ves cómo adaptarlos a este producto o a sus ángulos.
 
-Espera su respuesta. Si dice que no puede hacer su parte, haces tú también la búsqueda del país (3.4) y lo anotas como límite del informe.
+**No esperes su respuesta.** Haces tú la búsqueda del país (3.4) y los tres ofrecimientos con lo que tengas conectado, y sigues al paso 4. Lo que él capture después se suma (3.1 lo lee) y, si cambia el informe, se corrige. Si dice que no a un ofrecimiento, ese se deja.
 
-### 3.3 Lo que buscas tú (según lo que eligió)
+### 3.3 Lo que buscas tú (los tres ofrecimientos, salvo que diga que no)
 **Herramientas de búsqueda** (usa las que tenga conectadas, en este orden):
 
 | Fuente | Tool | Para qué |

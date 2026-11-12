@@ -5,14 +5,14 @@
 Si el usuario tiene reglas propias: `skills_listar {modulo: "projection_lean"}` → `skills_leer` de la rama que aplique.
 
 ## 1. Las preguntas (un solo mensaje, con tu propuesta)
-Con la investigación ya hecha, propón el precio, la oferta y los escenarios. Antes de guardar, confirma esto en UN mensaje, cada pregunta con tu propuesta:
+Con la investigación ya hecha, propón el precio, la oferta y los escenarios. **Guarda primero tu propuesta** (la secuencia de la sección 4) y, en UN mensaje, pídele que la confirme, cada pregunta con lo que pusiste. No esperes la respuesta para seguir con los pasos 6 a 10: si contesta otra cosa, corriges Projection y lo que salió de ella (la ficha, la imagen de la promoción, los CPA).
 1. ¿Armo escenarios de **contra entrega y de pago anticipado**, o solo uno? (Propuesta por defecto: solo contra entrega.)
 2. ¿Armo **escenarios para validar precio u oferta** (A/B)? Si sí, cuáles: por ejemplo, otro precio o otra oferta.
 3. El **precio del proveedor** es <x>: ¿es ese o tienes otro? Si no lo tienes porque no salió de Dropi o de Soydrop, pídeselo.
 4. ¿Qué **utilidad mínima** aceptas en este producto: 10 %, 15 %, 20 % u otra? (Propuesta: 15 %.)
 5. ¿Cuántas **ventas al mes** crees que puedes hacer, o las estimo yo con la investigación?
 6. ¿Qué **costo de envío promedio** pongo? Dale las opciones que cotizaste en el paso 1 (por ciudad y ponderado).
-7. ¿Estás de acuerdo con **5 % de cancelaciones y 30 % de devoluciones**? (Solo contra entrega.)
+7. ¿Estás de acuerdo con **5 % de cancelaciones y 25 % de devoluciones en Honduras, o 30 % en Colombia y los demás países**? (Solo contra entrega.)
 
 Si responde «lo que propongas», sigue con tu propuesta.
 
@@ -21,7 +21,7 @@ Si responde «lo que propongas», sigue con tu propuesta.
 - **k** (lo que el proveedor se queda de lo cobrado): no va en `pasarela_pct`. Se descuenta en la cuenta de los CPA (abajo).
 - **Mezcla de paquetes sin pedidos todavía:** 45 % una unidad, 40 % dos y 15 % tres (45/55 si no hay paquete de 3). En cuanto el producto tenga pedidos, se cambia por la mezcla real.
 - **Publicidad:** en contra entrega no se fija un %. El CPA objetivo sale del margen objetivo (abajo) y el % de publicidad es el resultado.
-- **Tasas:** 30 % de devolución y 5 % de cancelación si el usuario no tiene las suyas.
+- **Tasas:** en Honduras, 25 % de devolución y 5 % de cancelación; en Colombia y los demás, 30 % y 5 %; si el usuario tiene las suyas, las suyas.
 
 ## 3. La oferta
 - **Precio psicológico** siempre (169.900, no 170.000).
@@ -47,7 +47,7 @@ Si responde «lo que propongas», sigue con tu propuesta.
    - `costo_producto`: el precio del proveedor que confirmó el usuario.
    - `costo_envio`: el flete que eligió el usuario (Dropi: ponderado 45/40/15 de `quote_shipping`; Soydrop: promedio de las 2 ciudades principales).
    - `costo_fulfillment`: 0, salvo que el usuario pague preparación.
-5. **Cobro, tasas, precio y ancla:** `projection_aplicar {producto_id, precio, precio_ancla, mostrar_ancla: true, vender_suelto: true, modelo_cobro: "cod", tasa_cancelacion: 5, tasa_devolucion: 30, margen_objetivo, unidades_mes}`.
+5. **Cobro, tasas, precio y ancla:** `projection_aplicar {producto_id, precio, precio_ancla, mostrar_ancla: true, vender_suelto: true, modelo_cobro: "cod", tasa_cancelacion: 5, tasa_devolucion: 25 en Honduras o 30 en los demás, margen_objetivo, unidades_mes}`.
    - Los porcentajes van como número de por ciento (5, no 0,05).
    - `margen_objetivo`: la utilidad mínima que dijo el usuario.
    - En contra entrega deja `pasarela_pct` en 0.
@@ -79,7 +79,7 @@ Si responde «lo que propongas», sigue con tu propuesta.
    - Cada tipo que mandas se reemplaza completo; la clave que no mandas no se toca.
 8. **Verifica (obligatorio):**
    - `projection_ver_ofertas {producto_id}`: los paquetes con su `share_pct`, el envío gratis y el bonus con `cantidad_minima`.
-   - `projection_ver_simulador {producto_id}`: costo, flete, cobro, 5 % y 30 %, precio y ancla; y los KPIs `breakeven_cpa`, `margen_neto_pct`, `ganancia_por_unidad`, `zona_semaforo` y `viabilidad_publicitaria`.
+   - `projection_ver_simulador {producto_id}`: costo, flete, cobro, las tasas del país (5 % y 25 % en Honduras, 5 % y 30 % en los demás), precio y ancla; y los KPIs `breakeven_cpa`, `margen_neto_pct`, `ganancia_por_unidad`, `zona_semaforo` y `viabilidad_publicitaria`.
    - Si `viabilidad_publicitaria` dice que no es viable, díselo al usuario con lo que propone (ticket mínimo, combo o no pautar) antes de seguir.
 
 ## 5. Los escenarios (si el usuario los pidió)

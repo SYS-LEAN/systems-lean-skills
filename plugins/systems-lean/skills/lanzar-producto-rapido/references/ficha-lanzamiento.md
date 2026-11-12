@@ -90,7 +90,7 @@ Cópiala al empezar en `~/SystemsLean/productos/<producto>-<país>/LANZAMIENTO.m
 ### Paso 5 · Projection
 - [ ] Las 7 preguntas respondidas: <resumen>
 - [ ] País y moneda de la hoja
-- [ ] Costo, flete, fulfillment, cobro, 5 % cancelación y 30 % devolución (`projection_ver_simulador`)
+- [ ] Costo, flete, fulfillment, cobro y las tasas del país: 5 % de cancelación y 25 % de devolución en Honduras, 30 % en los demás (`projection_ver_simulador`)
 - [ ] Precio psicológico, tachado y unidad suelta (o por qué no)
 - [ ] Paquetes con `share_pct` (`projection_ver_ofertas`)
 - [ ] Ofertas elegidas (envío gratis, regalo como `bonus` con `cantidad_minima: 2`, garantía…)
