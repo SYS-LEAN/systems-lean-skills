@@ -42,6 +42,9 @@ Con G ≈ L 715: 4 pedidos al día dejan unos **L 10,000** netos y 6 al día uno
 ## Qué decirle al usuario (en la propuesta del paso 5)
 Una línea con: el precio de 1, 2 y 3; la G promedio; los pedidos al día que hacen falta para L 10,000 netos; y la publicidad al día y al mes para sostenerlos. Ejemplo: «Para ganar L 10,000 netos al mes con este producto: 1 a L 1,099, 2 a L 1,699 y 3 a L 2,299 (deja L 720 por entrega en promedio); hacen falta 4 pedidos al día, con unos L 640 diarios de publicidad (L 19,200 al mes)».
 
+## Los dos CPA de la campaña
+Salen de la cuenta de la sección 7 de [oferta-y-cpa.md](oferta-y-cpa.md): el **CPA de equilibrio** ya da por perdidos el 45 % de devolución y el 10 % de cancelación y descuenta variables y fijos; el **CPA objetivo** es el equilibrio menos la meta ÷ ventas confirmadas del mes; y el **techo de gasto al mes** de la campaña es el equilibrio × ventas confirmadas del mes.
+
 ## Presupuesto de escala
 - Publicidad al mes = pedidos al mes × CPA; al día = ÷ 30.
 - Es el presupuesto para **sostener** el volumen que da la meta. El de la **prueba** sigue el paso de la campaña (`campana.md`).

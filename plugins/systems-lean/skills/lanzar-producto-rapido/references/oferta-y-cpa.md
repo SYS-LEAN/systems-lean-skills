@@ -106,29 +106,35 @@ Antes de dar los precios por buenos, llena en LANZAMIENTO.md:
 Si el de 2 queda fuera del rango sin una razón (regalo, marca, calidad), se ajusta.
 
 ## 7. Los dos CPA
-Son dos números distintos y no se cambian uno por otro. Los dos son **por venta confirmada** y ya descuentan la devolución.
+Son dos números distintos y no se cambian uno por otro. Los dos son **por venta confirmada** y salen de la realidad, no de lo que muestra la campaña: ya dan por perdidas la devolución y la cancelación, y descuentan los gastos variables y la parte de gastos fijos del producto.
 
 | | CPA de equilibrio | CPA objetivo |
 |---|---|---|
-| Qué es | Lo máximo que se puede pagar por venta sin ganar ni perder | Lo que se puede pagar por venta dejando el margen objetivo |
-| Para qué | El presupuesto del testeo y el límite de «vende pero no es rentable» | Declarar ganador y escalar |
-| Piso | **US$15**: si da menos, el producto no aguanta la prueba. Antes de descartarlo, prueba un precio más alto o un combo | El margen que dijo el usuario (15 % por defecto) |
+| Qué es | Lo máximo que se puede pagar por venta sin ganar ni perder de verdad | Lo que se puede pagar por venta dejando la **meta neta** del producto (en Honduras, L 10,000 al mes) |
+| Para qué | El presupuesto del testeo, el límite de «vende pero no es rentable» y el **techo de gasto al mes** de la campaña | Declarar ganador y escalar |
+| Piso | **US$15**: si da menos, el producto no aguanta la prueba. Antes de descartarlo, prueba un precio más alto o un combo | Si queda en 0 o menos, el producto no da la meta a ese precio. El margen del usuario (15 % por defecto) queda como segundo control |
 
-**El `breakeven_cpa` de Projection NO va tal cual a la campaña:** es por entrega efectiva. Se convierte a venta confirmada con esta cuenta, usando los números guardados en la hoja:
+**El `breakeven_cpa` de Projection NO va tal cual a la campaña:** es por entrega efectiva y no trae los gastos fijos ni los variables. Se calcula con esta cuenta, usando los números guardados en la hoja:
 
-CPA de equilibrio = e × [P × (1 − k) − C − ff] − F − cf
-CPA objetivo = e × [P × (1 − k − m) − C − ff] − F − cf
+CPA de equilibrio = e × [P × (1 − k) − C − ff] − F − cf − v − fijos del producto ÷ VC
+CPA objetivo = CPA de equilibrio − meta ÷ VC
+Techo de gasto al mes de la campaña = CPA de equilibrio × VC
 
 | Letra | Qué es | Valor |
 |---|---|---|
-| e | Entrega de lo despachado (1 − devolución) | 0,70 |
+| e | Entrega de lo despachado (1 − devolución) | Honduras 0,55 (45 % de devolución); Colombia y los demás 0,70 |
 | P | Ticket promedio con la mezcla de paquetes | de la hoja |
 | k | Lo que se va sobre lo cobrado | Dropi Colombia: 2,4 % (retiro 2 % + 4×1000). Soydrop Honduras: 5 % (4 % del cobro + 1 % de servicio). Otro país: pregúntalo |
-| m | Margen objetivo | el del usuario; 15 % por defecto |
 | C | Costo promedio del producto con la misma mezcla | de la hoja |
 | ff | Fulfillment por entrega | 0 |
 | F | Flete por despacho (la devolución no cobra otro) | el real |
 | cf | Lo que cuesta confirmar cada pedido (llamada o mensaje) | el del usuario; si no lo sabe, 0, y se dice |
+| v | Gastos variables por venta confirmada: créditos del agente de chat, plantillas de WhatsApp | los del usuario; sin dato en Honduras, **L 50** (L 45 por pedido) |
+| Fijos del producto | Gastos fijos del mes (Finanzas, `fijos_mensuales`) ÷ productos activos | sin dato, L 4,000 ÷ 2 = **L 2,000** |
+| VC | Ventas confirmadas al mes del producto | **108** (4 pedidos al día, 10 % de cancelación) hasta que haya datos reales |
+| Meta | Ganancia neta del producto al mes | Honduras **L 10,000**; otro país, la que diga el usuario |
+
+Ejemplo en Honduras (ticket promedio L 1,300, costo promedio L 450, flete L 120, confirmación 0 y gastos por defecto): equilibrio ≈ L 243 por venta confirmada, objetivo ≈ L 151, techo ≈ L 26,300 al mes (≈ L 875 al día). La cuenta de precio y paquetes que pide la meta está en [meta-neta-y-precio.md](meta-neta-y-precio.md).
 
 - Anota los dos en LANZAMIENTO.md en la moneda del país y en US$ (con la tasa de cambio que muestra la app o la del día, dicha).
 - Si el de equilibrio queda bajo US$15, se dice en una línea y decide el usuario.
