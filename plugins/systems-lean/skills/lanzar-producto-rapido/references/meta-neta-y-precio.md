@@ -42,8 +42,18 @@ Con G ≈ L 715: 4 pedidos al día dejan unos **L 10,000** netos y 6 al día uno
 ## Qué decirle al usuario (en la propuesta del paso 5)
 Una línea con: el precio de 1, 2 y 3; la G promedio; los pedidos al día que hacen falta para L 10,000 netos; y la publicidad al día y al mes para sostenerlos. Ejemplo: «Para ganar L 10,000 netos al mes con este producto: 1 a L 1,099, 2 a L 1,699 y 3 a L 2,299 (deja L 720 por entrega en promedio); hacen falta 4 pedidos al día, con unos L 640 diarios de publicidad (L 19,200 al mes)».
 
+## La meta mueve todo (desde el 2026-11-21)
+En la app, el panel «Meta neta y CPA real» de Projection (y `projection_ver_simulador › cpa_real`) parte de la **meta** y calcula, por canal (mensajes o web):
+- las **ventas, pedidos y entregas** que hacen falta al día, a la semana y al mes;
+- el **CPA objetivo** = el tope de «escalar con cuidado» de las reglas de corte (≈ 73 % del CPA de equilibrio real) y el **CPA de equilibrio** con ese volumen;
+- **lo que se invierte** (ventas × CPA objetivo) y el **techo** que no conviene pasar (ventas × equilibrio);
+- el **costo por pedido**, que baja cuando sube el volumen (los fijos se reparten entre más pedidos);
+- el **precio sugerido**: el precio de 1 (y los paquetes en la misma proporción) con el que la meta sale con **4 pedidos al día**. Es el precio que se pone al lanzar.
+- Si la campaña ya está en Ads Lean y el producto tiene varias encendidas, a cada una le toca la parte de su presupuesto diario.
+- Con el CPA objetivo como fracción fija del equilibrio, invertir y techo salen iguales para la misma meta en todos los productos (con L 10,000: unos L 27,700 y L 37,700 al mes). Lo que cambia por producto son las ventas que pide y su CPA.
+
 ## Los dos CPA de la campaña
-Salen de la cuenta de la sección 7 de [oferta-y-cpa.md](oferta-y-cpa.md): el **CPA de equilibrio** ya da por perdidos el 45 % de devolución y el 10 % de cancelación y descuenta variables y fijos; el **CPA objetivo** es el equilibrio menos la meta ÷ ventas confirmadas del mes; y el **techo de gasto al mes** de la campaña es el equilibrio × ventas confirmadas del mes.
+Salen de la cuenta de la sección 7 de [oferta-y-cpa.md](oferta-y-cpa.md): el **CPA de equilibrio** ya da por perdidos el 45 % de devolución y el 10 % de cancelación y descuenta variables y fijos; el **CPA objetivo** es el tope de «escalar con cuidado» (≈ 73 % del equilibrio); y el **techo de gasto al mes** de la campaña es el equilibrio × las ventas confirmadas que pide la meta. Ads Lean los lee solos de Projection: no los fijes a mano en la campaña.
 
 ## Presupuesto de escala
 - Publicidad al mes = pedidos al mes × CPA; al día = ÷ 30.

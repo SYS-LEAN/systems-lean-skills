@@ -116,9 +116,12 @@ Son dos números distintos y no se cambian uno por otro. Los dos son **por venta
 
 **El `breakeven_cpa` de Projection NO va tal cual a la campaña:** es por entrega efectiva y no trae los gastos fijos ni los variables. Se calcula con esta cuenta, usando los números guardados en la hoja:
 
-CPA de equilibrio = e × [P × (1 − k) − C − ff] − F − cf − v − fijos del producto ÷ VC
-CPA objetivo = CPA de equilibrio − meta ÷ VC
-Techo de gasto al mes de la campaña = CPA de equilibrio × VC
+m = e × [P × (1 − k) − C − ff] − F − cf − v   (lo que deja una venta confirmada antes de publicidad y fijos)
+f = 0,735   (CPA objetivo = tope de «escalar con cuidado»: 18 % ÷ 24,5 % del equilibrio)
+VC = (meta + fijos del producto × (1 − f)) ÷ (m × (1 − f))   (las ventas confirmadas que pide la meta)
+CPA de equilibrio = m − fijos del producto ÷ VC
+CPA objetivo = f × CPA de equilibrio
+Techo de gasto al mes de la campaña = CPA de equilibrio × VC; lo que se invierte = CPA objetivo × VC
 
 | Letra | Qué es | Valor |
 |---|---|---|
@@ -131,10 +134,10 @@ Techo de gasto al mes de la campaña = CPA de equilibrio × VC
 | cf | Lo que cuesta confirmar cada pedido (llamada o mensaje) | el del usuario; si no lo sabe, 0, y se dice |
 | v | Gastos variables por venta confirmada: créditos del agente de chat, plantillas de WhatsApp | los del usuario; sin dato en Honduras, **L 50** (L 45 por pedido) |
 | Fijos del producto | Gastos fijos del mes (Finanzas, `fijos_mensuales`) ÷ productos activos | sin dato, L 4,000 ÷ 2 = **L 2,000** |
-| VC | Ventas confirmadas al mes del producto | **108** (4 pedidos al día, 10 % de cancelación) hasta que haya datos reales |
+| VC | Ventas confirmadas al mes que pide la meta | sale de la cuenta de arriba (desde el 2026-11-21 la meta decide el volumen; antes se fijaba en 108) |
 | Meta | Ganancia neta del producto al mes | Honduras **L 10,000**; otro país, la que diga el usuario |
 
-Ejemplo en Honduras (ticket promedio L 1,300, costo promedio L 450, flete L 120, confirmación 0 y gastos por defecto): equilibrio ≈ L 243 por venta confirmada, objetivo ≈ L 151, techo ≈ L 26,300 al mes (≈ L 875 al día). La cuenta de precio y paquetes que pide la meta está en [meta-neta-y-precio.md](meta-neta-y-precio.md).
+Ejemplo en Honduras (ticket promedio L 1,300, costo promedio L 450, flete L 120, confirmación 0 y gastos por defecto, meta L 10,000): m ≈ L 262; hacen falta ≈ 152 ventas confirmadas al mes (≈ 168 pedidos, 5,6 al día); equilibrio ≈ L 249, objetivo ≈ L 183, se invierten ≈ L 27,700 al mes (≈ L 920 al día) y el techo es ≈ L 37,700. La app hace esta cuenta sola en Projection (`projection_ver_simulador › cpa_real`), con el precio para la meta con 4 pedidos al día. La cuenta de precio y paquetes que pide la meta está en [meta-neta-y-precio.md](meta-neta-y-precio.md).
 
 - Anota los dos en LANZAMIENTO.md en la moneda del país y en US$ (con la tasa de cambio que muestra la app o la del día, dicha).
 - Si el de equilibrio queda bajo US$15, se dice en una línea y decide el usuario.
