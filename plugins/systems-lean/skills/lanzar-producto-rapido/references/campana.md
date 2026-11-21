@@ -26,7 +26,7 @@ Este camino ya trae la estrategia (directa por ángulos, ABO) y su regla de pres
 - `presupuesto_modo: "conjunto"` no se cambia después de publicar.
 
 ## 3. Los dos CPA
-`ads_editar_campania {campania_id, breakeven_cpa, cpa_objetivo}` con los números **por venta confirmada** del paso 5, **en la moneda de la hoja**: la `moneda` que trae `ads_ver_testeo` (en Colombia, COP). No los dejes en el valor que trae Projection por entrega.
+**No los fijes en la campaña.** Desde el 2026-11-21 Ads Lean lee solos el CPA de equilibrio y el CPA objetivo **reales** de la hoja de Projection, por venta confirmada, con costos, devolución, cancelación y la meta (`projection_ver_simulador › cpa_real`). Un `ads_editar_campania {breakeven_cpa}` o `{cpa_objetivo}` deja un número fijo que queda viejo y tapa el plan: la barra de la campaña, la copa de ganador y las reglas de corte juzgarían con él. Si una campaña ya tiene uno fijado, devuélvelo con `ads_editar_campania {campania_id, breakeven_auto: true, cpa_objetivo_auto: true}`. Fíjalos a mano solo si el usuario lo pide.
 
 ## 4. Los conjuntos
 Por cada ángulo: `ads_crear_conjunto {campania_id, descriptor: "Ángulo · <ángulo>", presupuesto_diario}`. **`presupuesto_diario` va en la moneda de la hoja** (COP en Colombia), no en dólares: es el CPA de equilibrio dividido entre los conjuntos, y nunca menos del equivalente a US$5 con la tasa que anotaste en el paso 5. Mándalo siempre: sin él, cada conjunto toma 1 CPA entero y la campaña gasta de 3 a 5 veces lo previsto. Anota cada `conjunto_id` en LANZAMIENTO.md.
