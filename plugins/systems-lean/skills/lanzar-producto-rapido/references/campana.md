@@ -66,3 +66,21 @@ Sin esto, Meta optimiza por gente que escribe y no por compradores.
 3. Marca las casillas del paso 12 en LANZAMIENTO.md.
 
 **Publicar con `confirmado: true` es del paso 13, con el «sí» del usuario.**
+
+## 9. Cuándo apagar y cuándo escalar cada anuncio
+Reglas por defecto sacadas del historial de anuncios de producto físico en Systems Lean (277 anuncios, septiembre a noviembre de 2026). La app las aplica en los avisos de la campaña y el usuario las puede cambiar por marca. «Ticket» es el pedido promedio del producto; «equilibrio» y «objetivo» son los dos CPA reales del paso 5 (sección 7 de `oferta-y-cpa.md`).
+
+1. **Con ½ CPA de equilibrio gastado, señal mala → se apaga el anuncio** (mensajes y web por igual):
+   - CPC del enlace > **0,75 % del ticket** (con ticket de L 800, L 6; de L 1,100, L 8; lo ideal es 0,5 % o menos);
+   - CPM > **L 170**;
+   - CTR del enlace < **2 %**;
+   - en mensajes, además, costo por conversación > **L 25**.
+2. **CTR de más de 3 % sin ventas → no se apaga:** el clic llega y no compra. Se revisa la landing y la oferta.
+3. **1 CPA de equilibrio sin venta → se apaga**, salvo métricas sanas (CPC ≤ 0,5 % del ticket y, en mensajes, conversación ≤ L 15), que siguen hasta 1,5 equilibrios. **1,5 sin venta → se apaga siempre.**
+4. **Con ventas, el CPA como % del ticket** (por anuncio; por campaña con 3 ventas o más):
+   - **menos de 12 %** → escalar agresivo (duplicar el presupuesto cada 24 h si se sostiene);
+   - **12–18 %** → escalar con cuidado;
+   - **18–23 %** → no escalar y revisar;
+   - **más de 23 %** → evaluar apagar; con 2 ventas o más se apaga (está arriba del equilibrio real).
+
+Apagar y bajar se hace y se avisa al usuario; subir presupuesto o encender siempre espera su OK.
