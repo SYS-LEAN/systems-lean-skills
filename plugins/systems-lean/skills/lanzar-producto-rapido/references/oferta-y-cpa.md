@@ -12,7 +12,8 @@ Con la investigación ya hecha, propón el precio, la oferta y los escenarios. *
 4. ¿Qué **utilidad mínima** aceptas en este producto: 10 %, 15 %, 20 % u otra? (Propuesta: 15 %.)
 5. ¿Cuántas **ventas al mes** crees que puedes hacer, o las estimo yo con la investigación?
 6. ¿Qué **costo de envío promedio** pongo? Dale las opciones que cotizaste en el paso 1 (por ciudad y ponderado).
-7. ¿Estás de acuerdo con **5 % de cancelaciones y 25 % de devoluciones en Honduras, o 30 % en Colombia y los demás países**? (Solo contra entrega.)
+7. ¿Estás de acuerdo con **10 % de cancelaciones y 45 % de devoluciones en Honduras, o 5 % y 30 % en Colombia y los demás países**? (Solo contra entrega.)
+8. **En Honduras:** ¿la meta es **L 10,000 de ganancia neta al mes** con este producto? ¿Tus gastos fijos son los de Finanzas (o L 4,000 al mes si no los tienes cargados) y usas el agente de IA del chat? Con eso sale el precio, los paquetes y la publicidad al día ([meta-neta-y-precio.md](meta-neta-y-precio.md)).
 
 Si responde «lo que propongas», sigue con tu propuesta.
 
@@ -21,7 +22,8 @@ Si responde «lo que propongas», sigue con tu propuesta.
 - **k** (lo que el proveedor se queda de lo cobrado): no va en `pasarela_pct`. Se descuenta en la cuenta de los CPA (abajo).
 - **Mezcla de paquetes sin pedidos todavía:** 45 % una unidad, 40 % dos y 15 % tres (45/55 si no hay paquete de 3). En cuanto el producto tenga pedidos, se cambia por la mezcla real.
 - **Publicidad:** en contra entrega no se fija un %. El CPA objetivo sale del margen objetivo (abajo) y el % de publicidad es el resultado.
-- **Tasas:** en Honduras, 25 % de devolución y 5 % de cancelación; en Colombia y los demás, 30 % y 5 %; si el usuario tiene las suyas, las suyas.
+- **Tasas:** en Honduras, 45 % de devolución y 10 % de cancelación; en Colombia y los demás, 30 % y 5 %; si el usuario tiene las suyas, las suyas.
+- **Meta y precio en Honduras:** la G por entrega que pide la meta de L 10,000 netos (≈ L 700 con 4 pedidos al día) manda sobre la «utilidad mínima» del punto 4: si el 15 % de margen deja menos, el precio sube hasta llegar a la G necesaria o el producto no da la meta. La cuenta está en [meta-neta-y-precio.md](meta-neta-y-precio.md).
 
 ## 3. La oferta
 - **Precio psicológico** siempre (169.900, no 170.000).
