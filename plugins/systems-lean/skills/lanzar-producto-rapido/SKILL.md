@@ -117,8 +117,9 @@ Cada paso dice qué deja hecho, con qué se verifica y cuándo no se avanza. El 
 
 ### Paso 11 · WhatsApp: agente, embudo y confirmación (≈25 min)
 [references/whatsapp.md](references/whatsapp.md), [references/flujo-plantilla.md](references/flujo-plantilla.md) y [references/flujo-grafo.md](references/flujo-grafo.md)
-- **Deja:** el producto vinculado al agente, el material (video demo, foto en la mano, imagen de la promoción y los audios), el embudo «precio primero» publicado y atado a su escenario, la confirmación creada y cableada, y las simulaciones hechas.
-- **Verifica:** `chat_agente_productos_ver`, `chat_flujo_validar` (`publicable: true`), `chat_flujo_publicar` (sin `avisos_oferta`), `chat_simular` (moneda del país y sin variables vacías) y `chat_flujos_ver` (embudo y confirmación publicados).
+- **Primero, las plantillas del pedido en Meta:** `chat_plantillas_base {simular: true}` dice cuáles faltan en cada número de WhatsApp (confirmación, pedido confirmado, guía con botón «Rastrear envío», reparto, oficina, inconveniente de entrega y entregado; en Honduras también las de usted). Si falta alguna, `chat_plantillas_base` sin simular las manda a Meta; las que ya están no se tocan. Sin ellas los avisos del pedido no le llegan al cliente aunque estén encendidos, y Meta tarda de minutos a horas en aprobarlas: por eso van antes del primer pedido.
+- **Deja:** las plantillas del pedido enviadas a Meta, el producto vinculado al agente, el material (video demo, foto en la mano, imagen de la promoción y los audios), el embudo «precio primero» publicado y atado a su escenario, la confirmación creada y cableada, y las simulaciones hechas.
+- **Verifica:** `chat_plantillas_base {simular: true}` (sin plantillas que falten), `chat_agente_productos_ver`, `chat_flujo_validar` (`publicable: true`), `chat_flujo_publicar` (sin `avisos_oferta`), `chat_simular` (moneda del país y sin variables vacías) y `chat_flujos_ver` (embudo y confirmación publicados).
 - **No avances si:** el producto no está activo en el agente; las palabras clave chocan con otro producto; la simulación sale con moneda equivocada o una variable vacía.
 
 ### Paso 12 · Campaña (≈15 min)
