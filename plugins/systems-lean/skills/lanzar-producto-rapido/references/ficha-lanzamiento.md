@@ -46,9 +46,8 @@ Cópiala al empezar en `~/SystemsLean/productos/<producto>-<país>/LANZAMIENTO.m
 - [ ] Ramas de conocimiento propias del usuario leídas si existen (`skills_listar`)
 - [ ] Cuenta publicitaria, página y píxel (`ads_ver_conexion`)
 - [ ] Número de WhatsApp del proyecto (`chat_proyectos_ver`, `chat_salud_ver`)
-- [ ] Extensión de Chrome de Systems Lean instalada
-- [ ] Editor instalado (`npm run tipos` sin errores)
-- [ ] Llave de Gemini probada (`node scripts/analizar.mjs --probar`), o el usuario decidió seguir sin ella
+- [ ] Extensión de Chrome de Systems Lean con sesión (`cuenta_ver` › `extension_chrome`, o el usuario confirmó el ícono)
+- [ ] Soydrop conectado (`soydrop_token_estado`), si el proveedor es Soydrop
 - [ ] Tabla «qué hay / qué falta», si el producto ya existía
 
 ### Paso 1 · La ficha viva y la Biblioteca
@@ -117,6 +116,7 @@ Cópiala al empezar en `~/SystemsLean/productos/<producto>-<país>/LANZAMIENTO.m
 - [ ] Tabla de puntajes y decisión: <WhatsApp | landing> porque <…>
 
 ### Paso 9 · Creativos
+- [ ] Editor instalado (`npm run tipos` sin errores)
 - [ ] Por ángulo: 1 video (editado en la PC) + 1 imagen (del generador de la app) (tabla abajo)
 - [ ] Plan mostrado al usuario en los modos 2, 3 y 4
 - [ ] 6 videos de reserva marcados «RESERVA»

@@ -91,7 +91,7 @@ Revisa `persistido` y `estado_descarga`: si sale `failed`, lee `_nota`; con una 
 Cada video e imagen de Creativos de Inspiración (los del usuario y los tuyos) se analiza una vez y su descripción queda guardada en la app. **Así no se repite el análisis** en los creativos, la landing ni el chat.
 1. Mira la `descripcion` que trae `anuncios_ver_biblioteca_creativos`: si ya tiene un análisis suficiente, no lo repitas.
 2. **Imágenes:** míralas tú.
-3. **Videos:** `get_ad_transcripts` de Dropkiller si viene de ahí. Si no, con la llave de Gemini del usuario: `node scripts/analizar.mjs "<video o url>" --salida "<carpeta>/investigacion/<nombre>.txt"` ([editor.md](editor.md)) da en UNA llamada la transcripción con segundos y el análisis (nunca cuadro por cuadro). Si no hay ninguna de las dos, el usuario escucha el video y te dice qué se oye.
+3. **Videos:** `media_analizar_video {creativo_id}` (o `{url}` si no está en la biblioteca): la IA de la app da en una llamada la transcripción, cada toma con sus segundos, el gancho, los textos en pantalla y el formato. Cobra créditos (la primera vez díselo al usuario); lo ya analizado sale gratis. No le pidas ninguna llave de Gemini. Si viene de Dropkiller, `get_ad_transcripts` trae lo que se dice gratis. Nunca cuadro por cuadro.
 4. **Busca la oferta y el precio** en el video, en el audio y en el texto del anuncio, con precisión: son los datos más fieles de lo que ofrece la competencia.
 5. **Cruza las fuentes:** las descripciones del anuncio que trae la extracción de Meta con los videos guardados del mismo anunciante, y los comentarios con su video. Si no cuadran, dilo.
 6. **Guarda la descripción:** `media_describir_creativo {creativo_id, descripcion}`. Reemplaza la anterior. Detallada, porque la usan otros pasos:

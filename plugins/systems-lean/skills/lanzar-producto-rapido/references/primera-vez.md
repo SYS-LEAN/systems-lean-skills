@@ -13,12 +13,12 @@ Se revisa **una sola vez por PC**. Si existe `~/SystemsLean/requisitos.md`, lée
 | # | Qué | Para qué | Cómo se comprueba | Quién | Si falta |
 |---|---|---|---|---|---|
 | 1 | Cuenta de Systems Lean con el plan Plus y el conector agregado | Sin el conector no hay nada de lo demás | `sl_como_trabajar` responde; `cuenta_ver {}` dice el plan, si incluye el conector y si está por vencer | Usuario | Plan: https://app.systemslean.com/subscription. Conector: en https://app.systemslean.com/credenciales elegir «Claude» y copiar la dirección (`https://app.systemslean.com/mcp`); en Claude se agrega en https://claude.ai/settings/connectors → «Agregar conector personalizado» → «Autorizar» |
-| 2 | Extensión de Chrome de Systems Lean, con la sesión iniciada | Conecta Soydrop, guarda productos de Dropi y de Soydrop con un botón y captura la investigación del usuario (anuncios, Marketplace, AliExpress, comentarios) | `cuenta_ver {}` › `extension_chrome`: si se la vio, hace cuánto y con qué versión. Si no hay registro, pregúntale al usuario si ve el ícono de Systems Lean en Chrome y si está con su sesión | Usuario | https://chromewebstore.google.com/detail/ieigggdfakhdegnggjhdhdlhhfhkojme → «Añadir a Chrome» → abrir la extensión e iniciar sesión con su cuenta de Systems Lean |
+| 2 | Extensión de Chrome de Systems Lean, con la sesión iniciada | Conecta Soydrop, guarda productos de Dropi y de Soydrop con un botón y captura la investigación del usuario (anuncios, Marketplace, AliExpress, comentarios) | `cuenta_ver {}` › `extension_chrome`: si se la vio, hace cuánto y con qué versión. **Si no hay registro, NO concluyas que no está instalada** (recién instalada, sesión cerrada o Chrome cerrado no dejan registro): pregúntale en una línea si ve el ícono de Systems Lean en Chrome y si inició sesión. Si Soydrop ya está conectado (`soydrop_token_estado`), la extensión funciona: no preguntes nada | Usuario | https://chromewebstore.google.com/detail/ieigggdfakhdegnggjhdhdlhhfhkojme → «Añadir a Chrome» → abrir la extensión e iniciar sesión con su cuenta de Systems Lean |
 | 3 | Una Unidad de Negocio de dropshipping para el país donde va a vender | Todo se guarda dentro de una | `marca_ver {}`; cuántas admite el plan, en `cuenta_ver {}` › `unidades_de_negocio` | Tú | No hay ninguna, o el usuario quiere una marca nueva: [marca.md](marca.md) |
 | 4 | Meta: página, cuenta publicitaria activa con forma de pago y píxel, conectados a esa Unidad de Negocio | Sin esto no hay campaña | `ads_ver_conexion {marca_id}` › `falta: null`, y la tabla de «Meta: lo que hay que tener» | Usuario autoriza Meta una vez; conectarlo a la marca y crear el píxel lo haces tú | «Conectar Meta a Systems Lean», más abajo |
-| 5 | Su proveedor | De ahí salen el producto, el costo, el stock y el flete | Dropi: la tool `list_products` responde. Soydrop: `soydrop_token_estado {}` dice conectado | Usuario | **Dropi:** agregar su conector (ver «Los conectores»). **Soydrop** (Honduras): con la extensión instalada, abrir https://app.soydrop.com e iniciar sesión; la extensión conecta la cuenta sola |
+| 5 | Su proveedor | De ahí salen el producto, el costo, el stock y el flete | Dropi: la tool `list_products` responde. Soydrop: `soydrop_token_estado {}` dice conectado | Usuario | **Dropi:** agregar su conector (ver «Los conectores»). **Soydrop** (Honduras): la extensión guarda la sesión cuando la página de Soydrop CARGA con la extensión ya instalada y con sesión. Si dice que no está conectado, pídele en una línea que abra o **recargue (F5)** https://app.soydrop.com con su sesión de Soydrop iniciada, y vuelve a leer `soydrop_token_estado` cada 30 s, hasta 3 minutos, antes de decir que falta. Mientras, sigue con lo que no necesita a Soydrop |
 | 6 | Node.js 20 o más y unos 500 MB libres | El editor de videos corre en su PC | `node --version` | Usuario | https://nodejs.org → botón de la versión LTS → instalar con todo por defecto → abrir un chat nuevo |
-| 7 | El editor de videos | Edita los videos de los anuncios | Existe `~/SystemsLean/editor/node_modules` | Tú | [editor.md](editor.md) › «Instalar» |
+| 7 | El editor de videos | Edita los videos de los anuncios | Existe `~/SystemsLean/editor/node_modules` | Tú, **recién en el paso 9** (antes no hace falta) | [editor.md](editor.md) › «Instalar». Si tu agente no puede bajar archivos de internet, dale al usuario el comando de una línea de editor.md para que lo corra él |
 | 8 | Créditos en Systems Lean | Las imágenes, las tomas con IA y la voz se generan en la app y cobran créditos | `cuenta_ver {}` › `creditos.disponibles`. Antes de generar muestra el costo (`anuncios_estimar_costo`) y espera el sí | Usuario | https://app.systemslean.com/subscription |
 
 - **Si el canal va a ser WhatsApp** (se decide en el paso 8), además: un número de WhatsApp de la marca conectado a su agente. Qué número sirve, cómo se conecta y cómo se comprueba: «El número de WhatsApp», más abajo.
@@ -85,7 +85,6 @@ El canal se decide en el paso 8, pero el número se pregunta ahora: conseguir un
 ## Lo recomendado
 | Qué | Para qué | Cómo se comprueba | Si falta |
 |---|---|---|---|
-| Llave de Gemini (gratis) | Saber qué se dice y qué se ve en los videos de la competencia, en una llamada. Sin ella, el usuario tiene que escuchar cada video y contártelo | `node scripts/analizar.mjs --probar`, dentro de `~/SystemsLean/editor` | Ver «Las llaves» |
 | Llave de Pixabay (gratis) | Un segundo banco de videos de stock para el relleno de los anuncios, que se busca desde la terminal y con miniaturas. Sin ella no se frena nada: el stock sale de Pexels, que no pide llave | `node scripts/stock.mjs --probar`, dentro de `~/SystemsLean/editor` | Ver «Las llaves» |
 | La app de Systems Lean en su celular | Le avisa de cada pedido y de cada mensaje de cliente, y le deja aprobar con un botón | Pregúntale al usuario si ya la tiene | Dile que se mande este link a su propio WhatsApp y lo abra en el celular: https://app.systemslean.com/conversations?fuente=app → iniciar sesión → «Instalar app». En iPhone: abrirlo en Safari → botón de compartir → «Agregar a inicio» |
 | Un navegador para ti | Leer la Biblioteca de anuncios de Meta y las páginas de la competencia. Solo para leer la web pública | Tienes herramientas de navegador | En Claude: la extensión Claude in Chrome, https://claude.com/chrome |
@@ -111,18 +110,19 @@ Todos en un solo lugar. Se agregan igual: en Claude, https://claude.ai/settings/
 
 ## Las llaves
 Son del usuario y viven en un solo archivo de su PC: `~/SystemsLean/.env`. **No es el conector:** el conector de Systems Lean nunca pide llaves ni tokens.
-1. Crea el archivo si no existe, con las líneas vacías: `GEMINI_API_KEY=`, `PIXABAY_API_KEY=` y `ELEVENLABS_API_KEY=`. Si ya existe, agrega solo las líneas que falten.
+**Ninguna llave es obligatoria.** El análisis de los videos lo hace la app (`media_analizar_video`, con créditos): no le pidas al usuario una llave de Gemini.
+1. Crea el archivo solo si el usuario quiere sumar una llave opcional, con las líneas vacías `PIXABAY_API_KEY=` y `ELEVENLABS_API_KEY=`. Si ya existe, agrega solo las líneas que falten.
 2. Ábreselo al usuario en su editor de texto: en Windows `notepad "$HOME\SystemsLean\.env"`; en macOS `open -e ~/SystemsLean/.env`.
 3. Dale el link de la llave que falta y dile que la pegue después del `=`, sin espacios ni comillas, y que guarde:
-   - **Gemini:** https://aistudio.google.com/apikey → entrar con su cuenta de Google → «Crear clave de API» → copiar.
    - **Pixabay:** https://pixabay.com/api/docs/ → «Login» (o «Sign up» si no tiene cuenta; es gratis) → al volver a esa página, la llave aparece en la sección «Search Images», en la fila «key» → copiar.
    - **ElevenLabs** (opcional): https://elevenlabs.io/app/settings/api-keys → «Create API Key» → copiar.
-4. Comprueba: `node scripts/analizar.mjs --probar` para Gemini; `node scripts/stock.mjs --probar` para Pixabay; `node scripts/voz.mjs --lista` para ElevenLabs.
+4. Comprueba: `node scripts/stock.mjs --probar` para Pixabay; `node scripts/voz.mjs --lista` para ElevenLabs.
 
 **Pexels no lleva llave.** Su página dejó de entregar llaves nuevas (https://www.pexels.com/api/ lo dice), y no hace falta: el video se elige en https://www.pexels.com/videos/ y `scripts/stock.mjs` lo baja con su enlace ([creativos.md](creativos.md) › «De dónde sale cada toma»).
 
 ## Qué frena y qué no
-- **Sin el 1, el 2, el 3 o el 5: no se empieza.** El 3 lo resuelves tú con [marca.md](marca.md).
+- **Sin el 1 o el 3: no se empieza.** El 3 lo resuelves tú con [marca.md](marca.md).
+- **El 2 y el 5 se confirman, no se suponen:** antes de decir que faltan, haz lo de su fila (preguntar por el ícono, recargar Soydrop y volver a mirar). Mientras se resuelven, avanza con Meta, la Unidad de Negocio y la investigación de la competencia; lo que necesita los datos del proveedor (el alta del paso 1) espera.
 - **Sin el 4 (Meta):** se puede avanzar hasta los creativos (paso 9), pero dile desde ya que sin eso no hay campaña. Una cuenta publicitaria restringida o sin forma de pago cuenta como «sin Meta»: se arregla en Meta antes de publicar.
 - **Sin número de WhatsApp:** se sigue; el canal del paso 8 será la landing, o se espera el número.
 - **Con número, pero sin vincular a la página (4.7):** se sigue hasta la campaña, pero una campaña a WhatsApp no sube a Meta hasta que esté vinculado. Pídelo desde ya: a veces lleva un día (portafolios distintos, código que no llega).

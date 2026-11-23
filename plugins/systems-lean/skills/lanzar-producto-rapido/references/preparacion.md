@@ -1,6 +1,6 @@
 # Paso 0 · Preparación y conexiones
 
-Antes de investigar nada se confirma que la cuenta del usuario puede llegar hasta el final: conector, Unidad de Negocio, cuenta publicitaria, número de WhatsApp y editor. Un lanzamiento que se arma entero y al final no puede publicarse es tiempo perdido.
+Antes de investigar nada se confirma que la cuenta del usuario puede llegar hasta el final: conector, Unidad de Negocio, cuenta publicitaria, número de WhatsApp y proveedor (el editor espera al paso 9). Un lanzamiento que se arma entero y al final no puede publicarse es tiempo perdido.
 
 ## 0. ¿Es la primera vez?
 - Si no existe `~/SystemsLean/requisitos.md`, es la primera vez en esta PC: revisa los requisitos con [primera-vez.md](primera-vez.md) antes de seguir. Ahí están los links directos de todo lo que el usuario tiene que instalar o conectar.
@@ -52,14 +52,13 @@ Lo hecho se salta; lo que falta se hace con su paso.
 | Píxel | `ads_ver_pixeles {marca_id}` | El píxel de la marca, por nombre | Se crea en el paso de landing o de campaña, con su OK |
 | WhatsApp | `chat_proyectos_ver {}` y `chat_salud_ver {proyecto_id}` | El proyecto de Chat Lean con su número activo | Si el canal termina siendo WhatsApp, el usuario conecta el número en el agente: [primera-vez.md](primera-vez.md) › «El número de WhatsApp». Pídele que se mande un mensaje de prueba y que lo vea llegar en Chat en Vivo (https://app.systemslean.com/conversations) |
 | Proveedor Dropi | La tool `list_products` (conector oficial de Dropi) | Responde | Que lo agregue como conector de su agente con `https://mcp.dropi.co/mcp` (en Claude: claude.ai → Configuración → Conectores) |
-| Proveedor Soydrop | `soydrop_token_estado {}` | Conectado | Con la extensión de Chrome de Systems Lean instalada, el usuario abre https://app.soydrop.com e inicia sesión: la extensión conecta la cuenta sola. Vuelve a leer `soydrop_token_estado` |
+| Proveedor Soydrop | `soydrop_token_estado {}` | Conectado | La extensión guarda la sesión cuando la página de Soydrop carga con la extensión ya instalada: pídele que abra o **recargue (F5)** https://app.soydrop.com con su sesión iniciada y vuelve a leer `soydrop_token_estado` cada 30 s, hasta 3 minutos. Mientras, sigue con lo demás |
 | Competencia | `ads_library_search` (conector oficial de Meta Ads; solo responde con una cuenta publicitaria activa), Dropkiller o TrendTrack | Responde | Se sigue con lo que capture el usuario y la Biblioteca en el navegador (paso 3) |
-| Extensión de Chrome de Systems Lean (obligatoria) | Pregúntale al usuario si la tiene instalada y con su sesión iniciada | Conecta Soydrop, guarda productos de Dropi y Soydrop con un botón y la usa para su investigación (paso 3) | Que la instale desde la Chrome Web Store: https://chromewebstore.google.com/detail/ieigggdfakhdegnggjhdhdlhhfhkojme |
+| Extensión de Chrome de Systems Lean (obligatoria) | `cuenta_ver {}` › `extension_chrome`. Sin registro, no concluyas que falta: pregúntale en una línea si ve el ícono y si inició sesión. Soydrop conectado ya prueba que funciona | Conecta Soydrop, guarda productos de Dropi y Soydrop con un botón y la usa para su investigación (paso 3) | Que la instale desde la Chrome Web Store: https://chromewebstore.google.com/detail/ieigggdfakhdegnggjhdhdlhhfhkojme |
 
 ## 5. El cerebro, el editor y la carpeta
 - **El cerebro de Systems Lean** (la carpeta de trabajo con el método, las lecciones y los casos): si no existe `~/SystemsLean/cerebro/base/VERSION`, o dice una fecha anterior a la que avisa `sl_como_trabajar`, instálalo o actualízalo con `cerebro_descargar`: te da el comando y no pisa nada del usuario. Después lee `~/SystemsLean/CLAUDE.md` (o `AGENTS.md`) y `cerebro/mio/HOT.md`, y abre la lección cuya señal coincida con cada paso.
-- Instala o actualiza el editor: [editor.md](editor.md) › «Instalar». Necesita Node.js 20 o más.
-- La llave de Gemini para analizar videos: `node scripts/analizar.mjs --probar`. Si falta, [primera-vez.md](primera-vez.md) › «Las llaves».
+- **El editor no se instala aquí:** se instala recién en el paso 9, cuando haya que editar ([editor.md](editor.md) › «Instalar»). Los videos de la competencia se analizan con la app (`media_analizar_video`), sin llave de Gemini.
 - Crea la carpeta del producto: `~/SystemsLean/productos/<producto>-<país>/` con `entrada/` (lo bajado), `planes/` (los JSON del editor), `salida/` (lo terminado), `investigacion/` y `whatsapp/`.
 - Crea `LANZAMIENTO.md` con [ficha-lanzamiento.md](ficha-lanzamiento.md) y llena «Datos» con lo que ya sabes.
 - Si tu agente deja nombrar el chat, ponle «<producto> · <país> · lanzamiento».

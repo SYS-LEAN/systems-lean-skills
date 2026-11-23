@@ -33,7 +33,6 @@ Tu agente va llenando una ficha del lanzamiento (`LANZAMIENTO.md`) y no da nada 
 - **Node.js 20 o más** (la versión LTS de https://nodejs.org) y unos 500 MB libres en el disco para el editor de videos.
 
 ### Recomendado
-- **Una llave de Gemini,** gratis en https://aistudio.google.com/apikey: con ella tu agente sabe qué se dice y qué se ve en los videos de la competencia. Va en el archivo `~/SystemsLean/.env` de tu PC, que tu agente te abre; no se pega en el chat.
 - **Un navegador para tu agente,** para leer la Biblioteca de anuncios de Meta. En Claude: la extensión [Claude in Chrome](https://claude.com/chrome).
 - **Un conector de la Biblioteca de anuncios de Meta**, para medir la competencia. En Claude viene gratis en el directorio de conectores. Sin él, la competencia se mira en la Biblioteca a mano.
 - **Dropkiller o TrendTrack:** suman datos de ventas y ganadores de otros países.

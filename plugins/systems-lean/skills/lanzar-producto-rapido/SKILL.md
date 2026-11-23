@@ -35,7 +35,8 @@ Es lo que se revisa en la auditoría del paso 13. Se llena todo aunque el usuari
 - **Lo que se genera con IA va por la app, con los créditos del usuario:**
   - las imágenes, en el generador de anuncios estáticos (`anuncios_*`): las de los anuncios, la de la promoción del chat, las de la landing y las capturas de prueba social. Nunca en la PC;
   - las tomas de video con IA y la voz en off, en el módulo de video (ver [references/creativos.md](references/creativos.md) › «Las tomas nuevas» y «La voz»). Lo generado se baja a la PC y se edita ahí.
-  - Si el usuario tiene su propia cuenta de una API (ElevenLabs, Gemini), también sirve.
+  - Si el usuario tiene su propia cuenta de ElevenLabs, también sirve.
+  - **Los videos de la competencia los analiza la app** (`media_analizar_video`, con créditos): no le pidas una llave de Gemini.
   - Generar cobra: la primera vez muestra el costo (`anuncios_estimar_costo` en imágenes) y espera el sí. `cuenta_ver` dice el saldo de créditos y lo usado en el período.
 - **Las preguntas de decisión van en tres mensajes,** cada uno con tu propuesta YA aplicada: su investigación (paso 3), Projection (paso 5) y la landing (paso 10). **No esperes la respuesta para seguir:** guarda tu propuesta, anótala como «supuesto» en LANZAMIENTO.md y sigue con los pasos que no gastan ni publican; si el usuario contesta otra cosa, corriges. Fuera de esos tres mensajes, solo se pregunta lo que frena el paso, en una línea: qué Unidad de Negocio o qué producto si no está claro (paso 0), la variante y el precio declarado antes de cotizar el flete (paso 1), el gasto la primera vez que algo cobra, el trato si el país no lo define y las plantillas de Meta (paso 11), y el «sí» del paso 13. Si responde «lo que propongas», sigue con tu propuesta.
 - **Gastar, publicar en Meta o escribirle a un cliente espera el OK del usuario.** Guardar en Product Lean, Projection, la biblioteca y publicar el flujo de WhatsApp no lo esperan.
@@ -47,7 +48,7 @@ Es lo que se revisa en la auditoría del paso 13. Se llena todo aunque el usuari
 - **Herramientas que no son para ti:** `ganadores_agregar` y `ganadores_ver` (solo administración), `grok_tareas_*`, `relevo_*`, `agentes_*`, `ads_propuestas_*`, `product_extraer_comentarios` (depende de un ejecutor interno) y el script `scripts/mcp-subir-media.mjs` (no lo tienes: sube con `media_subida_url`).
 - **Mensajes al usuario cortos y sin jerga:** la decisión y el porqué en una línea, sin nombres de herramientas ni ids.
 - **Lo que tiene que hacer el usuario se le da resuelto:** el link directo a la pantalla exacta, qué va a ver al abrirlo y qué botón apretar. Una cosa por línea, en el orden en que las hace, y al final «avísame cuando esté». Nunca una ruta de menús ni «búscalo en la app».
-- **Las llaves del usuario (Gemini, Pixabay, ElevenLabs) van en `~/SystemsLean/.env`,** las pega él y nunca pasan por el chat. El conector de Systems Lean no pide llaves ni tokens.
+- **Las llaves opcionales del usuario (Pixabay, ElevenLabs) van en `~/SystemsLean/.env`,** las pega él y nunca pasan por el chat. El conector de Systems Lean no pide llaves ni tokens.
 
 ## Los pasos
 Cada paso dice qué deja hecho, con qué se verifica y cuándo no se avanza. El detalle (tools, argumentos, trampas) está en su referencia.
@@ -56,8 +57,9 @@ Cada paso dice qué deja hecho, con qué se verifica y cuándo no se avanza. El 
 [references/preparacion.md](references/preparacion.md)
 - **Primera vez en esta PC** (no existe `~/SystemsLean/requisitos.md`): antes que nada, los requisitos de [references/primera-vez.md](references/primera-vez.md). Se revisan una vez y quedan anotados en ese archivo.
 - **No hay Unidad de Negocio de dropshipping, o el usuario quiere una marca nueva:** se crea con [references/marca.md](references/marca.md).
-- **Deja:** los requisitos revisados, la Unidad de Negocio elegida o creada, el conocimiento propio del usuario leído, las conexiones comprobadas, el editor instalado, la carpeta y la ficha del lanzamiento creadas, y una tabla «qué hay / qué falta» si el producto ya existía.
+- **Deja:** los requisitos revisados, la Unidad de Negocio elegida o creada, el conocimiento propio del usuario leído, las conexiones comprobadas, la carpeta y la ficha del lanzamiento creadas, y una tabla «qué hay / qué falta» si el producto ya existía.
 - **No avances si:** falta el conector de Systems Lean (sin él no hay nada que hacer).
+- **Confirma antes de decir que algo falta:** la extensión y Soydrop se verifican como dice primera-vez.md (preguntar por el ícono, recargar Soydrop y volver a mirar hasta 3 minutos). Nada de «instala la extensión» si el usuario ya la tiene.
 - **Lo demás no frena todo el lanzamiento.** Si falta la extensión de Chrome, la cuenta publicitaria con página y píxel (`ads_ver_conexion`) o el número de WhatsApp en Chat Lean, dale al usuario el paso para conectarlo (link y botón), anótalo como pendiente en LANZAMIENTO.md y **sigue con los pasos 1 a 10**. Cada falta frena solo el paso que la necesita: la extensión, el paso 1 si el proveedor es Soydrop y no está conectado; Meta y WhatsApp, los pasos 11 a 13.
 
 ### Paso 1 · El producto en la Biblioteca y la ficha viva (10 min)
