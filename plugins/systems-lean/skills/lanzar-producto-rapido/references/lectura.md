@@ -61,5 +61,7 @@ Desde el 2026-11-22 este paso cubre todo lo que pasa después de publicar, hasta
 | La escala de cada ganador | `despliegue_escala_ver` · `despliegue_escala_aprobar` · `despliegue_escala_ahora_no` |
 | El tablero y los encargos | `despliegue_tablero_ver` · `despliegue_encargo_crear` · `despliegue_encargos_ver` |
 | Dejar escrita una decisión | `ads_decision_registrar` |
+| El agente de la campaña: «El agente decide», sus propuestas y su historial | `ads_agente_campania {campania_id, accion}` (aprobar una propuesta, solo con el OK del usuario) |
+| Pedir cambios, descartar, cancelar o relanzar una pieza del tablero | `despliegue_pieza_accion {producto_id, pieza_id, accion}` |
 
 Anota cada lectura y cada decisión en LANZAMIENTO.md › «Próximo paso».

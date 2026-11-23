@@ -136,7 +136,7 @@ Desde el 2026-11-17 el informe es **un documento** (en la app: «Investigar con 
 ### 4.4 Guardar el informe y los ángulos
 1. `product_ver_informe {producto_id}`: lo que ya existe (lo que el usuario investigó o subió se suma, no se pisa sin leerlo).
 2. `product_guardar_informe {producto_id, markdown}`: gratis, **reemplaza** el documento anterior. No mandes `ramas`: es el formato viejo de 4 ramas.
-3. **Los ángulos no se arman solos por esta vía** (en la app sí, al investigar con IA o subir el documento): derívalos de las secciones 3, 6 y 7 y guárdalos en el paso 7 con `product_guardar_estrategia`.
+3. **Los ángulos no se arman solos al guardar por esta vía:** derívalos de las secciones 3, 6 y 7 y guárdalos en el paso 7 con `product_guardar_estrategia` (gratis), o pídeselos a la IA de la app con `product_angulos_desde_informe {producto_id}` (cobra créditos: la primera vez dile al usuario y espera su sí). Si el usuario prefiere que la app investigue sola, `product_investigar_con_ia {producto_id}` escribe el documento y arma los ángulos (cobra créditos). Mientras la IA de la app investiga, `product_ver_informe` lo dice en `estado`: no guardes el tuyo encima.
 4. Opcional: los datos de marketplaces o tiendas que leíste, con `captura_productos_registrar {producto_id, source, items}`, sin inventar campos.
 5. **Comentarios de redes:** `product_extraer_comentarios` depende de un ejecutor interno y no está disponible para usuarios. Usa los que el usuario extrajo y los visibles de los anuncios.
 

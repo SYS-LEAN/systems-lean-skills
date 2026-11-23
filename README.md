@@ -4,14 +4,14 @@ Skills para trabajar con la app [Systems Lean](https://app.systemslean.com) desd
 
 | Skill | Qué hace |
 |---|---|
-| `lanzar-producto-rapido` | Lanza un producto físico de dropshipping contra entrega (Dropi o Soydrop) de punta a punta, desde tu Biblioteca y tu Lista de Testeo hasta la campaña de Meta lista para encender, en un solo chat y todo por el conector de Systems Lean |
+| `lanzar-producto-rapido` | Lanza y testea un producto físico de dropshipping contra entrega (Dropi o Soydrop) de punta a punta, desde tu Biblioteca y tu Lista de Testeo hasta la campaña de Meta con la estrategia que recomienda la app, y después la lectura, el ganador, la escala y las variaciones del tablero de Despliegue creativo, en un solo chat y todo por el conector de Systems Lean |
 
 ### Qué deja hecho en tu cuenta de Systems Lean
 - **Product Lean:** el producto guardado en tu Biblioteca y en tu Lista de Testeo, investigado desde ahí (con los datos del proveedor y sus fotos en Creativos de Inspiración), vinculado al proveedor, con checklist, viabilidad, fotos, keywords, el informe de investigación (ángulos, ofertas y precios de la competencia, destino, formatos, nivel de conciencia, creencias y dolores), los ángulos de venta, la ficha técnica, la entrega, la cobertura y la ficha que usa el agente.
 - **Projection:** costos, flete real, tasas de cancelación y devolución, los paquetes, las ofertas que convienen, los escenarios que pidas y los dos CPA.
 - **Creativos:** los anuncios ganadores de referencia guardados y descritos, y por cada ángulo un video y una imagen listos, más 6 videos de reserva.
 - **WhatsApp o landing:** el agente con tu producto, el embudo «precio primero» y la confirmación publicados (o la landing con su checkout).
-- **Ads Lean:** la campaña de testeo con un conjunto por ángulo y sus anuncios, en pausa hasta que tú digas «enciéndela».
+- **Ads Lean:** la campaña de testeo con la estrategia que recomienda la app (Lean 1, 2 o 3) y sus anuncios, en pausa hasta que tú digas «enciéndela». Después de publicar, la lee con las reglas de corte de tu marca, te avisa el ganador y te propone la escala (siempre con tu OK).
 
 Tu agente va llenando una ficha del lanzamiento (`LANZAMIENTO.md`) y no da nada por hecho sin leerlo en la app. Si el chat se corta, retoma desde ahí.
 
@@ -77,7 +77,16 @@ Reinicia tu agente. Para actualizar, vuelve a correr el mismo comando.
 
 ## Usar
 1. Abre tu agente en una carpeta de trabajo, por ejemplo `Documentos/SystemsLean`.
-2. Escribe, por ejemplo: «Lanza el producto 2264665 de Dropi en Colombia». También puedes llamar la skill por su nombre: `/systems-lean:lanzar-producto-rapido` en Claude Code o `$lanzar-producto-rapido` en Codex.
+2. Pega este mensaje y cambia solo el nombre del producto (si ya está en tu Biblioteca, con el nombre basta; si no, agrega su link o su ID de Dropi o Soydrop):
+
+   ```text
+   Lanza y testea este producto contra entrega con Systems Lean: [NOMBRE DEL PRODUCTO]
+   Si todavía no está en mi Biblioteca, este es su link o su ID de Dropi o Soydrop: [LINK O ID]
+
+   Llama primero a sl_como_trabajar con la tarea «lanzar y testear un producto contra entrega» y sigue la skill lanzar-producto-rapido completa, paso por paso y de corrido, verificando cada paso con su herramienta de lectura. Si el producto ya está en mi Biblioteca o en mi Lista de Testeo, búscalo por su nombre y úsalo desde ahí; si no está, guárdalo primero en la Biblioteca. Lo que no te diga (país, Unidad de Negocio, cuánto puedo invertir al día y cuánto quiero ganar al mes con este producto), propónlo tú con los datos de la app, anótalo como supuesto y sigue. Hazlo todo por el conector y no te detengas a preguntarme salvo para gastar créditos por primera vez, publicar o encender la campaña, o escribirle a un cliente.
+   ```
+
+   También puedes llamar la skill por su nombre: `/systems-lean:lanzar-producto-rapido` en Claude Code o `$lanzar-producto-rapido` en Codex.
 3. La primera vez, tu agente instala el editor de videos en `~/SystemsLean/editor` (1 o 2 minutos).
 4. Te pregunta en tres momentos, cada vez en un solo mensaje y con su propuesta: tu parte de la investigación, la oferta en Projection y la landing.
 5. Te pide el OK antes de gastar: antes de generar con créditos y antes de encender la campaña.
