@@ -1,35 +1,65 @@
-# Leer el testeo
+# Paso 14 · Operar el testeo: leer, cortar, encontrar el ganador, escalar y desplegar
+
+Desde el 2026-11-22 este paso cubre todo lo que pasa después de publicar, hasta que el producto escala y se mantiene. **Las cifras no están aquí:** salen de la app, que es la única fuente.
+- **La ficha de la estrategia de la campaña** (`ads_ver_estrategias {producto_id}`): cuándo se lee, cuándo se apaga, qué es ganador y cómo se escala (Lean 1, Lean 2 o Lean 3).
+- **Las reglas de corte de la marca** (`ads_reglas_corte {marca_id}`): los cortes por anuncio y los tramos del CPA. Las usan los avisos de la app, su corte automático, la copa y el tablero.
+- **Los dos CPA reales** (`ads_ver_testeo {producto_id}` › `plan_meta`, o `projection_ver_simulador` › `cpa_real`): por venta confirmada, con la meta del usuario. No se fijan en la campaña.
+- **La ruta para decidir:** `skills_leer {modulo: "ads_lean", rama: "cerebro-campanas"}` (una vez por conversación): la tabla «lo que ves → lo que haces», las cinco llaves de la escala y lo que no es escalar.
 
 **Venta = pedido confirmado y no cancelado**, por landing o por WhatsApp, contado del CRM (`pedidos_ver` y `ads_ver_testeo`). El píxel, los pagos iniciados y las conversaciones no son venta. Para apagar o bajar, cada pedido «por confirmar» cuenta como 0,95 de venta; para escalar, solo las confirmadas.
 
-| Cuándo | Condición | Qué se hace | ¿OK del usuario? |
-|---|---|---|---|
-| **A las 24 h** | Conjunto con 0 ventas | Se apaga el conjunto con sus anuncios y se avisa. Si tenía 3 pagos iniciados o más (o 3 conversaciones que llegaron a dar su ciudad o elegir la oferta), el aviso pide revisar la landing o el flujo | No, solo aviso |
-| A las 24 h | Conjunto con 1 venta o más | Sigue | — |
-| Cualquier día | 3 ventas o más y CPA por encima del CPA de equilibrio | Se apaga el conjunto: vende, pero pierde plata | No, solo aviso |
-| Cualquier día | 3 o 4 ventas con CPA igual o menor al objetivo | Prometedor: se piden variantes de sus anuncios; no se le sube el presupuesto | No |
-| Con 48 h al aire | **5 ventas con CPA igual o menor al CPA objetivo** | **Ganador:** se propone copiarlo a una campaña CBO de escala con 2 CPA objetivo al día (`ads_duplicar_campania` o `ads_duplicar_conjunto`, y en la copia `ads_editar_campania {presupuesto_modo: "campania"}`). El original sigue en la ABO | **Sí** |
-| A las 72 h | Gastó menos de 0,3 CPA objetivo | Meta no le dio entrega: se apaga y se relanza como conjunto nuevo, en pausa | Para encender, sí |
-| Siempre | Lo encendido pasaría de US$200 al día en una campaña o de US$500 en la cuenta | Se propone con la suma | **Sí** |
+## 1. Cada revisión (dos al día, nunca de noche)
+1. `ads_ver_testeo {producto_id}`: estado, gasto y ventas por anuncio, los `avisos` de la app y el `plan_meta`.
+2. `ads_ver_metricas {conjunto_id, ventana: "hoy" | "3d" | "7d"}`: CPM, CPC del enlace, CTR del enlace y ventas del CRM. `ads_ver_tendencia` para mirar varios días: **un día no decide**.
+3. `ads_ver_ventas_cobradas {campania_id, ventana}`: lo cobrado de verdad.
+4. **Se lee de atrás hacia adelante:** pedido, formulario o chat, página y recién al final el anuncio. El anuncio es su propio ecosistema (impresiones, clic, CTR) y la tienda o el chat es otro (visitas, inicio de pago, formulario; o conversación, oferta, datos). No se mezclan: si el anuncio está sano y la página no convierte, **el anuncio no se apaga**: se arregla la página, la oferta o el flujo.
+5. **Si no convierte por WhatsApp:** antes de culpar al producto, lee 5 o 6 chats con `chat_conversaciones_ver` y `chat_conversacion_leer`: ¿llegó el material?, ¿el agente contestó bien el precio?, ¿se perdieron en los datos?
 
-- **Nunca se enciende ni se sube de noche** (22:00 a 7:00). Apagar sí, en cuanto se detecta.
-- **Apagar y bajar no piden OK;** encender, subir y copiar a CBO, sí.
-- Cada aviso cita sus números: «Apagué el conjunto del ángulo X: a las 24 h, 0 ventas y 1 pago iniciado».
-- La campaña de testeo no se duplica ni se resetea: ahí mismo entran las tandas de renovación con la reserva.
+## 2. Cortes (por anuncio; con Lean 1, el conjunto es el anuncio)
+| Lo que ves | Qué haces | ¿OK del usuario? |
+|---|---|---|
+| Gastó la señal temprana de las reglas de corte sin ventas y **el anuncio está caro** (CPC, CPM o CTR fuera de rango) | Apágalo (`ads_cambiar_estado`) | No, solo aviso |
+| Gastó sin ventas, **el anuncio está sano** y la página o el chat no convierten (CTR alto sin ventas) | **No lo apagues:** arregla la página, la oferta o el flujo | No |
+| Llegó al gasto sin venta que fijan las reglas de corte, aunque todo esté sano | Apágalo | No, solo aviso |
+| Meta casi no le da entrega | Apágalo y relánzalo como conjunto nuevo, en pausa | Para encender, sí |
+| Vende, pero el CPA quedó en el tramo alto | Si se rompe la página, arréglala; si es el anuncio, apágalo | No, solo aviso |
+| Pocas ventas a buen CPA (**prometedor**) | **No subas:** pide variaciones de ese creativo (sección 4) | No |
 
-## Las herramientas de la lectura
+- La app ya avisa y, en contra entrega, apaga sola por pérdida con pocas ventas. Lo que ella ya hizo no se repite: se lee en los `avisos`.
+- Cada decisión que tomes tú queda escrita con `ads_decision_registrar {accion, conjunto_id, valor_antes, valor_despues, regla, aprobado_por, nota}` y se le avisa al usuario con sus números: «Apagué el anuncio del ángulo X: gastó L 140 sin ventas y el clic le costaba L 9».
+- Si el `plan_meta` dice que ya se gastó el techo del mes, no se suma nada nuevo sin su OK.
+
+## 3. El ganador
+- La copa la da la app con la fase `ganador` de la ficha: `ads_ver_ganadores {conjunto_id}` y la tarjeta del anuncio en el tablero (`despliegue_escala_ver`). No declares ganador a mano.
+- **Con 10 pedidos o más,** actualiza la mezcla real de paquetes en Projection (`projection_guardar_ofertas` con los `share_pct` de lo vendido) y vuelve a leer `plan_meta`: los dos CPA cambian.
+
+## 4. La escala (cada ganador, en el tablero de Despliegue creativo)
+1. `despliegue_escala_ver {producto_id}`: la fase del producto (testeo, ganador encontrado, escala, mantenimiento) y, por cada ganador, sus movimientos con estado y detalle. **Primero «cero cuellos de botella»** (y en Lean 2, la prueba de estrés): si no cumple, no se escala.
+2. La escala sigue los tramos del CPA de las reglas de corte de la marca: en el tramo agresivo salen los movimientos de la ficha (subir ×2, duplicar en la misma campaña, otra cuenta, campaña de escala); en «con cuidado», solo subir 20 %; más arriba, ninguno.
+3. **Solo lo que sale con estado `espera_ok`**, con el OK del usuario en esta conversación: `despliegue_escala_aprobar {producto_id, anuncio_id, movimiento, ok_del_dueno: "<sus palabras>"}`. Subir presupuesto pasa en Meta al instante; duplicar, otra cuenta y la campaña de escala dejan copias que se publican con `ads_publicar` y su OK. Si dice «ahora no»: `despliegue_escala_ahora_no`.
+4. **Volver atrás o bajar no pide OK:** si una subida rompe el CPA ese mismo día, se vuelve al presupuesto anterior (`ads_cambiar_presupuesto`) y se avisa.
+5. Topes: lo encendido no pasa de US$200 al día por campaña ni de US$500 por cuenta sin el OK explícito del usuario.
+
+## 5. El despliegue creativo (lo que sostiene la escala)
+1. Apenas hay ganador, sus variaciones: `despliegue_escala_aprobar {movimiento: "variar"}` (estado `para_encargar`) crea los encargos que pide la ficha. Variación de verdad = otra persona, otro lugar, otro gancho u otro formato con la estructura que ganó; cambiar solo el fondo, la letra o la música no es un anuncio nuevo.
+2. **La próxima tanda:** `despliegue_tablero_ver {producto_id}` dice cuántas piezas están listas frente a las que pide la marca. Si faltan, encarga desde las referencias con mejor veredicto: `despliegue_encargo_crear {producto_id, referencia_pieza_id, accion}` o «Nuevo creativo» sin referencia `{formato, angulo, cantidad}`.
+3. **Producir un encargo:** `despliegue_encargos_ver` (trae el método) → `despliegue_aprendizajes_ver` → `despliegue_encargo_tomar {pieza_id, paso}` → `despliegue_encargo_bitacora` en cada etapa → editas en tu PC con el editor ([creativos.md](creativos.md)) → `media_subir {producto_id}` → `despliegue_encargo_entregar {pieza_id, media_url}`.
+4. **A la campaña:** `despliegue_campana_ubicar {producto_id, pieza_id, conjunto_id}` (las variaciones de un ganador, juntas en su conjunto), su copy con `ads_editar_creativo` y publicar con el OK del usuario.
+5. **Fatiga:** no se apaga por la frecuencia; se reemplaza con su despliegue y se baja solo si el CPA también se fue.
+
+## Las herramientas
 | Para qué | Tool |
 |---|---|
-| Estado de la campaña, conjuntos y anuncios | `ads_ver_testeo {producto_id}` |
-| Métricas de un conjunto (gasto, CTR, ventas del CRM) | `ads_ver_metricas {conjunto_id, ventana: "hoy" \| "3d" \| "7d"}`. Se juzga con `ventas_crm` y el CTR de enlace, no con el píxel |
+| Estado de la campaña, ventas del CRM y el plan de la meta | `ads_ver_testeo {producto_id}` |
+| Métricas de un conjunto | `ads_ver_metricas {conjunto_id, ventana}` · `ads_ver_tendencia` |
 | Lo cobrado de verdad | `ads_ver_ventas_cobradas {campania_id, ventana}` |
-| Los pedidos y su estado | `pedidos_ver` |
-| Lo que Meta tiene encendido en vivo | `ads_ver_campanias_activas {}` |
-| Apagar o encender un conjunto o un anuncio | `ads_cambiar_estado {tipo: "conjunto" \| "anuncio", id, activo, confirmado}` (encender, con el OK del usuario) |
+| Las reglas de corte de la marca | `ads_reglas_corte {marca_id}` |
+| La ficha de la estrategia | `ads_ver_estrategias {producto_id}` |
+| Quién ganó | `ads_ver_ganadores {conjunto_id}` |
+| Apagar o encender | `ads_cambiar_estado {tipo, id, activo, confirmado}` (encender, con OK) |
 | Cambiar un presupuesto publicado | `ads_cambiar_presupuesto {conjunto_id, presupuesto_diario, aplicar}` (subir, con OK). `ads_editar_conjunto` NO cambia Meta |
-| Dejar escrita una decisión que no pasó por esas tools | `ads_decision_registrar {accion, conjunto_id, valor_antes, valor_despues, regla, aprobado_por, nota}` |
+| La escala de cada ganador | `despliegue_escala_ver` · `despliegue_escala_aprobar` · `despliegue_escala_ahora_no` |
+| El tablero y los encargos | `despliegue_tablero_ver` · `despliegue_encargo_crear` · `despliegue_encargos_ver` |
+| Dejar escrita una decisión | `ads_decision_registrar` |
 
-- **Las 24 h se cuentan desde la primera impresión** del conjunto, no desde que se publicó.
-- **Si no convierte por WhatsApp:** antes de culpar al producto, lee 5 o 6 chats con `chat_conversaciones_ver` y `chat_conversacion_leer`: ¿llegó el material?, ¿el agente contestó bien el precio?, ¿se perdieron en los datos?
-- **Con 10 pedidos o más,** actualiza la mezcla real de paquetes en Projection: `projection_guardar_ofertas` con los `share_pct` de lo vendido (`pedidos_ver`), y recalcula los dos CPA.
-- Anota cada lectura y cada decisión en LANZAMIENTO.md › «Próximo paso».
+Anota cada lectura y cada decisión en LANZAMIENTO.md › «Próximo paso».

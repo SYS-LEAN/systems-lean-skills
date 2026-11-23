@@ -1,11 +1,11 @@
 ---
 name: lanzar-producto-rapido
-description: Camino de Systems Lean para lanzar un producto físico de dropshipping contra entrega (Dropi o Soydrop) de punta a punta en un solo chat con un agente de IA (Claude Code, Codex o Antigravity), todo por el conector de Systems Lean. El producto entra por la Biblioteca y se investiga desde ahí, con sus datos y sus fotos en Creativos de Inspiración; después la investigación del usuario y el informe, Projection con sus preguntas y escenarios, la ficha, los ángulos, los creativos (videos editados en la PC del usuario, imágenes en el generador de la app), la landing o el flujo de WhatsApp y la campaña de Meta lista para encender. Cada paso se verifica con una herramienta de lectura y queda anotado en una ficha del lanzamiento. Úsala cuando el usuario diga «lanza este producto», «testea X», «quiero vender X contra entrega», «lánzalo hoy», elija un producto de su Lista de Testeo o de su Biblioteca, o pegue uno de Dropi o Soydrop.
+description: Camino de Systems Lean para lanzar y testear un producto físico contra entrega (Dropi o Soydrop) de punta a punta en un solo chat con un agente de IA (Claude Code, Codex o Antigravity), todo por el conector: el producto entra por la Biblioteca, la investigación queda como informe en documento con sus ángulos, Projection fija la meta y da los dos CPA reales y el presupuesto inicial, la ficha, los creativos (videos editados en la PC, imágenes en el generador de la app), la landing o el flujo de WhatsApp, la campaña con la estrategia que recomienda la app (Lean 1, 2 o 3) y, después de publicar, la lectura con las reglas de corte de la marca, el ganador, la escala y el despliegue creativo. Cada paso se verifica con una herramienta de lectura. Úsala cuando el usuario diga «lanza este producto», «testea X», «testeo rápido», «testeo agresivo», «vender X contra entrega», «escala el ganador» o elija un producto de su Lista de Testeo, su Biblioteca, Dropi o Soydrop.
 ---
 
-# Lanzar un producto (contra entrega, con Systems Lean)
+# Lanzar y testear un producto (contra entrega, con Systems Lean)
 
-> Versión del 2026-11-10 · 15 pasos (del 0 al 14). Si una referencia que pediste trae otros números de paso, es de otra versión: avísale al usuario y no las mezcles.
+> Versión del 2026-11-22 · 15 pasos (del 0 al 14). Desde esta versión el testeo rápido y el agresivo son un solo camino: el paso 12 arma la campaña con la estrategia de la app y el paso 14 lleva el producto hasta la escala. Si una referencia que pediste trae otros números de paso, es de otra versión: avísale al usuario y no las mezcles.
 
 Del producto elegido a la campaña lista para encender, en un solo chat: unas 3 horas de trabajo tuyo, **de corrido**: no te detienes a esperar al usuario salvo para gastar, publicar, encender o escribirle a un cliente. **El lanzamiento solo está terminado cuando cada módulo de la app quedó lleno y verificado con una herramienta de lectura.** Decir «listo» sin esa lectura es el error que este camino evita.
 
@@ -17,9 +17,9 @@ Al empezar, crea `~/SystemsLean/productos/<producto>-<país>/LANZAMIENTO.md` con
 ## Lo que queda lleno en la app (sin esperar al usuario)
 Es lo que se revisa en la auditoría del paso 13. Se llena todo aunque el usuario no conteste ninguna pregunta: con tu propuesta, anotada como «supuesto» en LANZAMIENTO.md, que se corrige si él dice otra cosa.
 - **Biblioteca y Lista de Testeo:** el producto guardado con sus fotos y dado de alta desde ahí, nunca con `product_crear` si es de Dropi o Soydrop (`product_biblioteca_ver`, `product_favoritos_ver`).
-- **Investigación de productos, todos los campos:** viabilidad (nombre comercial, nicho, descripción, país destino y países de referencia), el checklist de 15 criterios, hasta 3 fotos limpias, las palabras de búsqueda (Biblioteca de anuncios por país, Marketplace, Amazon, AliExpress, Alibaba), **los 4 pilares del cerebro** en el informe (competencia, conciencia, dolores y creencias, con evidencia) y la estrategia: perfiles de comprador y ángulos (`product_ver_investigacion`, `product_ver_informe`, `product_ver_estrategia`).
+- **Investigación de productos, todos los campos:** viabilidad (nombre comercial, nicho, descripción, país destino y países de referencia), el checklist de 15 criterios, hasta 3 fotos limpias, las palabras de búsqueda (Biblioteca de anuncios por país, Marketplace, Amazon, AliExpress, Alibaba), **el informe de investigación en documento** (comprador y conciencia, dolores, deseos, creencias y objeciones, competencia, ángulos sugeridos, lenguaje del cliente y fuentes, con evidencia) y la estrategia: perfiles de comprador y ángulos (`product_ver_investigacion`, `product_ver_informe`, `product_ver_estrategia`).
 - **Ficha técnica, ficha del agente, entrega y cobertura:** la ficha del agente con precios y tiempos como `{{variables}}` (`product_ver_ficha`).
-- **Projection, campo por campo:** precio, costo, flete real, preparación en 0, contra entrega, margen objetivo (15 % si el usuario no dice otro), las tasas del país, el tachado con «mostrar» encendido, la venta suelta, los paquetes 1, 2 y 3 con su total y su % (45/40/15), el envío gratis y cada regalo como `bonus` con su archivo (`projection_ver_simulador`, `projection_ver_ofertas`).
+- **Projection, campo por campo:** precio, costo, flete real, preparación en 0, contra entrega, margen objetivo (15 % si el usuario no dice otro), las tasas del país, el tachado con «mostrar» encendido, la venta suelta, los paquetes 1, 2 y 3 con su total y su % (45/40/15), el envío gratis, cada regalo como `bonus` con su archivo y **la meta neta del mes**, de la que salen los dos CPA reales y el presupuesto inicial (`projection_ver_simulador` › `cpa_real`, `projection_ver_ofertas`).
 - **Ángulos de venta** en el generador (`anuncios_ver_angulos_venta`).
 - **El Cerebro del Agente de WhatsApp:** el producto vinculado y activo en el agente (`chat_agente_productos_ver`), aunque el canal sea landing: el agente también atiende a quien escribe desde la landing.
 - **Creativos de Inspiración:** solo lo que se va a usar o modelar del mismo producto; nada repetido ni de otros productos (`media_listar`).
@@ -80,13 +80,13 @@ Cada paso dice qué deja hecho, con qué se verifica y cuándo no se avanza. El 
 
 ### Paso 4 · El informe de investigación (≈20 min)
 [references/investigacion.md](references/investigacion.md) › «Paso 4»
-- **Deja:** cada creativo analizado y descrito en la biblioteca, y el informe guardado: los 5 ángulos dominantes, las 3 ofertas más usadas, precios y ofertas por anunciante, destino, formato por nivel de conciencia, creencias con fuente, nivel de conciencia y el mapa de dolores.
-- **Verifica:** `product_ver_informe` (las cuatro ramas con números) y `anuncios_ver_biblioteca_creativos` (cada creativo con su `descripcion`).
+- **Deja:** cada creativo analizado y descrito en la biblioteca, y el informe guardado como documento (`product_guardar_informe {markdown}`): los 5 ángulos dominantes, las 3 ofertas más usadas, precios y ofertas por anunciante, destino, formato por nivel de conciencia, creencias con fuente, nivel de conciencia y el mapa de dolores.
+- **Verifica:** `product_ver_informe` (el documento con sus secciones y números) y `anuncios_ver_biblioteca_creativos` (cada creativo con su `descripcion`).
 - **No avances si:** no hay rango de precios con números; una creencia o un dolor no tiene de dónde salió.
 
 ### Paso 5 · Projection: preguntas, oferta, escenarios y los dos CPA (≈15 min)
 [references/oferta-y-cpa.md](references/oferta-y-cpa.md)
-- **Deja:** las 7 preguntas respondidas; en Projection el costo, el flete real, el cobro, 30/5 %, el precio y el tachado, los paquetes con su mezcla y las ofertas que convienen; los escenarios que pidió el usuario; y los dos CPA por venta confirmada anotados.
+- **Deja:** las 7 preguntas respondidas; en Projection el costo, el flete real, el cobro, las tasas del país, el precio y el tachado, los paquetes con su mezcla, las ofertas que convienen y la meta neta; los escenarios que pidió el usuario; y los dos CPA reales y el presupuesto inicial anotados (`cpa_real`).
 - **Verifica:** `projection_ver_simulador`, `projection_ver_ofertas` y `projection_escenarios_ver`.
 - **No avances si:** la hoja no tiene moneda; faltan los paquetes con su `share_pct`; el CPA de equilibrio queda bajo US$15 y el usuario no lo decidió.
 
@@ -97,7 +97,7 @@ Cada paso dice qué deja hecho, con qué se verifica y cuándo no se avanza. El 
 
 ### Paso 7 · Ángulos y perfiles (5 min)
 [references/product-lean.md](references/product-lean.md) › «Paso 7»
-- **Deja:** de 3 a 5 ángulos con mensaje, gancho, nivel de conciencia, problemas, objeciones y deseos, y 1 o 2 perfiles de comprador.
+- **Deja:** de 3 a 5 ángulos sacados del informe, **uno por problema** (cada uno va separado en su video, su conjunto y su landing), con mensaje, gancho, nivel de conciencia, problemas, objeciones y deseos, y 1 o 2 perfiles de comprador.
 - **Verifica:** `anuncios_ver_angulos_venta` (ids `av…`).
 
 ### Paso 8 · Canal: WhatsApp o landing (2 min)
@@ -106,9 +106,9 @@ Cada paso dice qué deja hecho, con qué se verifica y cuándo no se avanza. El 
 
 ### Paso 9 · Creativos (tope 15 min por video, subagentes en paralelo)
 [references/creativos.md](references/creativos.md) y [references/editor.md](references/editor.md)
-- **Deja:** por cada ángulo 1 video editado en la PC y 1 imagen hecha en el generador de la app, más 6 videos de reserva; todo revisado y en la biblioteca del producto con su línea de origen y uso.
+- **Deja:** los creativos que pide la estrategia del paso 12 (con Lean 1, uno por conjunto y al menos 5 para arrancar; con Lean 3, imágenes), cada uno de un solo ángulo, más 6 de reserva para la próxima tanda; todo revisado y en la biblioteca del producto con su línea de origen y uso.
 - **Verifica:** `media_listar`, `anuncios_ver_biblioteca_creativos` y `anuncios_ver_generados`.
-- **No avances si:** queda texto o audio ajeno; una imagen de anuncio lleva precio; algún ángulo no tiene su par.
+- **No avances si:** queda texto o audio ajeno; una imagen de anuncio lleva precio; no están los creativos que pide la estrategia.
 
 ### Paso 10 · La landing (solo si el canal da landing)
 [references/landing.md](references/landing.md)
@@ -124,17 +124,20 @@ Cada paso dice qué deja hecho, con qué se verifica y cuándo no se avanza. El 
 
 ### Paso 12 · Campaña (≈15 min)
 [references/campana.md](references/campana.md)
-- **Deja:** la campaña ABO de testeo con un conjunto por ángulo, cada conjunto con su video y su imagen con copy y texto prellenado, el targeting, los dos CPA, las conversiones conectadas y el ensayo de publicación sin errores.
-- **Verifica:** `ads_ver_testeo` y el plan de `ads_publicar` sin `confirmado`.
-- **No avances si:** algún conjunto no tiene sus anuncios o tiene menos de US$5; falta `chat_proyecto_id`; el ensayo trae errores.
+- **Deja:** la campaña con la estrategia que recomienda la app (`ads_ver_estrategias`: Lean 1, 2 o 3) y su motivo, la estructura y el presupuesto de su ficha, cada anuncio con copy sin precio y texto prellenado, el targeting, las conversiones conectadas, los dos CPA sin fijar (los lee de Projection) y el ensayo de publicación sin errores.
+- **Verifica:** `despliegue_campana_ver`, `ads_ver_testeo` (con su `plan_meta`) y el plan de `ads_publicar` sin `confirmado`.
+- **No avances si:** la estrategia es una de las de antes (`directa-angulos` y compañía: el conector la rechaza en contra entrega); algún conjunto no tiene sus anuncios; falta `chat_proyecto_id`; el ensayo trae errores.
 
 ### Paso 13 · Auditoría, OK del usuario y publicación (1 mensaje)
 [references/auditoria-y-ok.md](references/auditoria-y-ok.md)
 - **Deja:** la auditoría módulo por módulo en verde, la tabla del OK, la campaña publicada con el «sí» del usuario, los ids de los anuncios en el flujo y en el agente, y el primer chat real leído.
 - **No publiques si:** algo de la auditoría está en rojo sin decírselo al usuario; no hay un «sí» explícito; es de noche (22:00 a 7:00 en la zona del usuario).
 
-### Paso 14 · Lectura a las 24 h
+### Paso 14 · Operar: leer, cortar, ganador, escala y despliegue creativo
 [references/lectura.md](references/lectura.md)
+- **Deja:** cada revisión leída de atrás hacia adelante (pedido, chat o página, anuncio) con las reglas de corte de la marca y la ficha de la estrategia; los cortes hechos y avisados; el ganador cuando la app le da la copa; la escala de cada ganador con el OK del usuario; las variaciones y la próxima tanda pedidas en el tablero de Despliegue creativo.
+- **Verifica:** `ads_ver_testeo`, `ads_ver_ganadores`, `despliegue_escala_ver` y `despliegue_tablero_ver`.
+- **No subas ni dupliques si:** el movimiento no sale con estado `espera_ok` en `despliegue_escala_ver`; no hay un «sí» del usuario; es de noche.
 
 ## Errores que este camino evita
 - **Decir «listo» con módulos vacíos:** Projection sin paquetes, la biblioteca sin los ganadores, la campaña sin anuncios. Cada paso se cierra con su lectura.
@@ -153,3 +156,6 @@ Cada paso dice qué deja hecho, con qué se verifica y cuándo no se avanza. El 
 - **Que todas las preguntas frecuentes terminen pidiendo los datos:** el agente le pide la dirección a quien solo preguntó si duele.
 - **El flujo viejo sigue publicado:** al publicar el nuevo, el anterior del mismo producto se pausa.
 - **Mensajes largos y técnicos al usuario.** Quiere la decisión y el porqué.
+- **Crear la campaña con una estrategia de antes** (`directa-angulos`): en contra entrega el conector la rechaza. La estrategia sale de `ads_ver_estrategias`.
+- **Fijar los CPA a mano en la campaña:** quedan viejos y la barra, la copa y los cortes juzgan con otro número. Ads Lean los lee solos de Projection.
+- **Cortar con números de memoria:** los cortes, el ganador y la escala salen de las reglas de corte de la marca y de la ficha de la estrategia, no de esta skill.

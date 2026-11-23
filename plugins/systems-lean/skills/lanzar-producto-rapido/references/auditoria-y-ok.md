@@ -15,7 +15,7 @@ Lee cada módulo **con su tool de lectura**, no de memoria ni de LANZAMIENTO.md.
 | Biblioteca | `anuncios_ver_biblioteca_creativos {producto_id}`, `media_listar {producto_id}` y `anuncios_ver_generados {producto_id}` | Fotos del proveedor y referencias con su descripción; por ángulo 1 video y 1 imagen terminados; 6 de reserva |
 | Landing (si hay) | `landing_ver {lote_id}` | Atada a su escenario, checkout del país, tracking de la marca, publicada |
 | WhatsApp | `chat_agente_productos_ver {proyecto_id}`, `chat_flujos_ver {proyecto_id}` y `chat_simular` | Producto activo con keywords; embudo con su escenario y confirmación `publicado`; el viejo `pausado`; la simulación con la moneda del país y sin variables vacías |
-| Campaña | `ads_ver_testeo {producto_id}` | Un conjunto por ángulo, 2 anuncios cada uno, ≥ US$5, los dos CPA, chat del proyecto, conversiones probadas, ensayo sin errores |
+| Campaña | `despliegue_campana_ver {producto_id}` y `ads_ver_testeo {producto_id}` | La estrategia de la app con su motivo, la estructura y el presupuesto de su ficha, los creativos en cada conjunto, los dos CPA sin fijar (`plan_meta`), chat del proyecto, conversiones probadas, ensayo sin errores |
 
 ## 2. El mensaje del OK
 Un solo mensaje, corto. Primero la tabla:
@@ -25,8 +25,10 @@ Un solo mensaje, corto. Primero la tabla:
 
 Debajo, una línea por cada cosa:
 - **Oferta:** 1 / 2 / 3 unidades con sus precios, y el regalo.
+- **Estrategia:** cuál (Lean 1, 2 o 3) y por qué, en una línea.
 - **CPA:** de equilibrio y objetivo, en la moneda y en US$.
-- **Presupuesto diario total** de la campaña.
+- **Presupuesto diario total** de la campaña y el **presupuesto inicial** con el día en que se paga sola.
+- **Cuándo se apaga y cuándo se escala:** una línea con las reglas de corte de la marca.
 - **Riesgos reales**, uno por línea (empaque distinto, modismos del audio de otro país, marca o réplica, stock justo, conversiones sin atribución).
 - **Qué quedó listo y probado:** flujo publicado, agente, conversiones, ensayo de publicación.
 - **Créditos gastados** contra lo estimado.

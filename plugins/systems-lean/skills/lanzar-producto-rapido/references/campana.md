@@ -2,13 +2,19 @@
 
 Pide antes `sl_como_trabajar {tarea: "armar una campaña de testeo en Meta para un producto contra entrega"}`. Este paso arma todo **en pausa** y termina con un ensayo de publicación sin errores. Publicar es el paso 13, con el OK del usuario.
 
-Este camino ya trae la estrategia (directa por ángulos, ABO) y su regla de presupuesto (paso 5 › «Presupuesto del testeo»). No le presentes otras estrategias aunque la guía del conector lo pida: díselo en una línea en el mensaje del OK. El `presupuesto_testeo` de `ads_ver_testeo` va solo como referencia, al lado del tuyo.
+La campaña se arma con **la estrategia que recomienda la app** (su ficha trae la estructura, el presupuesto por conjunto, los cortes, el ganador y la escala) y la lee después todo: la barra de la campaña, la copa, el tablero de Despliegue creativo y el paso 14. **Nunca `directa-angulos` ni las otras de antes:** en contra entrega el conector las rechaza.
+
+## La estrategia
+1. `ads_ver_estrategias {producto_id, presupuesto_diario}` (con el presupuesto que dijo el usuario o el `plan_meta`): las fichas que aplican, la recomendada y su porqué.
+2. **Guía de la recomendación** (la de la app):
+   - con video propio y presupuesto para el mínimo de la ficha → **Lean 1** (un creativo por conjunto, cada conjunto con su presupuesto; entran piezas nuevas en cada tanda);
+   - con video pero sin ese presupuesto → **Lean 2** (varios creativos por conjunto, luces Go / Fix / Kill);
+   - sin video propio → **Lean 3** (estáticos).
+3. **Eliges tú, con su motivo** (no le preguntes «¿cuál quieres?»): la recomendada, salvo que el usuario haya dicho otra. En el mensaje del OK va en una línea cuál y por qué.
 
 ## La estructura
-- **Campaña ABO** (presupuesto por conjunto), de testeo.
-- **Un conjunto por ángulo** (los del paso 7), de 3 a 5.
-- **Cada conjunto con 2 anuncios del mismo ángulo:** su video y su imagen (paso 9).
-- **Presupuesto:** 1 CPA de equilibrio al día para toda la campaña, repartido; ningún conjunto con menos de US$5 (paso 5).
+- **La de la ficha** (su fase `lanzar`): cuántos conjuntos, cuántos creativos por conjunto y el presupuesto de cada uno. Con Lean 1, un conjunto por creativo; los creativos salen de los ángulos del paso 7, **uno por ángulo** (paso 9).
+- **Presupuesto:** el de la ficha, en la moneda de la hoja. Si con el presupuesto del usuario no alcanza, la ficha recomendada ya será otra: no partas el presupuesto a mano.
 
 ## 1. Lecturas
 - `ads_ver_conexion {marca_id}`: cuenta publicitaria, página, píxel y números de WhatsApp.
@@ -17,19 +23,25 @@ Este camino ya trae la estrategia (directa por ángulos, ABO) y su regla de pres
 - `ads_ver_testeo {producto_id}`: si ya hay una campaña de este producto, se completa esa; no se crea otra.
 
 ## 2. Crear la campaña
-`ads_crear_campania {producto_id, plataforma: "meta", objetivo, estrategia: "directa-angulos", presupuesto_modo: "conjunto", notas}`:
+Dos caminos, el mismo resultado:
+- `despliegue_campana_estructura {producto_id, estrategia: "tiburon" | "semaforo" | "explorador", motivo}` (Lean 1, 2 o 3): arma el borrador en Ads Lean con los conjuntos de la ficha. Después se ajustan el objetivo y el destino (abajo) con `ads_editar_campania`.
+- O `ads_crear_campania {producto_id, plataforma: "meta", objetivo, estrategia, estrategia_motivo, presupuesto_modo: "conjunto", notas}` y los conjuntos a mano (sección 4).
+
+En los dos:
 - **`objetivo`:**
   - **WhatsApp: `"mensajes"`** (en Meta, «maximizar el número de conversaciones»). Es el que se usa para vender contra entrega por chat. `leads` también se publica, pero es para servicios o ticket alto: no lo uses aquí. Al llegar a 10 compras confirmadas en 30 días se propone pasar a compras.
   - **Landing: `"ventas"`**, con el píxel midiendo compras.
 - No mandes `nombre`: la app le pone el nombre estándar.
-- `notas`: la oferta, las tasas (30/5), los dos CPA y los riesgos, en 4 líneas.
+- `notas`: la oferta, las tasas del país, los dos CPA del `plan_meta` y los riesgos, en 4 líneas.
 - `presupuesto_modo: "conjunto"` no se cambia después de publicar.
 
 ## 3. Los dos CPA
 **No los fijes en la campaña.** Desde el 2026-11-21 Ads Lean lee solos el CPA de equilibrio y el CPA objetivo **reales** de la hoja de Projection, por venta confirmada, con costos, devolución, cancelación y la meta (`projection_ver_simulador › cpa_real`). Un `ads_editar_campania {breakeven_cpa}` o `{cpa_objetivo}` deja un número fijo que queda viejo y tapa el plan: la barra de la campaña, la copa de ganador y las reglas de corte juzgarían con él. Si una campaña ya tiene uno fijado, devuélvelo con `ads_editar_campania {campania_id, breakeven_auto: true, cpa_objetivo_auto: true}`. Fíjalos a mano solo si el usuario lo pide.
 
 ## 4. Los conjuntos
-Por cada ángulo: `ads_crear_conjunto {campania_id, descriptor: "Ángulo · <ángulo>", presupuesto_diario}`. **`presupuesto_diario` va en la moneda de la hoja** (COP en Colombia), no en dólares: es el CPA de equilibrio dividido entre los conjuntos, y nunca menos del equivalente a US$5 con la tasa que anotaste en el paso 5. Mándalo siempre: sin él, cada conjunto toma 1 CPA entero y la campaña gasta de 3 a 5 veces lo previsto. Anota cada `conjunto_id` en LANZAMIENTO.md.
+- Si usaste `despliegue_campana_estructura`, ya están: míralos con `despliegue_campana_ver {producto_id}` (cada conjunto con su cupo y su presupuesto).
+- Si no, uno por cada creativo (Lean 1) o por grupo (Lean 2 y 3): `ads_crear_conjunto {campania_id, descriptor: "<ángulo> · <creativo>", presupuesto_diario}`. **`presupuesto_diario` va en la moneda de la hoja** (COP en Colombia), con lo que pide la ficha. Mándalo siempre: sin él, cada conjunto toma 1 CPA entero.
+- Anota cada `conjunto_id` en LANZAMIENTO.md.
 
 ## 5. El targeting
 1. Zonas sin cobertura: las mismas del paso 6. Si no las tienes con su key, `ads_resolver_lugares {nombres: [...], pais, marca_id}`. Nunca inventes una key.
@@ -38,9 +50,9 @@ Por cada ángulo: `ads_crear_conjunto {campania_id, descriptor: "Ángulo · <án
    - **Landing:** `url_destino` con la URL publicada de la landing.
    - Sin intereses ni públicos en el testeo: Meta encuentra al comprador con el creativo.
 
-## 6. Los anuncios (2 por conjunto)
+## 6. Los anuncios (los que pide la ficha en cada conjunto)
 1. `ads_ver_fuentes {producto_id}`: el inventario de lo que se puede adjuntar (la biblioteca del producto y las imágenes generadas).
-2. Por cada pieza de la tabla «Creativos por conjunto»:
+2. Por cada pieza de la tabla «Creativos por conjunto» (con Lean 1, una por conjunto; si la pieza ya está en Finalizado del tablero, `despliegue_campana_ubicar {producto_id, pieza_id, conjunto_id}`):
    - Si aparece en `ads_ver_fuentes`: `ads_agregar_creativo {conjunto_id, fuente, fuente_ref, url_original, mime_kind, thumbnail_url, angulo, ad_texto_principal, ad_titulo, ad_descripcion, ad_cta}`, con los datos tal cual vienen de `ads_ver_fuentes`.
    - Si no aparece: `ads_subir_creativo {conjunto_id, nombre: "<nombre>.mp4", url: <URL de la biblioteca>, angulo, ad_texto_principal, ad_titulo, ad_descripcion}`.
    - **Nunca un archivo que no esté en la biblioteca del producto:** súbelo primero (paso 9).
@@ -59,7 +71,7 @@ Sin esto, Meta optimiza por gente que escribe y no por compradores.
 3. Si falla por falta de acceso avanzado a la API de Meta, no se arregla reintentando: díselo al usuario y anótalo como riesgo.
 
 ## 8. Verificar y ensayar
-1. `ads_ver_testeo {producto_id}`: `presupuesto_modo: "conjunto"`, un conjunto por ángulo, **cada conjunto con sus 2 anuncios**, cada uno con presupuesto de US$5 o más, los dos CPA y los `avisos` (resuélvelos).
+1. `despliegue_campana_ver {producto_id}` y `ads_ver_testeo {producto_id}`: la estrategia elegida, cada conjunto con los creativos y el presupuesto que pide su ficha, el `plan_meta` (los dos CPA reales) y los `avisos` (resuélvelos).
 2. **El ensayo:** `ads_publicar {campania_id, activar: true}` **sin `confirmado`**. Devuelve el plan (qué se publica, presupuesto diario y moneda) sin publicar nada. Si trae errores o `bloqueado_por`, corrígelos y repite.
    - Si dice `bloqueado_por: "whatsapp_destino"`, se repite con `whatsapp_numero` (el del proyecto).
    - El aviso de «la página no aparece vinculada» no frena la publicación.
@@ -68,20 +80,10 @@ Sin esto, Meta optimiza por gente que escribe y no por compradores.
 **Publicar con `confirmado: true` es del paso 13, con el «sí» del usuario.**
 
 ## 9. Cuándo apagar y cuándo escalar cada anuncio
-Reglas por defecto sacadas del historial de anuncios de producto físico en Systems Lean (277 anuncios, septiembre a noviembre de 2026). En la app son las **reglas de corte de la marca**: las usan los avisos y las pausas de la campaña, la copa de ganador, Despliegue creativo (columna Ganadores y la escala) y el CPA objetivo de Projection. El usuario las cambia en la campanita de la campaña; tú las lees y cambias con `ads_reglas_corte {marca_id}`. Las ventas son los pedidos del CRM, no las compras del pixel. «Ticket» es el pedido promedio del producto; «equilibrio» y «objetivo» son los dos CPA reales del paso 5 (sección 7 de `oferta-y-cpa.md`).
+Lo deciden **las reglas de corte de la marca** y la ficha de la estrategia, no un número de esta skill. Léelas antes de publicar (`ads_reglas_corte {marca_id}`) y dile al usuario en una línea qué va a pasar: con cuánto gasto sin venta se apaga un anuncio, cuándo se revisa la página en vez del anuncio y en qué tramo del CPA se escala. Vienen con valores por defecto sacados del historial de anuncios de producto físico en Systems Lean (277 anuncios, septiembre a noviembre de 2026):
+1. **Señal temprana:** con ½ CPA de equilibrio gastado y el anuncio caro (CPC del enlace alto contra el ticket, CPM alto, CTR del enlace bajo o, en mensajes, la conversación cara) → se apaga.
+2. **CTR alto sin ventas → no se apaga:** el clic llega y no compra. Se revisa la landing, el chat y la oferta.
+3. **Sin venta:** a 1 CPA de equilibrio se apaga, salvo métricas sanas, que siguen hasta 1,5; a 1,5 se apaga siempre.
+4. **Con ventas, los tramos del CPA,** atados al equilibrio real de cada producto: debajo del tramo agresivo se escala fuerte; en «con cuidado», subidas chicas; en «revisar», no se escala y se busca el cuello de botella; arriba, se evalúa apagar.
 
-1. **Con ½ CPA de equilibrio gastado, señal mala → se apaga el anuncio** (mensajes y web por igual):
-   - CPC del enlace > **0,75 % del ticket** (con ticket de L 800, L 6; de L 1,100, L 8; lo ideal es 0,5 % o menos);
-   - CPM > **L 170**;
-   - CTR del enlace < **2 %**;
-   - en mensajes, además, costo por conversación > **L 25**.
-2. **CTR de más de 3 % sin ventas → no se apaga:** el clic llega y no compra. Se revisa la landing y la oferta.
-3. **1 CPA de equilibrio sin venta → se apaga**, salvo métricas sanas (CPC ≤ 0,5 % del ticket y, en mensajes, conversación ≤ L 15), que siguen hasta 1,5 equilibrios. **1,5 sin venta → se apaga siempre.**
-4. **Con ventas, los tramos del CPA** (por anuncio; por campaña con 3 ventas o más). Se dicen en % del ticket para un producto cuyo CPA de equilibrio real es ~24,5 % del ticket, y **se atan al equilibrio real de cada producto**: 12 / 18 / 23 % del ticket = 49 / 73 / 94 % del CPA de equilibrio.
-   - **debajo de 49 % del equilibrio** (12 % del ticket) → escalar agresivo: surfing ×2 cada 24 h si se sostiene, duplicar el conjunto, otra cuenta, CBO de escala;
-   - **49–73 %** (12–18 %) → escalar con cuidado: subidas de 20 a 50 % y vigilar; sin duplicar. El tope de este tramo es el **CPA objetivo**;
-   - **73–94 %** (18–23 %) → no escalar y revisar (cuello de botella, oferta, creativo);
-   - **arriba de 94 %** → evaluar apagar; con 2 ventas o más se apaga.
-   - Ejemplo: un producto de L 849 con equilibrio real de L 278 (33 % del ticket) corta en L 136 / L 204 / L 261, no en L 102 / L 153 / L 195. Sin CPA real calculado, se usan los % del ticket tal cual.
-
-Apagar y bajar se hace y se avisa al usuario; subir presupuesto o encender siempre espera su OK.
+El usuario las cambia en la campanita de la campaña; tú, con `ads_reglas_corte {marca_id, accion: "guardar", reglas}` solo si él lo pide. Las ventas son los pedidos del CRM, no las compras del píxel. Apagar y bajar se hace y se avisa; subir o encender siempre espera su OK. Lo que sigue después de publicar está en el paso 14 ([lectura.md](lectura.md)).

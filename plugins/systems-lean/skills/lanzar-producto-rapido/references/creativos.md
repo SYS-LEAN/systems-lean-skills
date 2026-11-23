@@ -1,13 +1,15 @@
 # Paso 9 · Creativos: videos editados en la PC, imágenes hechas en la app
 
-**Lo que deja este paso:** por cada ángulo 1 video y 1 imagen terminados, más 6 videos de reserva, **todos en la biblioteca del producto** con su URL. La campaña (paso 12) solo adjunta lo que está en la biblioteca.
+**Lo que deja este paso:** los creativos que pide la estrategia de la campaña (paso 12), más 6 de reserva, **todos en la biblioteca del producto** con su URL. La campaña (paso 12) solo adjunta lo que está en la biblioteca.
 - **Los videos** se editan en la PC del usuario con el editor ([editor.md](editor.md)): así no se carga el servidor de la app.
 - **Las imágenes** se hacen en el generador de anuncios estáticos de la app (`anuncios_*`): usa la foto real del producto y, cuando hace falta, los precios de Projection.
 
 ## Cuántos
-- **Ángulos:** de 3 a 5 según el presupuesto (paso 5); en la práctica, 3.
-- **Por conjunto (ángulo):** 1 video + 1 imagen del mismo ángulo.
-- **Reserva:** 6 videos más con la misma edición, para la primera renovación.
+- **Lo dice la ficha de la estrategia** (`ads_ver_estrategias {producto_id, presupuesto_diario}`, la recomendada): con **Lean 1**, un creativo por conjunto y al menos 5 para arrancar, y después piezas nuevas en cada tanda; con **Lean 2**, varios por conjunto; con **Lean 3**, imágenes. Volumen, no «un video y a ver si sale».
+- **Un ángulo por creativo**, el mismo de la landing o del texto prellenado al que lleva. Si el producto resuelve varios problemas, cada problema va en su propio creativo.
+- **Cada video con estructura EVO:** enganche (los primeros 3 s), valor (por qué este producto es el mejor vehículo para ESE problema) y oferta (por qué no puede irse sin pedirlo; no es el precio).
+- **La mezcla de cada tanda:** el ganador de afuera del mismo producto o uno similar **tal cual, con edición mínima** (el camino principal), modelados con nuestro guion y armados con clips de TikTok del producto.
+- **Reserva:** 6 más con la misma edición, para la próxima tanda. Si el tablero de Despliegue creativo está encendido, las tandas siguientes se piden ahí (paso 14).
 - Anota la tabla «Creativos por conjunto» en LANZAMIENTO.md a medida que cierras cada pieza.
 
 ## Los videos

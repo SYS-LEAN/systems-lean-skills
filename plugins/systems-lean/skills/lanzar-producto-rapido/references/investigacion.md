@@ -43,7 +43,7 @@
 **Ofrecimiento 2, los mejores de otros mercados:**
 1. **Dónde:** primero los países de referencia del mismo idioma, después los demás.
 2. **Por cada anuncio:** días activo o vistas, réplicas, ángulo, gancho, idioma, si su **empaque es igual al nuestro** (tamaño, color, tapa, caja) y si ya lo pauta alguien en el país destino (la misma duración ± 3 s y el mismo primer cuadro: si ya corre, va a reserva o fuera).
-3. **Cantidad:** de 10 a 15 creativos guardados. Entre los videos, al menos 3 «listos para pautar»: mismo producto, mismo empaque, audio en el idioma de venta y que no corran en el país.
+3. **Cantidad, con tope:** primero se ordena con los DATOS de las listas (días, si siguen activos, cuántas variaciones les hace su dueño y, en TikTok, vistas y ventas), sin bajar ni analizar nada; después se bajan **solo los 15 mejores (máximo 20)** y se confirma en un cuadro qué producto muestran. Nunca se bajan todos. Quedan de 10 a 15 creativos guardados. Entre los videos, al menos 3 «listos para pautar»: mismo producto, mismo empaque, audio en el idioma de venta y que no corran en el país.
 4. **La landing que más vende** (la de más visitas y ventas en TrendTrack, o la del anunciante con más días y réplicas): `landing_captura_crear {url, producto_id}`. El servidor la captura y sus imágenes quedan en Creativos de Inspiración. Responde con `captura_id` y tarda uno o dos minutos: `landing_captura_ver {captura_id}` hasta que diga `lista`. Sirve después para modelar la landing (paso 10).
 
 **Ofrecimiento 1, anunciantes para seguir:** la tabla «Anunciantes para seguir» de LANZAMIENTO.md: nombre, país, enlace a todos sus anuncios (`https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=<PAÍS>&view_all_page_id=<page_id>&search_type=page&media_type=all`), landing, activos, días del más viejo y qué mirar de él.
@@ -57,6 +57,9 @@ Si la extracción del usuario no la trae completa, la mides tú con las mismas h
 |---|---|---|---|---|---|---|
 
 Mide **el producto Y el nicho**: son dos filtros distintos. Solo cuentan los anunciantes de ecommerce del producto; lo demás se ignora.
+
+- **Ángulo validado** = un anuncio de 30 días o más que su dueño sigue variando. Un ángulo que nadie usa no está validado: entra solo con evidencia de que vende en otro lado, o como hipótesis en una tanda posterior.
+- **Si el país no es referente** (menos de unos 5 anunciantes con anuncios de 30 días o más, o landings líderes débiles), haz la misma medición en el mercado que más vende el producto (EE. UU., México, España o Brasil): de ahí salen los ángulos y formatos que allá ganan y aquí todavía no corren.
 
 ### 3.5 Guardar cada referencia en Creativos de Inspiración
 Con sus datos de origen. Usa una de estas opciones:
@@ -96,7 +99,7 @@ Cada video e imagen de Creativos de Inspiración (los del usuario y los tuyos) s
      - «OTRO MERCADO · México · MISMO PRODUCTO · NO CORRE EN <PAÍS> (verificado <fecha>) · LISTO PARA PAUTAR»;
      - «LOCAL · <país> · competencia · MODELO, NO PARA PAUTAR TAL CUAL»;
      - «RESERVA» (los que quedan para renovar).
-   - **Debajo, el análisis:** copy del anuncio (texto, título, CTA) · guion o transcripción · textos en pantalla · formato y duración · escenas · gancho, cuerpo y cierre · ángulo · nivel de conciencia · oferta y precio que se ven o se dicen · anunciante · días.
+   - **Debajo, el análisis:** copy del anuncio (texto, título, CTA) · guion o transcripción · textos en pantalla · formato (UGC, demostración, antes y después, reseña, POV, experto, comparación, unboxing…) y duración · escenas · el gancho de 0-3 s (lo que se ve, lo que se dice y el texto) · la estructura **EVO**: enganche, valor (por qué este producto es el mejor vehículo para ese problema) y oferta (por qué no puede irse sin hacer clic; no es el precio) · ángulo · nivel de conciencia · oferta y precio que se ven o se dicen · anunciante · días.
    - Para corregir el anunciante, los días o las variantes: `media_editar_creativo {creativo_id, …}`.
 
 ### 4.2 Las landings, Marketplace y los comentarios
@@ -112,33 +115,33 @@ Cada video e imagen de Creativos de Inspiración (los del usuario y los tuyos) s
   - Sirven para la ficha (paso 6) y para los ángulos (paso 7).
 
 ### 4.3 Lo que tiene que dejar el informe
-| # | Qué | Dónde va en `product_guardar_informe` |
+Desde el 2026-11-17 el informe es **un documento** (en la app: «Investigar con IA», «Subir documento» o el conector). Lo escribes tú con lo que buscaste y analizaste, en markdown, con estas secciones (`##` por sección), en este orden:
+
+| # | Sección | Qué lleva |
 |---|---|---|
-| 1 | **5 ángulos dominantes**, del 1 al 5, el 1 el mejor, con su evidencia | `competencia.angulos_ranking` |
-| 2 | **Las 3 estrategias de oferta más usadas**, del 1 al 3, con el tipo claro (por cantidad, complementos, regalos, garantía, envío gratis, 2x1…) y el detalle | `competencia.ofertas_ranking` |
-| 3 | **Precios y ofertas por anunciante**, de mayor a menor, marcando a quién le va mejor (días activo y cantidad de anuncios; visitas y ventas de su tienda si tienes TrendTrack) | `competencia.competidores[]` con `precio`, `oferta`, `dias_corriendo_max` y `anuncios_activos_total` |
-| 4 | **Destino:** % que vende por WhatsApp, landing o fanpage. Muestra qué destino está saturado y cuál desatendido | `competencia.distribucion_destino` |
-| 5 | **Formato:** % de imagen y de video, y qué formato usan en cada nivel de conciencia | `competencia.distribucion_formato` y `competencia.formato_por_nivel_conciencia` |
-| 6 | **Nivel de conciencia que ataca la competencia**, en % sobre el 100 % de lo analizado | `competencia.distribucion_nivel_conciencia` |
-| 7 | **Nivel de conciencia del mercado real** | `awareness` |
-| 8 | **Creencias más comunes** del producto o del nicho, **solo con fuente comprobada** (comentarios, foros, reseñas, artículos), nunca de memoria | `creencias` |
-| 9 | **Mapa de dolores:** al menos 5, del 1 al 5 (el 1 el más intenso), el dominante y el que nadie atiende, solo si hay evidencia | `dolores` (`ranking`, `dolor_dominante`, `oportunidad_no_atendida`) |
+| 1 | Resumen | 5 a 7 viñetas: lo que decide el lanzamiento |
+| 2 | El comprador | Quién es y el nivel de conciencia dominante, con su % aproximado |
+| 3 | Dolores | Tabla «Dolor · Intensidad 1-5 · Cómo lo dice el cliente», el dominante y el que nadie atiende (solo con evidencia) |
+| 4 | Deseos | Los resultados que busca |
+| 5 | Creencias y objeciones | Tabla «Objeción · Por qué · Cómo responderla», con las del pago contra entrega, y cuáles no pelear. Solo con fuente comprobada |
+| 6 | Competencia | Quién anuncia; **los 5 ángulos dominantes** del 1 al 5 con su evidencia; **las 3 ofertas más usadas**; precios y ofertas por anunciante de mayor a menor, marcando a quién le va mejor (días activo y anuncios); el destino (% WhatsApp / landing); el formato por nivel de conciencia y el % de conciencia que ataca la competencia; los ganchos repetidos y el hueco |
+| 7 | Ángulos de venta sugeridos | 3 a 5, con gancho, promesa, prueba y nivel de conciencia. **Uno por problema:** si el producto resuelve varios, cada problema es otro ángulo y va separado en el video, en el testeo y en la landing |
+| 8 | Lenguaje del cliente | Frases textuales de los comentarios y las reseñas |
+| 9 | Fuentes consultadas | `[título](url)` |
+| 10 | Lo que no se pudo verificar | Lo que falta, dicho |
 
-- El **mecanismo** no va.
-- Si falta evidencia para una fila, se omite y se dice. Nada se inventa para llenar.
+- Arriba del todo: `# Informe de investigación · <producto>` y una línea con el país, la fecha y cómo se hizo.
+- **Números con su fuente.** El mecanismo no va. Si falta evidencia para algo, se omite y se dice en la sección 10: nada se inventa para llenar.
 
-### 4.4 Guardar el informe
-1. `product_ver_informe {producto_id}` sin rama: el índice y lo que ya existe.
-2. `product_guardar_informe {producto_id, ramas: {competencia, awareness, dolores, creencias}, fuentes_consultadas, limitaciones, nota_alcance}`. La descripción de la tool trae todos los campos.
-   - **`competencia.evidencia_origen {tipo: "producto" | "referencia" | "categoria" | "capturas", query_usada, pais_code}`: siempre y primero.** `producto` si viste anuncios del mismo producto; `categoria` si solo del rubro.
-   - `anuncios_mercado {muestra, total_estimado_texto}`, `saturacion` (saturado | competido | espacio_libre) y `competidores_detectados`.
-   - **Números como número** (45, no «45 anuncios»). Lo que no sepas se omite entero. Revisa `avisos_formato` en la respuesta.
-   - Cada rama que mandas **reemplaza** la anterior.
-3. Opcional: los datos de marketplaces o tiendas que leíste, con `captura_productos_registrar {producto_id, source, items}`, sin inventar campos.
-4. **Comentarios de redes:** `product_extraer_comentarios` depende de un ejecutor interno y no está disponible para usuarios. Usa los que el usuario extrajo y los visibles de los anuncios.
+### 4.4 Guardar el informe y los ángulos
+1. `product_ver_informe {producto_id}`: lo que ya existe (lo que el usuario investigó o subió se suma, no se pisa sin leerlo).
+2. `product_guardar_informe {producto_id, markdown}`: gratis, **reemplaza** el documento anterior. No mandes `ramas`: es el formato viejo de 4 ramas.
+3. **Los ángulos no se arman solos por esta vía** (en la app sí, al investigar con IA o subir el documento): derívalos de las secciones 3, 6 y 7 y guárdalos en el paso 7 con `product_guardar_estrategia`.
+4. Opcional: los datos de marketplaces o tiendas que leíste, con `captura_productos_registrar {producto_id, source, items}`, sin inventar campos.
+5. **Comentarios de redes:** `product_extraer_comentarios` depende de un ejecutor interno y no está disponible para usuarios. Usa los que el usuario extrajo y los visibles de los anuncios.
 
 ### 4.5 Cierre del paso
-- `product_ver_informe {producto_id, rama: "competencia"}` (y las otras ramas): con números y sus listas.
+- `product_ver_informe {producto_id}`: el documento entero, con las 10 secciones y sus números.
 - `anuncios_ver_biblioteca_creativos {producto_id}`: cada creativo con su `descripcion`.
 - Marca las casillas del paso 4 en LANZAMIENTO.md.
 - Al usuario, en 3 líneas: el rango de precios del mercado, la oferta que más se usa y los ángulos que se ven más fuertes.

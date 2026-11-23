@@ -82,10 +82,11 @@ Cópiala al empezar en `~/SystemsLean/productos/<producto>-<país>/LANZAMIENTO.m
 ### Paso 4 · El informe
 - [ ] Cada creativo analizado y descrito (`media_describir_creativo`)
 - [ ] Landings, Marketplace y comentarios leídos
-- [ ] 5 ángulos dominantes, 3 ofertas, precios por anunciante, destino, formato y nivel de conciencia (`product_ver_informe`, rama competencia)
-- [ ] Nivel de conciencia del mercado (`awareness`)
-- [ ] Creencias con su fuente (`creencias`)
-- [ ] Mapa de dolores 1-5, dominante y desatendido si hay evidencia (`dolores`)
+- [ ] Informe guardado como documento (`product_guardar_informe {markdown}`; se lee con `product_ver_informe`)
+- [ ] En la sección Competencia: 5 ángulos dominantes, 3 ofertas, precios por anunciante, destino, formato y nivel de conciencia
+- [ ] Comprador y nivel de conciencia del mercado
+- [ ] Creencias y objeciones con su fuente
+- [ ] Mapa de dolores 1-5, dominante y desatendido si hay evidencia
 
 ### Paso 5 · Projection
 - [ ] Las 7 preguntas respondidas: <resumen>
@@ -96,9 +97,10 @@ Cópiala al empezar en `~/SystemsLean/productos/<producto>-<país>/LANZAMIENTO.m
 - [ ] Ofertas elegidas (envío gratis, regalo como `bonus` con `cantidad_minima: 2`, garantía…)
 - [ ] Escenarios pedidos (`projection_escenarios_ver`): <nombres>
 - [ ] Control de precio contra el mercado (abajo)
-- [ ] CPA de equilibrio por venta confirmada: <moneda> · <US$>
-- [ ] CPA objetivo: <moneda> · <US$>
-- [ ] Presupuesto diario y número de conjuntos
+- [ ] Meta neta del mes guardada (`projection_aplicar {meta_ganancia_mes}`): <monto>
+- [ ] CPA de equilibrio por venta confirmada (`cpa_real`): <moneda> · <US$>
+- [ ] CPA objetivo (`cpa_real`): <moneda> · <US$>
+- [ ] Presupuesto inicial y día en que se paga sola (`cpa_real.presupuesto_inicial`): <monto> · día <n>
 
 ### Paso 6 · Ficha, entrega y cobertura
 - [ ] Ficha técnica con sus fotos de AliExpress en su carpeta (`product_guardar_ficha_tecnica`)
@@ -141,10 +143,11 @@ Cópiala al empezar en `~/SystemsLean/productos/<producto>-<país>/LANZAMIENTO.m
 - [ ] Simulaciones: cada prellenado, precio, original, «solo uno», «los 2 con datos»
 
 ### Paso 12 · Campaña
-- [ ] Campaña ABO creada, objetivo mensajes o ventas (`ads_ver_testeo`)
-- [ ] Los dos CPA cargados
-- [ ] Un conjunto por ángulo, ≥ US$5 cada uno
-- [ ] Cada conjunto con su video y su imagen, copy sin precio y texto prellenado
+- [ ] Estrategia elegida con su motivo (`ads_ver_estrategias`): <Lean 1, 2 o 3> · <por qué>
+- [ ] Campaña creada con la estructura de su ficha, objetivo mensajes o ventas (`despliegue_campana_ver`, `ads_ver_testeo`)
+- [ ] Los dos CPA sin fijar a mano (salen en `plan_meta`)
+- [ ] Cada conjunto con los creativos y el presupuesto que pide la ficha, copy sin precio y texto prellenado
+- [ ] Reglas de corte de la marca leídas (`ads_reglas_corte`)
 - [ ] Targeting: país, 18+, zonas sin cobertura excluidas, chat del proyecto
 - [ ] Conversiones conectadas y probadas (`ads_probar_conversiones`)
 - [ ] Ensayo de `ads_publicar` sin errores
@@ -155,6 +158,12 @@ Cópiala al empezar en `~/SystemsLean/productos/<producto>-<país>/LANZAMIENTO.m
 - [ ] Publicada y verificada en Meta
 - [ ] Ids de los anuncios en el flujo y en el agente
 - [ ] Primer chat real leído
+
+### Paso 14 · Operar (una línea por revisión)
+- [ ] <fecha y hora> · lectura de atrás hacia adelante · decisiones y su regla · próximo paso
+- [ ] Ganador (copa de la app): <anuncio> · <fecha>
+- [ ] Escala aprobada por el usuario: <movimiento> · «<texto literal>»
+- [ ] Próxima tanda pedida en el tablero (`despliegue_tablero_ver`): <listas> de <objetivo>
 
 ## Anunciantes para seguir (paso 3)
 | Anunciante | País | Link a sus anuncios | Landing | Activos | Días del más viejo | Qué mirar |

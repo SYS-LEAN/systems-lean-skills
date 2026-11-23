@@ -49,9 +49,10 @@ Si responde «lo que propongas», sigue con tu propuesta.
    - `costo_producto`: el precio del proveedor que confirmó el usuario.
    - `costo_envio`: el flete que eligió el usuario (Dropi: ponderado 45/40/15 de `quote_shipping`; Soydrop: promedio de las 2 ciudades principales).
    - `costo_fulfillment`: 0, salvo que el usuario pague preparación.
-5. **Cobro, tasas, precio y ancla:** `projection_aplicar {producto_id, precio, precio_ancla, mostrar_ancla: true, vender_suelto: true, modelo_cobro: "cod", tasa_cancelacion: 5, tasa_devolucion: 25 en Honduras o 30 en los demás, margen_objetivo, unidades_mes}`.
+5. **Cobro, tasas, precio y ancla:** `projection_aplicar {producto_id, precio, precio_ancla, mostrar_ancla: true, vender_suelto: true, modelo_cobro: "cod", tasa_cancelacion: 10 en Honduras o 5 en los demás, tasa_devolucion: 45 en Honduras o 30 en los demás, meta_ganancia_mes, margen_objetivo, unidades_mes}`.
    - Los porcentajes van como número de por ciento (5, no 0,05).
-   - `margen_objetivo`: la utilidad mínima que dijo el usuario.
+   - `meta_ganancia_mes`: la ganancia NETA al mes que quiere con este producto (pregunta 1 de este paso; en Honduras, L 10,000 si no dice otra). De ella salen los dos CPA y el presupuesto inicial.
+   - `margen_objetivo`: la utilidad mínima que dijo el usuario (queda como segundo control).
    - En contra entrega deja `pasarela_pct` en 0.
    - `unidades_mes`: la del usuario o una estimación honesta (por ejemplo, 10 pedidos al día = 300).
 6. **Simula antes de guardar la oferta:** `projection_simular {producto_id, precio, ofertas}` con 2 o 3 combinaciones de precios. Muéstrale al usuario las opciones en una tabla corta (paquete, precio, margen, CPA de equilibrio) si la decisión no es obvia.
@@ -81,7 +82,7 @@ Si responde «lo que propongas», sigue con tu propuesta.
    - Cada tipo que mandas se reemplaza completo; la clave que no mandas no se toca.
 8. **Verifica (obligatorio):**
    - `projection_ver_ofertas {producto_id}`: los paquetes con su `share_pct`, el envío gratis y el bonus con `cantidad_minima`.
-   - `projection_ver_simulador {producto_id}`: costo, flete, cobro, las tasas del país (5 % y 25 % en Honduras, 5 % y 30 % en los demás), precio y ancla; y los KPIs `breakeven_cpa`, `margen_neto_pct`, `ganancia_por_unidad`, `zona_semaforo` y `viabilidad_publicitaria`.
+   - `projection_ver_simulador {producto_id}`: costo, flete, cobro, las tasas del país (Honduras 10 % de cancelación y 45 % de devolución; los demás 5 % y 30 %), precio y ancla; y los KPIs `breakeven_cpa`, `margen_neto_pct`, `ganancia_por_unidad`, `zona_semaforo` y `viabilidad_publicitaria`.
    - Si `viabilidad_publicitaria` dice que no es viable, díselo al usuario con lo que propone (ticket mínimo, combo o no pautar) antes de seguir.
 
 ## 5. Los escenarios (si el usuario los pidió)
@@ -106,6 +107,8 @@ Antes de dar los precios por buenos, llena en LANZAMIENTO.md:
 Si el de 2 queda fuera del rango sin una razón (regalo, marca, calidad), se ajusta.
 
 ## 7. Los dos CPA
+**La app los calcula sola y son los que valen:** `projection_ver_simulador {producto_id}` › `cpa_real` (y el `plan_meta` de `ads_ver_testeo`), para mensajes y para web. La meta del usuario se guarda con `projection_aplicar {producto_id, meta_ganancia_mes}` en la hoja del país (la principal, no un escenario de prueba) y mueve todo: las ventas que hacen falta, los dos CPA, los tramos, el techo y el plan del mes, el precio sugerido y el **presupuesto inicial**. Ads Lean los lee sin fijarlos en la campaña. La cuenta de abajo sirve para entenderlos y verificarlos; si no cuadra con la app, manda la app y se le dice al usuario.
+
 Son dos números distintos y no se cambian uno por otro. Los dos son **por venta confirmada** y salen de la realidad, no de lo que muestra la campaña: ya dan por perdidas la devolución y la cancelación, y descuentan los gastos variables y la parte de gastos fijos del producto.
 
 | | CPA de equilibrio | CPA objetivo |
@@ -144,12 +147,11 @@ Ejemplo en Honduras (ticket promedio L 1,300, costo promedio L 450, flete L 120,
 - **Si cambia el precio, el costo o el flete, se recalculan los dos** y se actualizan en la campaña (paso 12).
 - Con escenarios, se calculan para cada uno.
 
-## 8. Presupuesto del testeo
-- **1 CPA de equilibrio al día para toda la campaña**, repartido entre los conjuntos.
-- **Ningún conjunto con menos de US$5 al día:** conjuntos = CPA de equilibrio ÷ US$5, redondeado hacia abajo, entre 3 y 5.
-- Si da menos de 3 (CPA de equilibrio bajo US$15 y el usuario decidió seguir), van 3 conjuntos de US$5: el presupuesto es US$15, y se dice en la misma línea. **Ese número de conjuntos es el de ángulos del paso 7.**
-- **En la app, los presupuestos y los CPA van en la moneda de la hoja** (COP en Colombia, lempiras en Honduras), no en dólares: convierte con la tasa que anotaste.
+## 8. Presupuesto del testeo y presupuesto inicial
+- **El presupuesto por conjunto lo pone la ficha de la estrategia** (paso 12): `ads_ver_estrategias {producto_id, presupuesto_diario}` dice cuál conviene con lo que el usuario puede invertir al día y cuánto lleva cada conjunto. No se reparte a mano.
+- **El presupuesto inicial** (`cpa_real.presupuesto_inicial`): la plata que el usuario tiene que tener para sostener la campaña hasta que se pague sola, porque en contra entrega el cobro llega días después y Meta cobra a diario. Trae `dia_autofinancia` (desde qué día lo que entra cubre lo que sale). Va en el mensaje de Projection y en el del OK (paso 13), en una línea: «Para arrancar necesitas tener L 4,834; desde el día 6 se paga sola».
+- **En la app, los presupuestos y los CPA van en la moneda de la hoja** (COP en Colombia, lempiras en Honduras), no en dólares.
 - **Topes:** US$200 al día por campaña y US$500 por cuenta, sumando todo lo encendido. Pasarlos necesita el OK del usuario.
 
 ## 9. Cierre del paso
-Marca las casillas del paso 5 en LANZAMIENTO.md y dile al usuario en 2 líneas: la oferta (1 / 2 / 3 y el regalo, y los escenarios si hay) y los dos CPA con el presupuesto diario.
+Marca las casillas del paso 5 en LANZAMIENTO.md y dile al usuario en 2 líneas: la oferta (1 / 2 / 3 y el regalo, y los escenarios si hay), los dos CPA y el presupuesto inicial con el día en que se paga sola.
