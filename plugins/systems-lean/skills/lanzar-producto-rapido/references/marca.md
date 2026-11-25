@@ -16,6 +16,7 @@ Desde aquí, manda `marca_id` en toda tool que lo acepte.
 2. **Qué va a vender,** en una frase.
 3. **Desde qué país opera** y en qué moneda quiere leer sus números.
 4. **Si ya tiene logo y colores.** Si no, se sigue sin ellos.
+5. **Si vende en Honduras con Soydrop: dónde recibe el anticipo.** Pídelo en este mismo mensaje, con el porqué en una línea. Qué datos lleva y cómo se guarda: «Las cuentas del anticipo», más abajo.
 
 ## 3. Crearla
 1. `marca_crear {modelo_negocio: "dropshipping"}` devuelve los nichos del catálogo. Elige el que calza con lo que vende; si dudas entre dos, pregunta. El nicho no se inventa.
@@ -31,7 +32,40 @@ Desde aquí, manda `marca_id` en toda tool que lo acepte.
 | Redes y contacto | `marca_editar {marca_id, instagram, facebook, tiktok, correo, telefono}` | Solo lo que el usuario tenga |
 | Logo, colores y tipografía que ya tiene | `marca_guardar_identidad {marca_id, logos, campos}` | Los logos se suben antes con `media_subir` y se pasa su URL. Colores en hex; tipografía con el nombre exacto de Google Fonts |
 | No tiene logo ni colores | Nada por ahora | Se puede lanzar sin identidad. Si la quiere hecha con IA, se genera en la app (cobra créditos): https://app.systemslean.com/business-lean |
-| Pagos y entrega | `marca_ver {marca_id}` y después `marca_guardar_pagos {marca_id, pagos_config}` | Reemplaza todo: lee primero, cambia lo necesario y guarda. Contra entrega, los tiempos de entrega y la garantía en general, sin detalles de un producto. Va antes de escribir cualquier ficha |
+| Pagos y entrega | `marca_ver {marca_id}` y después `marca_guardar_pagos {marca_id, pagos_config}` | Reemplaza todo: lee primero, cambia lo necesario y guarda. Contra entrega, los tiempos de entrega y la garantía en general, sin detalles de un producto. En Honduras con Soydrop, también las cuentas y el monto del anticipo (sección siguiente). Va antes de escribir cualquier ficha |
+
+## 4b. Las cuentas del anticipo (Honduras con Soydrop)
+**Por qué se piden de una vez.** Al subir el pedido a Soydrop, la app le pide un anticipo al cliente en tres casos:
+- el cliente tiene poco historial de entregas;
+- vive en una zona de entrega baja (Lempira, Gracias a Dios, Islas de la Bahía o Juticalpa);
+- vive en una zona que el dueño marcó «retiro en agencia» y lo quiere en su casa.
+
+El anticipo se descuenta del total, y el precio y el envío no cambian. **Sin cuentas cargadas no se le pide a nadie:** esos pedidos salen sin anticipo y, si no se entregan, el usuario paga la devolución.
+
+**Qué le pides al usuario** (una o más opciones, en el mensaje del paso 2):
+
+| Opción | Datos | `tipo` en `metodos` |
+|---|---|---|
+| Transferencia bancaria | banco, tipo de cuenta (ahorro o corriente), número y titular | `transferencia` |
+| Billetera (Tigo Money u otra) | nombre de la billetera, número y titular | `billetera` |
+| Link de pago | la dirección del link | `link` |
+| Tarjeta por Whop | ninguno: el link sale solo en cada pedido. Solo si la marca ya tiene su subcuenta de Whop en Pagos y Entrega | `whop` |
+
+**El monto.** Propón **10 % del total, nunca menos de lo que cuesta el envío** (con Soydrop en Honduras el flete es L120). Si prefiere otro, usa el suyo.
+
+**Cómo se guarda (lo haces tú):**
+1. `marca_ver {marca_id}` y toma el `pagos_config` completo.
+2. Agrega las cuentas en `anticipado.metodos`, con los campos de la tabla: `banco`, `tipo_cuenta`, `numero` y `titular`; `nombre_plataforma` para la billetera; `url` para el link. No toques `anticipado.enabled`: ese es el pago anticipado con descuento, y las cuentas sirven aunque esté apagado.
+3. Pon `anticipo_riesgo: {activo: true, porcentaje, minimo}`.
+4. `marca_guardar_pagos {marca_id, pagos_config}` con el objeto entero fusionado, porque reemplaza todo.
+5. `marca_ver {marca_id}` de nuevo: deben aparecer las cuentas y el monto.
+
+**Reglas:**
+- **No inventes ni completes datos de cuentas:** se escriben tal como los dio el usuario. Si falta el titular o el tipo de cuenta, pregúntalo.
+- **No los copies** a `requisitos.md` ni a otro archivo: viven solo en la app.
+- **Si no quiere darlas ahora,** se sigue con el lanzamiento. Anótalo como pendiente y dile en una línea lo que se pierde: los clientes de riesgo y las zonas de entrega baja salen sin anticipo.
+- **Dónde lo ve el usuario:** Business Lean → su Unidad de Negocio → General → al final, la tarjeta «Pagos y Entrega».
+- **Cuando un cliente manda el comprobante:** al usuario le llega a Aprobaciones de la app, o a su Telegram de avisos si lo tiene conectado. Lo aprueba ahí y el pedido sale a Soydrop cobrando el resto.
 
 ## 5. Conectarla (lo haces tú)
 Una Unidad de Negocio nueva nace sin conexiones, aunque la cuenta tenga otra marca conectada. Conectarla lo haces tú con la autorización de Meta que el usuario ya dio en Credenciales; no lo mandes a Ads Lean.
@@ -40,6 +74,6 @@ Una Unidad de Negocio nueva nace sin conexiones, aunque la cuenta tenga otra mar
 - **WhatsApp,** si va a vender por chat: `chat_canal_conectar {marca_id}` ata el número al agente, en el paso 11 ([primera-vez.md](primera-vez.md) › «El número de WhatsApp»).
 
 ## 6. Verificación
-`marca_ver {marca_id}`: nombre, modelo `dropshipping`, país, rubro y descripción propios, y `pagos_config` lleno. Anota la marca en `~/SystemsLean/requisitos.md` y en la ficha del lanzamiento.
+`marca_ver {marca_id}`: nombre, modelo `dropshipping`, país, rubro y descripción propios, y `pagos_config` lleno. En Honduras con Soydrop, además: al menos una cuenta en `anticipado.metodos` y `anticipo_riesgo` encendido con monto, o el pendiente anotado si el usuario no las dio. Anota la marca en `~/SystemsLean/requisitos.md` y en la ficha del lanzamiento, sin los datos de las cuentas.
 
 **No avances si:** la marca quedó con el rubro genérico del nicho; `pagos_config` está vacío; el usuario no confirmó el nombre.

@@ -20,6 +20,7 @@ Se revisa **una sola vez por PC**. Si existe `~/SystemsLean/requisitos.md`, lée
 | 6 | Node.js 20 o más y unos 500 MB libres | El editor de videos corre en su PC | `node --version` | Usuario | https://nodejs.org → botón de la versión LTS → instalar con todo por defecto → abrir un chat nuevo |
 | 7 | El editor de videos | Edita los videos de los anuncios | Existe `~/SystemsLean/editor/node_modules` | Tú, **recién en el paso 9** (antes no hace falta) | [editor.md](editor.md) › «Instalar». Si tu agente no puede bajar archivos de internet, dale al usuario el comando de una línea de editor.md para que lo corra él |
 | 8 | Créditos en Systems Lean | Las imágenes, las tomas con IA y la voz se generan en la app y cobran créditos | `cuenta_ver {}` › `creditos.disponibles`. Antes de generar muestra el costo (`anuncios_estimar_costo`) y espera el sí | Usuario | https://app.systemslean.com/subscription |
+| 9 | Si vende en Honduras con Soydrop: las cuentas donde recibe el anticipo (transferencia, billetera, link de pago o tarjeta por Whop) | La app le pide un anticipo al cliente de riesgo y al de las zonas de entrega baja; sin cuentas no se le pide a nadie | `marca_ver {marca_id}` › `pagos_config.anticipado.metodos` con al menos una cuenta y `anticipo_riesgo` encendido con monto | El usuario da los datos; tú los guardas | [marca.md](marca.md) › «Las cuentas del anticipo». Pídelas en el primer mensaje, junto con lo demás que falte |
 
 - **Si el canal va a ser WhatsApp** (se decide en el paso 8), además: un número de WhatsApp de la marca conectado a su agente. Qué número sirve, cómo se conecta y cómo se comprueba: «El número de WhatsApp», más abajo.
 - **Una Unidad de Negocio nueva nace sin Meta y sin número:** aunque la cuenta ya tenga otra marca conectada, la nueva se conecta aparte.
@@ -127,6 +128,7 @@ Son del usuario y viven en un solo archivo de su PC: `~/SystemsLean/.env`. **No 
 - **Sin número de WhatsApp:** se sigue; el canal del paso 8 será la landing, o se espera el número.
 - **Con número, pero sin vincular a la página (4.7):** se sigue hasta la campaña, pero una campaña a WhatsApp no sube a Meta hasta que esté vinculado. Pídelo desde ya: a veces lleva un día (portafolios distintos, código que no llega).
 - **Sin el 6 y el 7:** se avanza hasta el paso 8; los videos esperan.
+- **Sin el 9 (las cuentas del anticipo):** se sigue. Queda pendiente, y los clientes de riesgo y las zonas de entrega baja salen sin anticipo. Vuelve a pedirlas antes de publicar la campaña.
 - **Sin lo recomendado: se sigue.** Di en una línea qué se pierde.
 - **El producto es digital** (curso, ebook, plantilla, app): este camino no aplica, es solo para producto físico contra entrega. Díselo y sigue las guías de `sl_como_trabajar` para digital.
 
