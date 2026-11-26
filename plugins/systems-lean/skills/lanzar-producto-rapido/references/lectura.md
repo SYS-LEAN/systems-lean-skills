@@ -16,6 +16,8 @@ Desde el 2026-11-22 este paso cubre todo lo que pasa después de publicar, hasta
 5. **Si no convierte por WhatsApp:** antes de culpar al producto, lee 5 o 6 chats con `chat_conversaciones_ver` y `chat_conversacion_leer`: ¿llegó el material?, ¿el agente contestó bien el precio?, ¿se perdieron en los datos?
 
 ## 2. Cortes (por anuncio; con Lean 1, el conjunto es el anuncio)
+> Con **Lean 2** esta tabla no aplica: se juzga el conjunto (sección 2b).
+
 | Lo que ves | Qué haces | ¿OK del usuario? |
 |---|---|---|
 | Gastó la señal temprana de las reglas de corte sin ventas y **el anuncio está caro** (CPC, CPM o CTR fuera de rango) | Apágalo (`ads_cambiar_estado`) | No, solo aviso |
@@ -29,12 +31,20 @@ Desde el 2026-11-22 este paso cubre todo lo que pasa después de publicar, hasta
 - Cada decisión que tomes tú queda escrita con `ads_decision_registrar {accion, conjunto_id, valor_antes, valor_despues, regla, aprobado_por, nota}` y se le avisa al usuario con sus números: «Apagué el anuncio del ángulo X: gastó L 140 sin ventas y el clic le costaba L 9».
 - Si el `plan_meta` dice que ya se gastó el techo del mes, no se suma nada nuevo sin su OK.
 
+## 2b. Con Lean 2 (equipo de anuncios): se juzga el conjunto
+- **Ningún anuncio se apaga por vender poco:** los anuncios que atraen preparan la venta que otro cierra. Lee primero el conjunto (gasto y pedidos confirmados contra el tope, que es el CPA objetivo de la hoja) y después cada anuncio contra el promedio de su equipo.
+- **La app actúa sola y avisa:** pausa el conjunto o le baja el presupuesto según su ficha. Se ve en los `avisos` del conjunto (`ads_ver_testeo`) y, si la cuenta tiene webhook de eventos, en `conjunto_equipo`. No lo repitas ni lo reviertas sin el OK del usuario.
+- **Cuando avisa «cambia 1 anuncio»:** antes revisa la oferta, la página o el chat y la medición. Después, uno solo y del mismo nivel: `ads_equipo_generar {reemplazar_creativo_id}`; se publica con el OK del usuario y el equipo se deja quieto los días que dice la ficha. Nunca un anuncio y el presupuesto el mismo día.
+- **Subir:** solo cuando el tablero lo ofrece (`despliegue_escala_ver`, movimiento `sube`), con `despliegue_escala_aprobar {producto_id, anuncio_id, movimiento: "sube", ok_del_dueno}`.
+- **Otro ángulo** es otro concepto: otro conjunto, con su propio presupuesto.
+- Las cifras (cuántos topes, cuántos días) están en la ficha (`ads_ver_estrategias`) y el método completo en `skills_leer {modulo: "ads_lean", rama: "lean-2"}`.
+
 ## 3. El ganador
-- La copa la da la app con la fase `ganador` de la ficha: `ads_ver_ganadores {conjunto_id}` y la tarjeta del anuncio en el tablero (`despliegue_escala_ver`). No declares ganador a mano.
+- La copa la da la app con la fase `ganador` de la ficha: `ads_ver_ganadores {conjunto_id}` y la tarjeta del anuncio en el tablero (`despliegue_escala_ver`). No declares ganador a mano. Con Lean 2 no hay copa por anuncio: gana el concepto, cuando el conjunto trae cada cliente al tope o menos.
 - **Con 10 pedidos o más,** actualiza la mezcla real de paquetes en Projection (`projection_guardar_ofertas` con los `share_pct` de lo vendido) y vuelve a leer `plan_meta`: los dos CPA cambian.
 
 ## 4. La escala (cada ganador, en el tablero de Despliegue creativo)
-1. `despliegue_escala_ver {producto_id}`: la fase del producto (testeo, ganador encontrado, escala, mantenimiento) y, por cada ganador, sus movimientos con estado y detalle. **Primero «cero cuellos de botella»** (y en Lean 2, la prueba de estrés): si no cumple, no se escala.
+1. `despliegue_escala_ver {producto_id}`: la fase del producto (testeo, ganador encontrado, escala, mantenimiento) y, por cada ganador, sus movimientos con estado y detalle. **Primero «cero cuellos de botella»:** si no cumple, no se escala. En Lean 2 el único movimiento es subir el presupuesto del conjunto, y solo cuando el tablero lo ofrece.
 2. La escala sigue los tramos del CPA de las reglas de corte de la marca: en el tramo agresivo salen los movimientos de la ficha (subir ×2, duplicar en la misma campaña, otra cuenta, campaña de escala); en «con cuidado», solo subir 20 %; más arriba, ninguno.
 3. **Solo lo que sale con estado `espera_ok`**, con el OK del usuario en esta conversación: `despliegue_escala_aprobar {producto_id, anuncio_id, movimiento, ok_del_dueno: "<sus palabras>"}`. Subir presupuesto pasa en Meta al instante; duplicar, otra cuenta y la campaña de escala dejan copias que se publican con `ads_publicar` y su OK. Si dice «ahora no»: `despliegue_escala_ahora_no`.
 4. **Volver atrás o bajar no pide OK:** si una subida rompe el CPA ese mismo día, se vuelve al presupuesto anterior (`ads_cambiar_presupuesto`) y se avisa.
@@ -56,6 +66,7 @@ Desde el 2026-11-22 este paso cubre todo lo que pasa después de publicar, hasta
 | Las reglas de corte de la marca | `ads_reglas_corte {marca_id}` |
 | La ficha de la estrategia | `ads_ver_estrategias {producto_id}` |
 | Quién ganó | `ads_ver_ganadores {conjunto_id}` |
+| El equipo de 5 anuncios (Lean 2) | `ads_equipo_generar` · `ads_equipo_ver` |
 | Apagar o encender | `ads_cambiar_estado {tipo, id, activo, confirmado}` (encender, con OK) |
 | Cambiar un presupuesto publicado | `ads_cambiar_presupuesto {conjunto_id, presupuesto_diario, aplicar}` (subir, con OK). `ads_editar_conjunto` NO cambia Meta |
 | La escala de cada ganador | `despliegue_escala_ver` · `despliegue_escala_aprobar` · `despliegue_escala_ahora_no` |

@@ -8,12 +8,13 @@ La campaña se arma con **la estrategia que recomienda la app** (su ficha trae l
 1. `ads_ver_estrategias {producto_id, presupuesto_diario}` (con el presupuesto que dijo el usuario o el `plan_meta`): las fichas que aplican, la recomendada y su porqué.
 2. **Guía de la recomendación** (la de la app):
    - con video propio y presupuesto para el mínimo de la ficha → **Lean 1** (un creativo por conjunto, cada conjunto con su presupuesto; entran piezas nuevas en cada tanda);
-   - con video pero sin ese presupuesto → **Lean 2** (varios creativos por conjunto, luces Go / Fix / Kill);
+   - con video pero sin ese presupuesto → **Lean 2**, el equipo de anuncios (un conjunto por concepto, con 5 anuncios, uno por nivel de conciencia del cliente; se juzga el conjunto, no cada anuncio);
    - sin video propio → **Lean 3** (estáticos).
 3. **Eliges tú, con su motivo** (no le preguntes «¿cuál quieres?»): la recomendada, salvo que el usuario haya dicho otra. En el mensaje del OK va en una línea cuál y por qué.
 
 ## La estructura
 - **La de la ficha** (su fase `lanzar`): cuántos conjuntos, cuántos creativos por conjunto y el presupuesto de cada uno. Con Lean 1, un conjunto por creativo; los creativos salen de los ángulos del paso 7, **uno por ángulo** (paso 9).
+- **Con Lean 2:** un conjunto por **concepto** (persona + situación + oferta + ángulo, guardado en Product Lean en el paso 7), con 5 anuncios y 1 tope al día (el tope es el CPA objetivo de la hoja). Otro ángulo es otro concepto: otro conjunto, con su propio presupuesto.
 - **Presupuesto:** el de la ficha, en la moneda de la hoja. Si con el presupuesto del usuario no alcanza, la ficha recomendada ya será otra: no partas el presupuesto a mano.
 
 ## 1. Lecturas
@@ -24,7 +25,7 @@ La campaña se arma con **la estrategia que recomienda la app** (su ficha trae l
 
 ## 2. Crear la campaña
 Dos caminos, el mismo resultado:
-- `despliegue_campana_estructura {producto_id, estrategia: "tiburon" | "semaforo" | "explorador", motivo}` (Lean 1, 2 o 3): arma el borrador en Ads Lean con los conjuntos de la ficha. Después se ajustan el objetivo y el destino (abajo) con `ads_editar_campania`.
+- `despliegue_campana_estructura {producto_id, estrategia: "tiburon" | "equipo" | "explorador", motivo}` (Lean 1, 2 o 3): arma el borrador en Ads Lean con los conjuntos de la ficha. La clave `semaforo` (la Lean 2 de antes) quedó retirada el 2026-11-25: el conector la rechaza. Después se ajustan el objetivo y el destino (abajo) con `ads_editar_campania`.
 - O `ads_crear_campania {producto_id, plataforma: "meta", objetivo, estrategia, estrategia_motivo, presupuesto_modo: "conjunto", notas}` y los conjuntos a mano (sección 4).
 
 En los dos:
@@ -40,7 +41,7 @@ En los dos:
 
 ## 4. Los conjuntos
 - Si usaste `despliegue_campana_estructura`, ya están: míralos con `despliegue_campana_ver {producto_id}` (cada conjunto con su cupo y su presupuesto).
-- Si no, uno por cada creativo (Lean 1) o por grupo (Lean 2 y 3): `ads_crear_conjunto {campania_id, descriptor: "<ángulo> · <creativo>", presupuesto_diario}`. **`presupuesto_diario` va en la moneda de la hoja** (COP en Colombia), con lo que pide la ficha. Mándalo siempre: sin él, cada conjunto toma 1 CPA entero.
+- Si no, uno por cada creativo (Lean 1), uno por concepto (Lean 2) o por grupo (Lean 3): `ads_crear_conjunto {campania_id, descriptor: "<ángulo> · <creativo>", presupuesto_diario}`. **`presupuesto_diario` va en la moneda de la hoja** (COP en Colombia), con lo que pide la ficha. Mándalo siempre: sin él, cada conjunto toma 1 CPA entero.
 - Anota cada `conjunto_id` en LANZAMIENTO.md.
 
 ## 5. El targeting
@@ -64,6 +65,15 @@ En los dos:
 4. **El texto prellenado (WhatsApp):** `ads_editar_creativo {creativo_id, chat_autofill: "Hola, quiero el <producto> del video 😊"}`. Lleva una palabra clave del vínculo del agente (paso 11) y es distinto por ángulo. Anótalo en LANZAMIENTO.md: `ads_ver_testeo` no lo muestra y el embudo lo usa.
 5. **Los nombres:** `angulo` pisa el nombre del anuncio. Revisa con `ads_ver_creativo {creativo_ids: [...]}` y corrige con `ads_editar_creativo {creativo_id, ad_name}`. Si un anuncio queda sin texto principal, queda bloqueado.
 
+### Con Lean 2: el equipo de 5 anuncios
+En vez de una pieza por conjunto, el conjunto lleva **5 anuncios, uno por nivel de conciencia del cliente** (1 no sabe que tiene el problema, 2 ya lo siente, 3 compara soluciones, 4 conoce el producto y duda, 5 quiere comprar). Cada anuncio sale **3-2-2**: 3 imágenes o 3 videos (sin mezclar), 2 textos y 2 títulos, que Meta combina dentro del mismo anuncio.
+1. **El concepto:** `product_ver_estrategia {producto_id}` › `conceptos`. Si no hay ninguno, guárdalo primero (paso 7).
+2. **Cuánto cuesta:** `ads_equipo_generar {conjunto_id, concepto_id, solo_estimar: true}` y díselo al usuario: consume créditos (el texto una vez y cada imagen).
+3. **Armarlo:** `ads_equipo_generar {conjunto_id, concepto_id}` devuelve un `run_id`; el avance y el resultado se leen con `ads_equipo_ver {run_id}`. Cada anuncio pasa una revisión (precio y condiciones iguales a la oferta de Projection, nada inventado, una sola idea) y el que no la pasa vuelve con el motivo: repítelo con `niveles: [n]` y una `indicacion`.
+4. **A mano,** con piezas que ya están en la biblioteca: `ads_agregar_creativo` con la pieza principal y su `nivel_conciencia`, más `piezas_extra`, `textos_extra` y `titulos_extra`. Se completa o se corrige con `ads_editar_creativo {creativo_id, piezas_extra, textos_extra, titulos_extra, nivel_conciencia}` (y `pieza_reemplazar` o `pieza_quitar`).
+5. **El precio:** la imagen va sin precio, como siempre. En Lean 2 los **textos** sí dicen para quién es y desde cuánto: es el filtro del método y sale de la oferta de Projection.
+6. **Clientes que ya compraron:** la app los deja afuera sola al publicar. Si el ensayo o la publicación avisan que no pudo (faltan las condiciones de públicos personalizados de Meta), pásale al usuario el enlace del aviso: aceptarlas es un clic suyo.
+
 ## 7. Las conversiones
 Sin esto, Meta optimiza por gente que escribe y no por compradores.
 1. `ads_conectar_conversiones {campania_id, pixel_id, chat_proyecto_id}`.
@@ -85,5 +95,7 @@ Lo deciden **las reglas de corte de la marca** y la ficha de la estrategia, no u
 2. **CTR alto sin ventas → no se apaga:** el clic llega y no compra. Se revisa la landing, el chat y la oferta.
 3. **Sin venta:** a 1 CPA de equilibrio se apaga, salvo métricas sanas, que siguen hasta 1,5; a 1,5 se apaga siempre.
 4. **Con ventas, los tramos del CPA,** atados al equilibrio real de cada producto: debajo del tramo agresivo se escala fuerte; en «con cuidado», subidas chicas; en «revisar», no se escala y se busca el cuello de botella; arriba, se evalúa apagar.
+
+**Con Lean 2 estas reglas no corren por anuncio:** la app juzga el **conjunto** con topes (tope = CPA objetivo de la hoja), nunca apaga un anuncio suelto, pausa el conjunto o le baja el presupuesto sola y pide el OK para subirlo. Cuándo pasa cada cosa está en su ficha (`ads_ver_estrategias`) y en `skills_leer {modulo: "ads_lean", rama: "lean-2"}`.
 
 El usuario las cambia en la campanita de la campaña; tú, con `ads_reglas_corte {marca_id, accion: "guardar", reglas}` solo si él lo pide. Las ventas son los pedidos del CRM, no las compras del píxel. Apagar y bajar se hace y se avisa; subir o encender siempre espera su OK. Lo que sigue después de publicar está en el paso 14 ([lectura.md](lectura.md)).

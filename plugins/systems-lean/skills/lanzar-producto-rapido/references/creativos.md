@@ -5,7 +5,7 @@
 - **Las imágenes** se hacen en el generador de anuncios estáticos de la app (`anuncios_*`): usa la foto real del producto y, cuando hace falta, los precios de Projection.
 
 ## Cuántos
-- **Lo dice la ficha de la estrategia** (`ads_ver_estrategias {producto_id, presupuesto_diario}`, la recomendada): con **Lean 1**, un creativo por conjunto y al menos 5 para arrancar, y después piezas nuevas en cada tanda; con **Lean 2**, varios por conjunto; con **Lean 3**, imágenes. Volumen, no «un video y a ver si sale».
+- **Lo dice la ficha de la estrategia** (`ads_ver_estrategias {producto_id, presupuesto_diario}`, la recomendada): con **Lean 1**, un creativo por conjunto y al menos 5 para arrancar, y después piezas nuevas en cada tanda; con **Lean 2**, 5 anuncios por concepto (uno por nivel de conciencia, cada uno con 3 piezas, 2 textos y 2 títulos: los arma la app en el paso 12 con `ads_equipo_generar`); con **Lean 3**, imágenes. Volumen, no «un video y a ver si sale».
 - **Un ángulo por creativo**, el mismo de la landing o del texto prellenado al que lleva. Si el producto resuelve varios problemas, cada problema va en su propio creativo.
 - **Cada video con estructura EVO:** enganche (los primeros 3 s), valor (por qué este producto es el mejor vehículo para ESE problema) y oferta (por qué no puede irse sin pedirlo; no es el precio).
 - **La mezcla de cada tanda:** el ganador de afuera del mismo producto o uno similar **tal cual, con edición mínima** (el camino principal), modelados con nuestro guion y armados con clips de TikTok del producto.

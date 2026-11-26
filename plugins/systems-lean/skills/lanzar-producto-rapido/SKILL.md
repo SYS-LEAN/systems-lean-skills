@@ -5,7 +5,7 @@ description: Camino de Systems Lean para lanzar y testear un producto físico co
 
 # Lanzar y testear un producto (contra entrega, con Systems Lean)
 
-> Versión del 2026-11-22 · 15 pasos (del 0 al 14). Desde esta versión el testeo rápido y el agresivo son un solo camino: el paso 12 arma la campaña con la estrategia de la app y el paso 14 lleva el producto hasta la escala. Si una referencia que pediste trae otros números de paso, es de otra versión: avísale al usuario y no las mezcles.
+> Versión del 2026-11-25 · 15 pasos (del 0 al 14). Desde esta versión el testeo rápido y el agresivo son un solo camino: el paso 12 arma la campaña con la estrategia de la app y el paso 14 lleva el producto hasta la escala. Desde el 2026-11-25 la Lean 2 es el equipo de anuncios (clave `equipo`); la de antes (`semaforo`) quedó retirada. Si una referencia que pediste trae otros números de paso, es de otra versión: avísale al usuario y no las mezcles.
 
 Del producto elegido a la campaña lista para encender, en un solo chat: unas 3 horas de trabajo tuyo, **de corrido**: no te detienes a esperar al usuario salvo para gastar, publicar, encender o escribirle a un cliente. **El lanzamiento solo está terminado cuando cada módulo de la app quedó lleno y verificado con una herramienta de lectura.** Decir «listo» sin esa lectura es el error que este camino evita.
 
@@ -108,7 +108,7 @@ Cada paso dice qué deja hecho, con qué se verifica y cuándo no se avanza. El 
 
 ### Paso 9 · Creativos (tope 15 min por video, subagentes en paralelo)
 [references/creativos.md](references/creativos.md) y [references/editor.md](references/editor.md)
-- **Deja:** los creativos que pide la estrategia del paso 12 (con Lean 1, uno por conjunto y al menos 5 para arrancar; con Lean 3, imágenes), cada uno de un solo ángulo, más 6 de reserva para la próxima tanda; todo revisado y en la biblioteca del producto con su línea de origen y uso.
+- **Deja:** los creativos que pide la estrategia del paso 12 (con Lean 1, uno por conjunto y al menos 5 para arrancar; con Lean 2, 5 anuncios por concepto, que la app arma en el paso 12; con Lean 3, imágenes), cada uno de un solo ángulo, más 6 de reserva para la próxima tanda; todo revisado y en la biblioteca del producto con su línea de origen y uso.
 - **Verifica:** `media_listar`, `anuncios_ver_biblioteca_creativos` y `anuncios_ver_generados`.
 - **No avances si:** queda texto o audio ajeno; una imagen de anuncio lleva precio; no están los creativos que pide la estrategia.
 
@@ -158,6 +158,6 @@ Cada paso dice qué deja hecho, con qué se verifica y cuándo no se avanza. El 
 - **Que todas las preguntas frecuentes terminen pidiendo los datos:** el agente le pide la dirección a quien solo preguntó si duele.
 - **El flujo viejo sigue publicado:** al publicar el nuevo, el anterior del mismo producto se pausa.
 - **Mensajes largos y técnicos al usuario.** Quiere la decisión y el porqué.
-- **Crear la campaña con una estrategia de antes** (`directa-angulos`): en contra entrega el conector la rechaza. La estrategia sale de `ads_ver_estrategias`.
+- **Crear la campaña con una estrategia de antes** (`directa-angulos`) o con `semaforo`, la Lean 2 retirada: el conector las rechaza. La estrategia sale de `ads_ver_estrategias`.
 - **Fijar los CPA a mano en la campaña:** quedan viejos y la barra, la copa y los cortes juzgan con otro número. Ads Lean los lee solos de Projection.
 - **Cortar con números de memoria:** los cortes, el ganador y la escala salen de las reglas de corte de la marca y de la ficha de la estrategia, no de esta skill.
